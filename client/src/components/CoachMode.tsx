@@ -1,11 +1,17 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
+import { Input } from './ui/input';
 import { useTeams } from '../lib/stores/useTeams';
 import { Team } from '../lib/types';
-import { Calendar, Trophy } from 'lucide-react';
+import { Calendar, Trophy, User } from 'lucide-react';
 import { conferences } from '../lib/data/conferences';
+
+interface Coach {
+  name: string;
+  age: string;
+  experience: string;
+}
 
 interface GameSchedule {
   week: number;
@@ -23,23 +29,26 @@ export default function CoachMode() {
   const [schedule, setSchedule] = useState<GameSchedule[]>([]);
   const [currentWeek, setCurrentWeek] = useState(1);
   const [record, setRecord] = useState({ wins: 0, losses: 0, confWins: 0, confLosses: 0 });
+  const [selectedConference, setSelectedConference] = useState(0); // Add state for selected conference
+  const [coach, setCoach] = useState<Coach | null>(null); // Add state for coach information
+
 
   const generateSchedule = (team: Team) => {
     const otherTeams = teams.filter(t => t.id !== team.id);
     const confTeams = otherTeams.filter(t => t.conferenceId === team.conferenceId);
     const nonConfTeams = otherTeams.filter(t => t.conferenceId !== team.conferenceId);
-    
+
     let newSchedule: GameSchedule[] = [];
-    
+
     // Generate 20 conference games (10 home, 10 away)
     const confOpponents = [...confTeams];
     let homeGames = 10;
     let awayGames = 10;
-    
+
     while (homeGames > 0 || awayGames > 0) {
       const opponent = confOpponents[Math.floor(Math.random() * confOpponents.length)];
       const isHome = homeGames > 0 && (awayGames === 0 || Math.random() < 0.5);
-      
+
       if (isHome && homeGames > 0) {
         newSchedule.push({
           week: 0,
@@ -59,12 +68,12 @@ export default function CoachMode() {
         });
         awayGames--;
       }
-      
+
       // Remove opponent if we've used them twice
       const opponentGames = newSchedule.filter(g => 
         g.isConference && (g.homeTeam.id === opponent.id || g.awayTeam.id === opponent.id)
       ).length;
-      
+
       if (opponentGames >= 2) {
         const index = confOpponents.findIndex(t => t.id === opponent.id);
         if (index !== -1) {
@@ -77,7 +86,7 @@ export default function CoachMode() {
     for (let i = 0; i < 10; i++) {
       const opponent = nonConfTeams[Math.floor(Math.random() * nonConfTeams.length)];
       const isHome = Math.random() > 0.5;
-      
+
       newSchedule.push({
         week: 0,
         homeTeam: isHome ? team : opponent,
@@ -106,7 +115,7 @@ export default function CoachMode() {
   const advanceWeek = () => {
     const updatedSchedule = [...schedule];
     const weekGames = updatedSchedule.filter(game => game.week === currentWeek);
-    
+
     weekGames.forEach(game => {
       const scores = simulateGame();
       game.homeScore = scores.homeScore;
@@ -153,6 +162,8 @@ export default function CoachMode() {
     setCurrentWeek(1);
     setRecord({ wins: 0, losses: 0, confWins: 0, confLosses: 0 });
     generateSchedule(team);
+    // Initialize coach information here if needed
+    setCoach(null); // Or set default coach info
   };
 
   return (
@@ -165,20 +176,8 @@ export default function CoachMode() {
           <CardContent>
             <select 
               className="w-full mb-4 p-2 rounded border dark:bg-gray-800 dark:border-gray-700"
-              onChange={(e) => {
-                const select = document.getElementById('teamGrid');
-                if (select) {
-                  select.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                  });
-                }
-                const conf = parseInt(e.target.value);
-                const grid = document.getElementById('teamGrid');
-                if (grid) {
-                  grid.dataset.conference = conf.toString();
-                }
-              }}
+              value={selectedConference}
+              onChange={(e) => setSelectedConference(parseInt(e.target.value, 10))} // Corrected onChange handler
             >
               <option value="0">All Conferences</option>
               {conferences.map(conf => (
@@ -196,11 +195,7 @@ export default function CoachMode() {
                   }
                   return confCompare;
                 })
-                .filter(team => {
-                  const grid = document.getElementById('teamGrid');
-                  const conf = grid?.dataset.conference ? parseInt(grid.dataset.conference) : 0;
-                  return conf === 0 || team.conferenceId === conf;
-                })
+                .filter(team => selectedConference === 0 || team.conferenceId === selectedConference) //Corrected filter condition
                 .map(team => (
                 <Button
                   key={team.id}
@@ -291,7 +286,7 @@ export default function CoachMode() {
                           losses: acc.losses + (won ? 0 : 1)
                         };
                       }, { wins: 0, losses: 0 });
-                    
+
                     const bRecord = schedule
                       .filter(g => g.completed && g.isConference && (g.homeTeam.id === b.id || g.awayTeam.id === b.id))
                       .reduce((acc, game) => {
@@ -302,7 +297,7 @@ export default function CoachMode() {
                           losses: acc.losses + (won ? 0 : 1)
                         };
                       }, { wins: 0, losses: 0 });
-                    
+
                     return bRecord.wins - aRecord.wins;
                   })
                   .map(team => {
@@ -316,7 +311,7 @@ export default function CoachMode() {
                           losses: acc.losses + (won ? 0 : 1)
                         };
                       }, { wins: 0, losses: 0 });
-                    
+
                     return (
                       <div 
                         key={team.id} 
@@ -330,6 +325,20 @@ export default function CoachMode() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Add coach customization inputs here */}
+          {selectedTeam && coach === null && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Add Coach Information</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Input label="Coach Name" onChange={(e)=>setCoach({...coach, name:e.target.value})}/>
+                <Input label="Coach Age" onChange={(e)=>setCoach({...coach, age:e.target.value})}/>
+                <Input label="Coach Experience" onChange={(e)=>setCoach({...coach, experience:e.target.value})}/>
+              </CardContent>
+            </Card>
+          )}
 
           {currentWeek > 15 && (
             <Card>
