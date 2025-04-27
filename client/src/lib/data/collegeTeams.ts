@@ -108,42 +108,42 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 65, name: "Washington State Cougars", shortName: "Washington State", nickname: "Cougars", primaryColor: "#981E32", secondaryColor: "#5E6A71", conferenceId: 5 },
 
   // Big East Teams
-  { id: 66, name: "Villanova Wildcats", shortName: "Villanova", nickname: "Wildcats", primaryColor: "#00205B", secondaryColor: "#13B5EA", conferenceId: 6 },
-  { id: 67, name: "Creighton Bluejays", shortName: "Creighton", nickname: "Bluejays", primaryColor: "#002E6D", secondaryColor: "#0080FF", conferenceId: 6 },
-  { id: 68, name: "Xavier Musketeers", shortName: "Xavier", nickname: "Musketeers", primaryColor: "#0C2340", secondaryColor: "#9EA2A2", conferenceId: 6 },
-  { id: 69, name: "Seton Hall Pirates", shortName: "Seton Hall", nickname: "Pirates", primaryColor: "#004488", secondaryColor: "#A2AAAD", conferenceId: 6 },
-  { id: 70, name: "Butler Bulldogs", shortName: "Butler", nickname: "Bulldogs", primaryColor: "#13294B", secondaryColor: "#A7A9AC", conferenceId: 6 },
-  { id: 71, name: "Providence Friars", shortName: "Providence", nickname: "Friars", primaryColor: "#000000", secondaryColor: "#C4CED4", conferenceId: 6 },
-  { id: 72, name: "Marquette Golden Eagles", shortName: "Marquette", nickname: "Golden Eagles", primaryColor: "#003366", secondaryColor: "#FFCC00", conferenceId: 6 },
-  { id: 73, name: "St. John's Red Storm", shortName: "St. John's", nickname: "Red Storm", primaryColor: "#BA0C2F", secondaryColor: "#FFFFFF", conferenceId: 6 },
-  { id: 74, name: "Georgetown Hoyas", shortName: "Georgetown", nickname: "Hoyas", primaryColor: "#041E42", secondaryColor: "#A7A8AA", conferenceId: 6 },
-  { id: 75, name: "DePaul Blue Demons", shortName: "DePaul", nickname: "Blue Demons", primaryColor: "#003DA5", secondaryColor: "#E31837", conferenceId: 6 },
+  { id: 66, name: "Villanova Wildcats", shortName: "Villanova", nickname: "Wildcats", primaryColor: "#00205B", secondaryColor: "#13B5EA", conferenceId: 5 },
+  { id: 67, name: "Creighton Bluejays", shortName: "Creighton", nickname: "Bluejays", primaryColor: "#002E6D", secondaryColor: "#0080FF", conferenceId: 5 },
+  { id: 68, name: "Xavier Musketeers", shortName: "Xavier", nickname: "Musketeers", primaryColor: "#0C2340", secondaryColor: "#9EA2A2", conferenceId: 5 },
+  { id: 69, name: "Seton Hall Pirates", shortName: "Seton Hall", nickname: "Pirates", primaryColor: "#004488", secondaryColor: "#A2AAAD", conferenceId: 5 },
+  { id: 70, name: "Butler Bulldogs", shortName: "Butler", nickname: "Bulldogs", primaryColor: "#13294B", secondaryColor: "#A7A9AC", conferenceId: 5 },
+  { id: 71, name: "Providence Friars", shortName: "Providence", nickname: "Friars", primaryColor: "#000000", secondaryColor: "#C4CED4", conferenceId: 5 },
+  { id: 72, name: "Marquette Golden Eagles", shortName: "Marquette", nickname: "Golden Eagles", primaryColor: "#003366", secondaryColor: "#FFCC00", conferenceId: 5 },
+  { id: 73, name: "St. John's Red Storm", shortName: "St. John's", nickname: "Red Storm", primaryColor: "#BA0C2F", secondaryColor: "#FFFFFF", conferenceId: 5 },
+  { id: 74, name: "Georgetown Hoyas", shortName: "Georgetown", nickname: "Hoyas", primaryColor: "#041E42", secondaryColor: "#A7A8AA", conferenceId: 5 },
+  { id: 75, name: "DePaul Blue Demons", shortName: "DePaul", nickname: "Blue Demons", primaryColor: "#003DA5", secondaryColor: "#E31837", conferenceId: 5 },
 
   // American Athletic Conference (AAC) Teams
-  { id: 76, name: "Houston Cougars", shortName: "Houston", nickname: "Cougars", primaryColor: "#C8102E", secondaryColor: "#76232F", conferenceId: 7 },
-  { id: 77, name: "Memphis Tigers", shortName: "Memphis", nickname: "Tigers", primaryColor: "#003087", secondaryColor: "#8A8D8F", conferenceId: 7 },
-  { id: 78, name: "Wichita State Shockers", shortName: "Wichita State", nickname: "Shockers", primaryColor: "#000000", secondaryColor: "#FFCD00", conferenceId: 7 },
-  { id: 79, name: "Cincinnati Bearcats", shortName: "Cincinnati", nickname: "Bearcats", primaryColor: "#000000", secondaryColor: "#E00122", conferenceId: 7 },
-  { id: 80, name: "SMU Mustangs", shortName: "SMU", nickname: "Mustangs", primaryColor: "#0033A0", secondaryColor: "#C8102E", conferenceId: 7 },
-  { id: 81, name: "UCF Knights", shortName: "UCF", nickname: "Knights", primaryColor: "#000000", secondaryColor: "#BA9B37", conferenceId: 7 },
-  { id: 82, name: "Tulsa Golden Hurricane", shortName: "Tulsa", nickname: "Golden Hurricane", primaryColor: "#002D72", secondaryColor: "#C8102E", conferenceId: 7 },
-  { id: 83, name: "Temple Owls", shortName: "Temple", nickname: "Owls", primaryColor: "#9D2235", secondaryColor: "#FFCD00", conferenceId: 7 },
-  { id: 84, name: "East Carolina Pirates", shortName: "East Carolina", nickname: "Pirates", primaryColor: "#592A8A", secondaryColor: "#FDC82F", conferenceId: 7 },
-  { id: 85, name: "Tulane Green Wave", shortName: "Tulane", nickname: "Green Wave", primaryColor: "#006747", secondaryColor: "#418FDE", conferenceId: 7 },
-  { id: 86, name: "South Florida Bulls", shortName: "South Florida", nickname: "Bulls", primaryColor: "#006747", secondaryColor: "#CFC493", conferenceId: 7 },
+  { id: 76, name: "Houston Cougars", shortName: "Houston", nickname: "Cougars", primaryColor: "#C8102E", secondaryColor: "#76232F", conferenceId: 5 },
+  { id: 77, name: "Memphis Tigers", shortName: "Memphis", nickname: "Tigers", primaryColor: "#003087", secondaryColor: "#8A8D8F", conferenceId: 5 },
+  { id: 78, name: "Wichita State Shockers", shortName: "Wichita State", nickname: "Shockers", primaryColor: "#000000", secondaryColor: "#FFCD00", conferenceId: 5 },
+  { id: 79, name: "Cincinnati Bearcats", shortName: "Cincinnati", nickname: "Bearcats", primaryColor: "#000000", secondaryColor: "#E00122", conferenceId: 5 },
+  { id: 80, name: "SMU Mustangs", shortName: "SMU", nickname: "Mustangs", primaryColor: "#0033A0", secondaryColor: "#C8102E", conferenceId: 5 },
+  { id: 81, name: "UCF Knights", shortName: "UCF", nickname: "Knights", primaryColor: "#000000", secondaryColor: "#BA9B37", conferenceId: 5 },
+  { id: 82, name: "Tulsa Golden Hurricane", shortName: "Tulsa", nickname: "Golden Hurricane", primaryColor: "#002D72", secondaryColor: "#C8102E", conferenceId: 5 },
+  { id: 83, name: "Temple Owls", shortName: "Temple", nickname: "Owls", primaryColor: "#9D2235", secondaryColor: "#FFCD00", conferenceId: 5 },
+  { id: 84, name: "East Carolina Pirates", shortName: "East Carolina", nickname: "Pirates", primaryColor: "#592A8A", secondaryColor: "#FDC82F", conferenceId: 5 },
+  { id: 85, name: "Tulane Green Wave", shortName: "Tulane", nickname: "Green Wave", primaryColor: "#006747", secondaryColor: "#418FDE", conferenceId: 5 },
+  { id: 86, name: "South Florida Bulls", shortName: "South Florida", nickname: "Bulls", primaryColor: "#006747", secondaryColor: "#CFC493", conferenceId: 5 },
 
   // Mountain West Conference (MWC) Teams
-  { id: 87, name: "San Diego State Aztecs", shortName: "San Diego State", nickname: "Aztecs", primaryColor: "#A6192E", secondaryColor: "#000000", conferenceId: 8 },
-  { id: 88, name: "UNLV Runnin' Rebels", shortName: "UNLV", nickname: "Runnin' Rebels", primaryColor: "#CF0A2C", secondaryColor: "#231F20", conferenceId: 8 },
-  { id: 89, name: "Utah State Aggies", shortName: "Utah State", nickname: "Aggies", primaryColor: "#00263A", secondaryColor: "#8A8D8F", conferenceId: 8 },
-  { id: 90, name: "Boise State Broncos", shortName: "Boise State", nickname: "Broncos", primaryColor: "#0033A0", secondaryColor: "#D64309", conferenceId: 8 },
-  { id: 91, name: "Nevada Wolf Pack", shortName: "Nevada", nickname: "Wolf Pack", primaryColor: "#003366", secondaryColor: "#807F84", conferenceId: 8 },
-  { id: 92, name: "Colorado State Rams", shortName: "Colorado State", nickname: "Rams", primaryColor: "#1E4D2B", secondaryColor: "#C8C372", conferenceId: 8 },
-  { id: 93, name: "Fresno State Bulldogs", shortName: "Fresno State", nickname: "Bulldogs", primaryColor: "#DB0032", secondaryColor: "#231F20", conferenceId: 8 },
-  { id: 94, name: "Wyoming Cowboys", shortName: "Wyoming", nickname: "Cowboys", primaryColor: "#492F24", secondaryColor: "#FFC425", conferenceId: 8 },
-  { id: 95, name: "New Mexico Lobos", shortName: "New Mexico", nickname: "Lobos", primaryColor: "#BA0C2F", secondaryColor: "#63666A", conferenceId: 8 },
-  { id: 96, name: "Air Force Falcons", shortName: "Air Force", nickname: "Falcons", primaryColor: "#0033A0", secondaryColor: "#A5A9AD", conferenceId: 8 },
-  { id: 97, name: "San Jose State Spartans", shortName: "San Jose State", nickname: "Spartans", primaryColor: "#0055A2", secondaryColor: "#E5A823", conferenceId: 8 },
+  { id: 87, name: "San Diego State Aztecs", shortName: "San Diego State", nickname: "Aztecs", primaryColor: "#A6192E", secondaryColor: "#000000", conferenceId: 5 },
+  { id: 88, name: "UNLV Runnin' Rebels", shortName: "UNLV", nickname: "Runnin' Rebels", primaryColor: "#CF0A2C", secondaryColor: "#231F20", conferenceId: 5 },
+  { id: 89, name: "Utah State Aggies", shortName: "Utah State", nickname: "Aggies", primaryColor: "#00263A", secondaryColor: "#8A8D8F", conferenceId: 5 },
+  { id: 90, name: "Boise State Broncos", shortName: "Boise State", nickname: "Broncos", primaryColor: "#0033A0", secondaryColor: "#D64309", conferenceId: 5 },
+  { id: 91, name: "Nevada Wolf Pack", shortName: "Nevada", nickname: "Wolf Pack", primaryColor: "#003366", secondaryColor: "#807F84", conferenceId: 5 },
+  { id: 92, name: "Colorado State Rams", shortName: "Colorado State", nickname: "Rams", primaryColor: "#1E4D2B", secondaryColor: "#C8C372", conferenceId: 5 },
+  { id: 93, name: "Fresno State Bulldogs", shortName: "Fresno State", nickname: "Bulldogs", primaryColor: "#DB0032", secondaryColor: "#231F20", conferenceId: 5 },
+  { id: 94, name: "Wyoming Cowboys", shortName: "Wyoming", nickname: "Cowboys", primaryColor: "#492F24", secondaryColor: "#FFC425", conferenceId: 5 },
+  { id: 95, name: "New Mexico Lobos", shortName: "New Mexico", nickname: "Lobos", primaryColor: "#BA0C2F", secondaryColor: "#63666A", conferenceId: 5 },
+  { id: 96, name: "Air Force Falcons", shortName: "Air Force", nickname: "Falcons", primaryColor: "#0033A0", secondaryColor: "#A5A9AD", conferenceId: 5 },
+  { id: 97, name: "San Jose State Spartans", shortName: "San Jose State", nickname: "Spartans", primaryColor: "#0055A2", secondaryColor: "#E5A823", conferenceId: 5 },
 
   // Mid-American Conference (MAC) Teams
   { id: 98, name: "Buffalo Bulls", shortName: "Buffalo", nickname: "Bulls", primaryColor: "#005BBB", secondaryColor: "#FFFFFF", conferenceId: 11 },
@@ -180,23 +180,23 @@ export const collegeTeams: CollegeTeam[] = [
 export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): string {
   const homeTeam = collegeTeams.find(team => team.id === homeTeamId);
   const awayTeam = collegeTeams.find(team => team.id === awayTeamId);
-  
+
   if (!homeTeam || !awayTeam) return "Local TV";
-  
+
   const homeConference = conferences.find(conf => conf.id === homeTeam.conferenceId);
   const awayConference = conferences.find(conf => conf.id === awayTeam.conferenceId);
-  
+
   if (!homeConference || !awayConference) return "Local TV";
-  
+
   // Random chance to get The CW network
   const isCW = Math.random() < 0.15; // 15% chance for a game to be on The CW
   if (isCW) {
     return "The CW";
   }
-  
+
   // Logic for determining the appropriate Fox Sports regional network
   const regions = [homeConference.region, awayConference.region];
-  
+
   // Southeast and South region
   if (regions.includes("Southeast") || regions.includes("South")) {
     if (homeTeam.shortName.includes("Florida") || awayTeam.shortName.includes("Florida") ||
@@ -226,7 +226,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       return "FOX Sports Southeast";
     }
   }
-  
+
   // Midwest region
   if (regions.includes("Midwest")) {
     if (homeTeam.shortName.includes("Michigan") || awayTeam.shortName.includes("Michigan")) {
@@ -254,7 +254,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       return "FOX Sports Midwest";
     }
   }
-  
+
   // Central region
   if (regions.includes("Central")) {
     if (
@@ -271,7 +271,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       return "FOX Sports Southwest";
     }
   }
-  
+
   // West region
   if (regions.includes("West")) {
     if (
@@ -311,7 +311,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       return possibleNetworks[Math.floor(Math.random() * possibleNetworks.length)];
     }
   }
-  
+
   // East and Northeast region
   if (regions.includes("East") || regions.includes("Northeast")) {
     if (
@@ -331,7 +331,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       return "FOX Sports Pittsburgh";
     }
   }
-  
+
   // Default fallback based on home team's conference region
   if (homeConference.region === "Southeast" || homeConference.region === "South") {
     return "FOX Sports South";
@@ -344,7 +344,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   } else if (homeConference.region === "East" || homeConference.region === "Northeast") {
     return "FOX Sports Atlantic";
   }
-  
+
   // Final fallback
   return "Regional Sports Network";
 }
@@ -353,12 +353,12 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
 export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: number): boolean {
   const homeTeam = collegeTeams.find(team => team.id === homeTeamId);
   const awayTeam = collegeTeams.find(team => team.id === awayTeamId);
-  
+
   if (!homeTeam || !awayTeam) return false;
-  
+
   // Top 25 ranked teams should be nationally televised (we'll use team IDs 1-25 as our "ranked" teams)
   if (homeTeamId <= 25 && awayTeamId <= 25) return true;
-  
+
   // Rivalry games
   const rivalries = [
     // Famous college basketball rivalries
@@ -370,7 +370,7 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
     [54, 58], // UCLA vs USC
     [19, 20]  // Auburn vs Alabama
   ];
-  
+
   return rivalries.some(
     ([teamA, teamB]) => 
       (homeTeamId === teamA && awayTeamId === teamB) || 
@@ -396,28 +396,28 @@ export function generateRandomMatchups(count: number = 8): Array<{
 }> {
   const matchups = [];
   const usedTeams = new Set<number>();
-  
+
   // Different statuses for games - with limited late games (only ~9% chance for 9:00 PM starts)
   const statuses = ["Final", "2nd Half", "1st Half", "Halftime", "7:00 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:00 PM", "8:30 PM", "9:00 PM"];
-  
+
   for (let i = 0; i < count; i++) {
     // Get random teams that haven't been used yet
     let homeTeamId: number;
     let awayTeamId: number;
-    
+
     do {
       homeTeamId = Math.floor(Math.random() * collegeTeams.length) + 1;
     } while (usedTeams.has(homeTeamId));
     usedTeams.add(homeTeamId);
-    
+
     do {
       awayTeamId = Math.floor(Math.random() * collegeTeams.length) + 1;
     } while (usedTeams.has(awayTeamId) || homeTeamId === awayTeamId);
     usedTeams.add(awayTeamId);
-    
+
     const status = statuses[Math.floor(Math.random() * statuses.length)];
     const nationally = shouldBeNationallyTelevised(homeTeamId, awayTeamId);
-    
+
     const matchup: any = {
       homeTeamId,
       awayTeamId,
@@ -425,7 +425,7 @@ export function generateRandomMatchups(count: number = 8): Array<{
       network: nationally ? getNationalTVNetwork() : getRegionalNetwork(homeTeamId, awayTeamId),
       nationally
     };
-    
+
     // Add scores if the game has started or is complete
     if (status === "Final" || status === "2nd Half" || status === "1st Half" || status === "Halftime") {
       // Different score ranges based on game status
@@ -438,15 +438,15 @@ export function generateRandomMatchups(count: number = 8): Array<{
         matchup.homeScore = Math.floor(Math.random() * 24) + 22;
         matchup.awayScore = Math.floor(Math.random() * 24) + 22;
       }
-      
+
       // Make sure there's a difference for final games
       if (status === "Final" && matchup.homeScore === matchup.awayScore) {
         matchup.homeScore += Math.floor(Math.random() * 10) + 1;
       }
     }
-    
+
     matchups.push(matchup);
   }
-  
+
   return matchups;
 }
