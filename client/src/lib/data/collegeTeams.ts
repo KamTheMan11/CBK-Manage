@@ -188,10 +188,8 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   
   if (!homeConference || !awayConference) return "Local TV";
   
-  // Random chance to get The CW network (excluding SEC games)
-  const homeConferenceId = homeTeam.conferenceId;
-  const awayConferenceId = awayTeam.conferenceId;
-  const isCW = Math.random() < 0.15 && homeConferenceId !== 2 && awayConferenceId !== 2; // 15% chance for non-SEC games
+  // Random chance to get The CW network
+  const isCW = Math.random() < 0.15; // 15% chance for a game to be on The CW
   if (isCW) {
     return "The CW";
   }
