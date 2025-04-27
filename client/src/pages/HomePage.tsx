@@ -13,15 +13,15 @@ export default function HomePage() {
   
   // Dummy data for the ESPN ticker at the bottom
   const [tickerData] = useState([
-    { teamA: 'Duke Blue Devils', scoreA: 78, teamARank: 5, teamB: 'UNC Tar Heels', scoreB: 75, teamBRank: 8, status: 'Final', network: 'ESPN', nationally: true },
-    { teamA: 'Kentucky Wildcats', scoreA: 68, teamARank: 12, teamB: 'Kansas Jayhawks', scoreB: 72, teamBRank: 3, status: 'Final', network: 'CBS', nationally: true },
-    { teamA: 'Gonzaga Bulldogs', scoreA: 83, teamARank: 1, teamB: 'Baylor Bears', scoreB: 79, teamBRank: 2, status: '2nd Half', network: 'FOX', nationally: true },
-    { teamA: 'UCLA Bruins', scoreA: 45, teamARank: 7, teamB: 'Arizona Wildcats', scoreB: 51, teamBRank: 9, status: 'Halftime', network: 'ESPN2', nationally: true },
-    { teamA: 'Villanova Wildcats', scoreA: 28, teamARank: 15, teamB: 'Michigan Wolverines', scoreB: 34, teamBRank: 4, status: '1st Half', network: 'FS1', nationally: true },
-    { teamA: 'Texas Longhorns', teamARank: 18, teamB: 'Oklahoma Sooners', status: '8:00 PM', network: 'FOX Sports Southwest', nationally: false },
-    { teamA: 'Syracuse Orange', teamB: 'Georgetown Hoyas', status: '9:00 PM', network: 'ESPN', nationally: true },
-    { teamA: 'Georgia Bulldogs', teamB: 'Alabama Crimson Tide', status: '7:30 PM', network: 'FOX Sports South', nationally: false },
-    { teamA: 'Memphis Tigers', teamB: 'Montana State Bobcats', status: '6:00 PM', network: 'ESPN+', nationally: false },
+    { teamA: 'Duke', scoreA: 78, teamARank: 5, teamB: 'North Carolina', scoreB: 75, teamBRank: 8, status: 'Final', network: 'ESPN', nationally: true },
+    { teamA: 'Kentucky', scoreA: 68, teamARank: 12, teamB: 'Kansas', scoreB: 72, teamBRank: 3, status: 'Final', network: 'CBS', nationally: true },
+    { teamA: 'Gonzaga', scoreA: 83, teamARank: 1, teamB: 'Baylor', scoreB: 79, teamBRank: 2, status: '2nd Half', network: 'FOX', nationally: true },
+    { teamA: 'UCLA', scoreA: 45, teamARank: 7, teamB: 'Arizona', scoreB: 51, teamBRank: 9, status: 'Halftime', network: 'ESPN2', nationally: true },
+    { teamA: 'Villanova', scoreA: 28, teamARank: 15, teamB: 'Michigan', scoreB: 34, teamBRank: 4, status: '1st Half', network: 'FS1', nationally: true },
+    { teamA: 'Texas', teamARank: 18, teamB: 'Oklahoma', status: '8:00 PM', network: 'FOX Sports Southwest', nationally: false },
+    { teamA: 'Syracuse', teamB: 'Georgetown', status: '9:00 PM', network: 'ESPN', nationally: true },
+    { teamA: 'Georgia', teamB: 'Alabama', status: '7:30 PM', network: 'FOX Sports South', nationally: false },
+    { teamA: 'Memphis', teamB: 'Montana State', status: '6:00 PM', network: 'ESPN+', nationally: false },
   ]);
   
   // Format date for college basketball season display
@@ -317,24 +317,32 @@ export default function HomePage() {
                 {game.teamA}
               </span>
               
-              {/* Only show score if game has started or is complete */}
-              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
-                <span className="ticker-score">{game.scoreA}</span>
+              {/* Show score for games in progress or completed */}
+              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') ? (
+                <>
+                  <span className="ticker-score">{game.scoreA}</span>
+                  <span className="ticker-team">
+                    {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
+                    {game.teamB}
+                  </span>
+                  <span className="ticker-score">{game.scoreB}</span>
+                </>
+              ) : (
+                /* Show VS between teams for upcoming games */
+                <>
+                  <span className="mx-1 text-white">VS</span>
+                  <span className="ticker-team">
+                    {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
+                    {game.teamB}
+                  </span>
+                </>
               )}
               
-              <span className="ticker-team">
-                {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
-                {game.teamB}
-              </span>
-              
-              {/* Only show score if game has started or is complete */}
-              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
-                <span className="ticker-score">{game.scoreB}</span>
-              )}
-              
-              <span className="ticker-status">
+              <span className="ticker-status ml-2">
                 {game.status}
-                {game.network && ` • ${game.network}`}
+                {/* Only show network for upcoming games or nationally televised games */}
+                {(!['Final', '1st Half', '2nd Half', 'Halftime'].includes(game.status) || game.nationally) && 
+                  game.network && ` • ${game.network}`}
                 {game.nationally && ' • Nat\'l TV'}
               </span>
             </div>
@@ -347,24 +355,32 @@ export default function HomePage() {
                 {game.teamA}
               </span>
               
-              {/* Only show score if game has started or is complete */}
-              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
-                <span className="ticker-score">{game.scoreA}</span>
+              {/* Show score for games in progress or completed */}
+              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') ? (
+                <>
+                  <span className="ticker-score">{game.scoreA}</span>
+                  <span className="ticker-team">
+                    {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
+                    {game.teamB}
+                  </span>
+                  <span className="ticker-score">{game.scoreB}</span>
+                </>
+              ) : (
+                /* Show VS between teams for upcoming games */
+                <>
+                  <span className="mx-1 text-white">VS</span>
+                  <span className="ticker-team">
+                    {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
+                    {game.teamB}
+                  </span>
+                </>
               )}
               
-              <span className="ticker-team">
-                {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
-                {game.teamB}
-              </span>
-              
-              {/* Only show score if game has started or is complete */}
-              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
-                <span className="ticker-score">{game.scoreB}</span>
-              )}
-              
-              <span className="ticker-status">
+              <span className="ticker-status ml-2">
                 {game.status}
-                {game.network && ` • ${game.network}`}
+                {/* Only show network for upcoming games or nationally televised games */}
+                {(!['Final', '1st Half', '2nd Half', 'Halftime'].includes(game.status) || game.nationally) && 
+                  game.network && ` • ${game.network}`}
                 {game.nationally && ' • Nat\'l TV'}
               </span>
             </div>
