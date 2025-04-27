@@ -525,7 +525,9 @@ export default function MarchMadnessBracket() {
               <div className="flex space-x-8">
                 {bracket.slice(0, 2).map((region) => (
                   <div key={region.name} className="w-[900px]">
-                    <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
+                    <h3 className="text-lg font-bold mb-4">
+                      {region.name} Region – {regionCities[region.name] ? `${regionCities[region.name].city}, ${regionCities[region.name].state}` : 'TBD'}
+                    </h3>
                     <div className="grid grid-cols-4 gap-8">
                       {/* First Round (Round of 64) */}
                       <div className="space-y-2">
@@ -557,7 +559,9 @@ export default function MarchMadnessBracket() {
               
               {/* Final Four */}
               <div className="w-full">
-                <h3 className="text-lg font-bold mb-4">Final Four</h3>
+                <h3 className="text-lg font-bold mb-4">
+                    Final Four – {regionCities["Final Four"] ? `${regionCities["Final Four"].city}, ${regionCities["Final Four"].state}` : 'TBD'}
+                  </h3>
                 <div className="flex justify-center">
                   <div className="w-[600px] grid grid-cols-2 gap-8">
                     <div className="space-y-2">
@@ -579,7 +583,9 @@ export default function MarchMadnessBracket() {
               <div className="flex space-x-8">
                 {bracket.slice(2, 4).map((region) => (
                   <div key={region.name} className="w-[900px]">
-                    <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
+                    <h3 className="text-lg font-bold mb-4">
+                      {region.name} Region – {regionCities[region.name] ? `${regionCities[region.name].city}, ${regionCities[region.name].state}` : 'TBD'}
+                    </h3>
                     <div className="grid grid-cols-4 gap-8">
                       {/* First Round (Round of 64) */}
                       <div className="space-y-2">
