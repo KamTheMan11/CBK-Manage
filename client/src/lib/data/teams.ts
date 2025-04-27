@@ -12,13 +12,13 @@ export const defaultTeams: Team[] = collegeTeams.map(college => ({
   secondaryColor: college.secondaryColor,
   conferenceId: college.conferenceId,
   players: generateTeamRoster(college.id),
-  wins: college.id <= 10 ? Math.floor(Math.random() * 4) + 20 : Math.floor(Math.random() * 15) + 10, // Top 10 teams have 20-23 wins
-  losses: college.id <= 10 ? Math.floor(Math.random() * 4) + 1 : Math.floor(Math.random() * 10) + 5, // Top 10 teams have 1-4 losses
-  homeWins: 0,
-  homeLosses: 0,
-  awayWins: 0,
-  awayLosses: 0,
-  streak: 0
+  wins: college.id <= 25 ? Math.floor(Math.random() * 6) + 18 : Math.floor(Math.random() * 15) + 10,
+  losses: college.id <= 25 ? Math.floor(Math.random() * 6) + 2 : Math.floor(Math.random() * 10) + 5,
+  homeWins: Math.floor(Math.random() * 12) + 8,
+  homeLosses: Math.floor(Math.random() * 4) + 1,
+  awayWins: Math.floor(Math.random() * 8) + 5,
+  awayLosses: Math.floor(Math.random() * 5) + 1,
+  streak: Math.floor(Math.random() * 7) - 3
 }));
 
 // Get team by ID

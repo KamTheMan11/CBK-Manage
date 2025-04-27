@@ -77,6 +77,23 @@ export default function StandingsTable() {
                             className="w-3 h-3 rounded-full mr-2"
                             style={{ backgroundColor: team.primaryColor }}
                           ></div>
+                          {team.name}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-center">{team.wins}</TableCell>
+                      <TableCell className="text-center">{team.losses}</TableCell>
+                      <TableCell className="text-center">{calculateWinPct(team)}</TableCell>
+                      <TableCell className="text-center hidden md:table-cell">
+                        {team.homeWins}-{team.homeLosses}
+                      </TableCell>
+                      <TableCell className="text-center hidden md:table-cell">
+                        {team.awayWins}-{team.awayLosses}
+                      </TableCell>
+                      <TableCell className="text-center hidden lg:table-cell">
+                        {team.streak > 0 ? `W${team.streak}` : team.streak < 0 ? `L${Math.abs(team.streak)}` : '-'}
+                      </TableCell>
+                            style={{ backgroundColor: team.primaryColor }}
+                          ></div>
                           <span>{team.name}</span>
                         </div>
                       </TableCell>
