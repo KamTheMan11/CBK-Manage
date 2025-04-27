@@ -430,9 +430,9 @@ export function generateRandomMatchups(count: number = 8): Array<{
     if (status === "Final" || status === "2nd Half" || status === "1st Half" || status === "Halftime") {
       // Different score ranges based on game status
       if (status === "Final" || status === "2nd Half") {
-        // Final or 2nd half score range (35-80)
-        matchup.homeScore = Math.floor(Math.random() * 46) + 35;
-        matchup.awayScore = Math.floor(Math.random() * 46) + 35;
+        // Final or 2nd half score range (50-85)
+        matchup.homeScore = Math.floor(Math.random() * 36) + 50;
+        matchup.awayScore = Math.floor(Math.random() * 36) + 50;
       } else {
         // 1st half or halftime score range (22-45) - ensures teams don't exceed 50 at halftime
         matchup.homeScore = Math.floor(Math.random() * 24) + 22;
