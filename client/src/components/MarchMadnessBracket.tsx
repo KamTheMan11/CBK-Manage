@@ -92,7 +92,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
   const [regionCities, setRegionCities] = useState<{[key: string]: {city: string, state: string}}>({}); // Cities for each region
   const ncaaLogoUrl = "/images/ncaa-logo.png";
   const ncaaBasketballLogoUrl = "/images/ncaa-basketball-logo.png";
-  
+
   // Notify parent component when round changes
   useEffect(() => {
     if (onRoundChange) {
@@ -100,37 +100,34 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     }
   }, [currentRound, onRoundChange]);
   const marchMadnessLogoUrl = "/images/march-madness-logo.png";
-  
+
   useEffect(() => {
     // Generate a randomized bracket when component loads
     generateBracket();
   }, []);
-  
+
   const generateBracket = () => {
     // Regions of the NCAA tournament
     const regions = ["East", "West", "South", "Midwest"];
-    
+
     // Generate random cities for each region and Final Four
     const randomCities = getRandomCities(5); // Get 5 random cities (4 regions + Final Four)
     const newRegionCities: {[key: string]: {city: string, state: string}} = {};
-    
+
     // Assign cities to regions
     regions.forEach((region, index) => {
       newRegionCities[region] = randomCities[index];
     });
     newRegionCities["Final Four"] = randomCities[4];
     setRegionCities(newRegionCities);
-    
-    // Major conferences for top seeds
-    const majorConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, American
-    
-    // Power conferences for top seeds
-    const powerConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, Big East
-    
+
+    // Only SEC and ACC teams for top 25
+    const eliteConferences = [1, 2]; // ACC and SEC only
+
     // Get teams from power conferences for top seeds (1-4)
-    const powerConfTeams = collegeTeams.filter(team => powerConferences.includes(team.conferenceId));
-    const otherTeams = collegeTeams.filter(team => !powerConferences.includes(team.conferenceId));
-    
+    const powerConfTeams = collegeTeams.filter(team => eliteConferences.includes(team.conferenceId));
+    const otherTeams = collegeTeams.filter(team => !eliteConferences.includes(team.conferenceId));
+
     // Ensure top seeds (1-4) are from power conferences
     const shuffledTeams = [
       ...powerConfTeams.sort(() => Math.random() - 0.5).slice(0, 16), // Top 16 teams (1-4 seeds)
@@ -141,13 +138,13 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         primaryColor: team.primaryColor,
         seed: (index % 16) + 1 // Assign seeds 1-16 in each region
       }));
-    
+
     const bracketData: BracketRegion[] = [];
-    
+
     // Create four regions with 8 games each in the first round
     regions.forEach((region, regionIndex) => {
       const regionGames: BracketGame[] = [];
-      
+
       // Define standard NCAA tournament seed matchups for first round
       const seedMatchups = [
         [1, 16], // 1 vs 16 seed
@@ -159,7 +156,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         [7, 10], // 7 vs 10 seed
         [2, 15]  // 2 vs 15 seed
       ];
-        
+
       // First round games (Round of 64)
       seedMatchups.forEach((matchup, i) => {
         // Find teams with these seeds in the current region
@@ -167,14 +164,14 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           t.seed === matchup[0] && 
           Math.floor((shuffledTeams.indexOf(t) / 16)) === regionIndex
         );
-        
+
         const team2 = shuffledTeams.find(t => 
           t.seed === matchup[1] && 
           Math.floor((shuffledTeams.indexOf(t) / 16)) === regionIndex
         );
-          
+
         if (!team1 || !team2) return; // Skip if we can't find matching seeds
-        
+
         // Always create completed games for March Madness
         // Custom upset chances based on seed matchup
         const upsetCount = regionGames.filter(g => 
@@ -182,21 +179,21 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           ((g.team1.seed < g.team2.seed && g.winner === g.team2.id) ||
            (g.team2.seed < g.team1.seed && g.winner === g.team1.id))
         ).length;
-        
+
         let upsetChance = upsetCount >= 5 ? 0 : 0.27; // Base 27% upset chance
-        
+
         // Special case for 16 seeds (3% chance to win against 1 seeds)
         if ((team1.seed === 1 && team2.seed === 16) || (team1.seed === 16 && team2.seed === 1)) {
           upsetChance = 0.03;
         }
-        
+
         const higherSeedWins = Math.random() > upsetChance;
-        
+
         // Generate scores with at least 50 points for each team in finals
         let team1Score = Math.floor(Math.random() * 30) + 50; // 50-79
         let team2Score = Math.floor(Math.random() * 30) + 50; // 50-79
         let winner = null;
-        
+
         // Adjust scores to match the winner
         if (higherSeedWins && team1.seed < team2.seed) {
           // Team 1 wins (higher seed)
@@ -215,7 +212,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
           winner = team1.id;
         }
-        
+
         // Add the game to the region games
         regionGames.push({
           id: regionIndex * 100 + i,
@@ -226,7 +223,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           winner
         });
       });
-      
+
       // Second round games (Round of 32)
       for (let i = 0; i < 4; i++) {
         regionGames.push({
@@ -237,7 +234,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           team2: null
         });
       }
-      
+
       // Sweet 16 games
       for (let i = 0; i < 2; i++) {
         regionGames.push({
@@ -248,7 +245,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           team2: null
         });
       }
-      
+
       // Elite 8 game
       regionGames.push({
         id: regionIndex * 100 + 14,
@@ -257,13 +254,13 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         team1: null,
         team2: null
       });
-      
+
       bracketData.push({
         name: region,
         games: regionGames
       });
     });
-    
+
     // Final Four games
     const finalFourRegion: BracketRegion = {
       name: "Final Four",
@@ -291,39 +288,39 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         }
       ]
     };
-    
+
     bracketData.push(finalFourRegion);
     setBracket(bracketData);
-    
+
     // Simulate the bracket by filling in winners from first round games
     simulateBracket(bracketData);
   };
-  
+
   const simulateBracket = (bracketData: BracketRegion[]) => {
     // This would be called after generating a new bracket to fill in some results
     // For simplicity, we'll randomly advance some teams to later rounds
-    
+
     // We'll update the bracket in stages to simulate tournament progression
     setTimeout(() => {
       // Simulate Round of 32 games (some of them)
       const newBracket = [...bracketData];
-      
+
       newBracket.forEach((region, regionIndex) => {
         if (region.name === "Final Four") return;
-        
+
         // Process first round games to fill in second round matchups
         const firstRoundGames = region.games.filter(g => g.round === 1);
         const secondRoundGames = region.games.filter(g => g.round === 2);
-        
+
         // Only fill in games where both first round games have been completed
         for (let i = 0; i < 4; i++) {
           const game1 = firstRoundGames[i * 2];
           const game2 = firstRoundGames[i * 2 + 1];
-          
+
           if (game1.winner && game2.winner) {
             const team1 = collegeTeams.find(t => t.id === game1.winner);
             const team2 = collegeTeams.find(t => t.id === game2.winner);
-            
+
             if (team1 && team2) {
               const nextRoundGame = secondRoundGames[i];
               nextRoundGame.team1 = {
@@ -336,15 +333,15 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                 name: team2.shortName,
                 seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
               };
-              
+
               // All games should be completed with 50+ points for each team
               nextRoundGame.team1.score = Math.floor(Math.random() * 30) + 50; // 50-79
               nextRoundGame.team2.score = Math.floor(Math.random() * 30) + 50; // 50-79
-              
+
               if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
                 nextRoundGame.team1.score += 2; // Avoid ties
               }
-              
+
               nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
                 ? nextRoundGame.team1.id 
                 : nextRoundGame.team2.id;
@@ -352,31 +349,31 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           }
         }
       });
-      
+
       setBracket(newBracket);
       setCurrentRound(2);
-      
+
       // Continue to Sweet 16
       setTimeout(() => {
         simulateNextRound(newBracket, 3);
       }, 500);
     }, 500);
   };
-  
+
   const simulateNextRound = (bracketData: BracketRegion[], round: number) => {
     // Create a deep copy of the bracket data
     const updatedBracket = [...bracketData];
-    
+
     // Update the current round
     setCurrentRound(round);
-    
+
     updatedBracket.forEach((region) => {
       if (region.name === "Final Four") {
         if (round === 5 || round === 6) {
           // Handle Final Four and Championship games
           const finalFourGames = region.games.filter(g => g.round === 5);
           const championshipGame = region.games.find(g => g.round === 6);
-          
+
           if (round === 5) {
             // Set up Final Four matchups from Elite 8 winners
             const eliteEightWinners = updatedBracket
@@ -387,7 +384,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                   collegeTeams.find(t => t.id === eliteEightGame.winner) : null;
               })
               .filter((t): t is NonNullable<typeof t> => t !== null);
-            
+
             if (eliteEightWinners.length >= 4) {
               // East vs West, South vs Midwest
               finalFourGames[0].team1 = {
@@ -395,29 +392,29 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                 name: eliteEightWinners[0].shortName,
                 seed: Math.floor(Math.random() * 8) + 1 // Just for display purposes
               };
-              
+
               finalFourGames[0].team2 = {
                 id: eliteEightWinners[1].id,
                 name: eliteEightWinners[1].shortName,
                 seed: Math.floor(Math.random() * 8) + 1
               };
-              
+
               finalFourGames[1].team1 = {
                 id: eliteEightWinners[2].id,
                 name: eliteEightWinners[2].shortName,
                 seed: Math.floor(Math.random() * 8) + 1
               };
-              
+
               finalFourGames[1].team2 = {
                 id: eliteEightWinners[3].id,
                 name: eliteEightWinners[3].shortName,
                 seed: Math.floor(Math.random() * 8) + 1
               };
-              
+
               // Random winner for 1st Final Four game with 50+ points for each team
               const score1 = Math.floor(Math.random() * 30) + 50; // 50-79
               const score2 = Math.floor(Math.random() * 30) + 50; // 50-79
-              
+
               finalFourGames[0].team1.score = score1;
               finalFourGames[0].team2.score = score2;
               finalFourGames[0].winner = score1 > score2 ? 
@@ -427,39 +424,39 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
             // Set up Championship game
             if (finalFourGames[0].winner && finalFourGames[1].team1 && finalFourGames[1].team2) {
               const finalist1 = collegeTeams.find(t => t.id === finalFourGames[0].winner);
-              
+
               // Random winner for 2nd Final Four game
               const score1 = Math.floor(Math.random() * 20) + 65;
               const score2 = Math.floor(Math.random() * 20) + 65;
-              
+
               finalFourGames[1].team1.score = score1;
               finalFourGames[1].team2.score = score2;
               finalFourGames[1].winner = score1 > score2 ? 
                 finalFourGames[1].team1.id : finalFourGames[1].team2.id;
-              
+
               const finalist2 = collegeTeams.find(t => t.id === finalFourGames[1].winner);
-              
+
               if (finalist1 && finalist2) {
                 championshipGame.team1 = {
                   id: finalist1.id,
                   name: finalist1.shortName,
                   seed: Math.floor(Math.random() * 5) + 1
                 };
-                
+
                 championshipGame.team2 = {
                   id: finalist2.id,
                   name: finalist2.shortName,
                   seed: Math.floor(Math.random() * 5) + 1
                 };
-                
+
                 // Championship game with both teams scoring 65-85 points
                 const champScore1 = Math.floor(Math.random() * 20) + 65;
                 const champScore2 = Math.floor(Math.random() * 20) + 65;
-                
+
                 // Avoid ties
                 championshipGame.team1.score = champScore1;
                 championshipGame.team2.score = champScore1 === champScore2 ? champScore2 + 2 : champScore2;
-                
+
                 // Determine the champion
                 championshipGame.winner = championshipGame.team1.score > championshipGame.team2.score ?
                   championshipGame.team1.id : championshipGame.team2.id;
@@ -471,19 +468,19 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         // For regular regions (East, West, South, Midwest)
         const prevRoundGames = region.games.filter(g => g.round === round - 1);
         const currentRoundGames = region.games.filter(g => g.round === round);
-        
+
         for (let i = 0; i < currentRoundGames.length; i++) {
           const game1Index = i * 2;
           const game2Index = i * 2 + 1;
-          
+
           if (game1Index < prevRoundGames.length && game2Index < prevRoundGames.length) {
             const game1 = prevRoundGames[game1Index];
             const game2 = prevRoundGames[game2Index];
-            
+
             if (game1.winner && game2.winner) {
               const team1 = collegeTeams.find(t => t.id === game1.winner);
               const team2 = collegeTeams.find(t => t.id === game2.winner);
-              
+
               if (team1 && team2) {
                 const nextRoundGame = currentRoundGames[i];
                 nextRoundGame.team1 = {
@@ -496,15 +493,15 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                   name: team2.shortName,
                   seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
                 };
-                
+
                 // All games should have 50+ points for each team
                 nextRoundGame.team1.score = Math.floor(Math.random() * 30) + 50; // 50-79
                 nextRoundGame.team2.score = Math.floor(Math.random() * 30) + 50; // 50-79
-                
+
                 if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
                   nextRoundGame.team1.score += 2; // Avoid ties
                 }
-                
+
                 nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
                   ? nextRoundGame.team1.id 
                   : nextRoundGame.team2.id;
@@ -514,10 +511,10 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         }
       }
     });
-    
+
     // Update the bracket state
     setBracket(updatedBracket);
-    
+
     // Continue to next round if needed
     if (round < 6) {
       setTimeout(() => {
@@ -525,10 +522,10 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
       }, 500);
     }
   };
-  
+
   const renderGame = (game: BracketGame) => {
     const gameCompleted = game.winner !== undefined;
-    
+
     return (
       <div 
         key={game.id} 
@@ -563,7 +560,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
       </div>
     );
   };
-  
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-4">
@@ -576,7 +573,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           <img src={ncaaBasketballLogoUrl} alt="NCAA Basketball Logo" className="h-10" />
         </div>
       </div>
-      
+
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-3">
           <BackButton />
@@ -587,7 +584,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
             Randomize Bracket
           </button>
         </div>
-        
+
         <span className="text-sm text-gray-600 dark:text-gray-400">
           Current Simulation Round: {
             currentRound === 1 ? "First Round" :
@@ -599,7 +596,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           }
         </span>
       </div>
-      
+
       <Card className="overflow-hidden">
         <CardContent className="pt-6">
           <div className="overflow-x-auto max-h-[75vh]">
@@ -617,19 +614,19 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                         <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
                         {region.games.filter(g => g.round === 1).map(renderGame)}
                       </div>
-                      
+
                       {/* Second Round (Round of 32) */}
                       <div className="space-y-2 mt-6">
                         <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
                         {region.games.filter(g => g.round === 2).map(renderGame)}
                       </div>
-                      
+
                       {/* Sweet 16 */}
                       <div className="space-y-2 mt-12">
                         <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
                         {region.games.filter(g => g.round === 3).map(renderGame)}
                       </div>
-                      
+
                       {/* Elite 8 */}
                       <div className="space-y-2 mt-16">
                         <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
@@ -639,7 +636,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                   </div>
                 ))}
               </div>
-              
+
               {/* Final Four */}
               <div className="w-full">
                 <h3 className="text-lg font-bold mb-4">
@@ -651,7 +648,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                       <h4 className="text-xs font-semibold text-gray-500">FINAL FOUR</h4>
                       {bracket[4]?.games.filter(g => g.round === 5).map(renderGame)}
                     </div>
-                    
+
                     <div className="space-y-2">
                       <h4 className="text-xs font-semibold text-gray-500">NATIONAL CHAMPIONSHIP</h4>
                       <div className="mt-12">
@@ -661,7 +658,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                   </div>
                 </div>
               </div>
-              
+
               {/* Last 2 regions */}
               <div className="flex space-x-8">
                 {bracket.slice(2, 4).map((region) => (
@@ -675,19 +672,19 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                         <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
                         {region.games.filter(g => g.round === 1).map(renderGame)}
                       </div>
-                      
+
                       {/* Second Round (Round of 32) */}
                       <div className="space-y-2 mt-6">
                         <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
                         {region.games.filter(g => g.round === 2).map(renderGame)}
                       </div>
-                      
+
                       {/* Sweet 16 */}
                       <div className="space-y-2 mt-12">
                         <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
                         {region.games.filter(g => g.round === 3).map(renderGame)}
                       </div>
-                      
+
                       {/* Elite 8 */}
                       <div className="space-y-2 mt-16">
                         <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
