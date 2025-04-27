@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { Volleyball, Award, Settings, Users, Calendar, TrendingUp, Trophy, Crown, PenTool, User } from 'lucide-react';
+import { Award, Settings, Users, Calendar, TrendingUp, Trophy, Crown, PenTool, User } from 'lucide-react';
+import { BasketballIcon } from '../components/BasketballIcon';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
 import StandingsTable from '../components/StandingsTable';
 import { useTeams } from '../lib/stores/useTeams';
@@ -51,7 +52,7 @@ export default function HomePage() {
               onClick={() => navigate('/game')}
               className="bg-[#FFD700] hover:bg-yellow-500 text-[#003087] font-bold"
             >
-              <Volleyball className="mr-2 h-5 w-5" />
+              <BasketballIcon className="mr-2 h-5 w-5" />
               Play Game
             </Button>
             <Button 
@@ -118,7 +119,7 @@ export default function HomePage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
-              <Volleyball className="mr-2 h-5 w-5 text-[#FFD700]" />
+              <BasketballIcon className="mr-2 h-5 w-5 text-[#FFD700]" />
               Quick Play
             </CardTitle>
           </CardHeader>
@@ -134,7 +135,7 @@ export default function HomePage() {
                 onClick={() => navigate('/game')}
                 className="w-full bg-[#003087] hover:bg-[#002a77]"
               >
-                <Volleyball className="mr-2 h-4 w-4" />
+                <BasketballIcon className="mr-2 h-4 w-4" />
                 Start New Game
               </Button>
             )}
@@ -241,7 +242,7 @@ export default function HomePage() {
           <Card className="cursor-pointer hover:shadow-md transition-shadow">
             <CardContent className="p-0">
               <div className="bg-green-600 p-6 text-white flex flex-col items-center text-center">
-                <Volleyball className="w-12 h-12 mb-2" />
+                <BasketballIcon className="w-12 h-12 mb-2" />
                 <h3 className="font-bold text-lg">Practice Mode</h3>
                 <p className="text-sm mt-2">Refine your skills with no time limits or pressure</p>
               </div>
