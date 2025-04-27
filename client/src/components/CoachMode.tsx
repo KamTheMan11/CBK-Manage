@@ -7,12 +7,6 @@ import { Team } from '../lib/types';
 import { Calendar, Trophy, User } from 'lucide-react';
 import { conferences } from '../lib/data/conferences';
 
-interface Coach {
-  name: string;
-  age: string;
-  experience: string;
-}
-
 interface GameSchedule {
   week: number;
   homeTeam: Team;
@@ -29,8 +23,7 @@ export default function CoachMode() {
   const [schedule, setSchedule] = useState<GameSchedule[]>([]);
   const [currentWeek, setCurrentWeek] = useState(1);
   const [record, setRecord] = useState({ wins: 0, losses: 0, confWins: 0, confLosses: 0 });
-  const [selectedConference, setSelectedConference] = useState(0); // Add state for selected conference
-  const [coach, setCoach] = useState<Coach | null>(null); // Add state for coach information
+  const [selectedConference, setSelectedConference] = useState(0);
 
 
   const generateSchedule = (team: Team) => {
@@ -252,15 +245,17 @@ export default function CoachMode() {
                         <div>at</div>
                         <div className="font-bold">{game.homeTeam.name}</div>
                       </div>
-                      {game.completed ? (
-                        <div className="text-xl font-bold">
-                          {game.awayScore} - {game.homeScore}
-                        </div>
-                      ) : (
-                        <div className="text-gray-500">
-                          {game.isConference ? "Conference Game" : "Non-Conference"}
-                        </div>
-                      )}
+                      <div className="flex flex-col items-end">
+                        {game.completed ? (
+                          <div className="text-xl font-bold">
+                            {game.awayScore} - {game.homeScore}
+                          </div>
+                        ) : (
+                          <div className={`px-3 py-1 rounded-full text-sm ${game.isConference ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'}`}>
+                            {game.isConference ? "Conference" : "Non-Conference"}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
               </div>
@@ -326,19 +321,7 @@ export default function CoachMode() {
             </CardContent>
           </Card>
 
-          {/* Add coach customization inputs here */}
-          {selectedTeam && coach === null && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Add Coach Information</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Input label="Coach Name" onChange={(e)=>setCoach({...coach, name:e.target.value})}/>
-                <Input label="Coach Age" onChange={(e)=>setCoach({...coach, age:e.target.value})}/>
-                <Input label="Coach Experience" onChange={(e)=>setCoach({...coach, experience:e.target.value})}/>
-              </CardContent>
-            </Card>
-          )}
+          
 
           {currentWeek > 15 && (
             <Card>
