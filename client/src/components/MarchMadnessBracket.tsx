@@ -175,7 +175,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         // Always create completed games for March Madness
         // Higher seeds more likely to win (but upsets still possible)
         const seedDifference = Math.abs(matchup[0] - matchup[1]);
-        const upsetChance = seedDifference > 10 ? 0.05 : seedDifference > 5 ? 0.25 : 0.4;
+        const upsetChance = seedDifference > 10 ? 0.15 : seedDifference > 5 ? 0.35 : 0.45;
         const higherSeedWins = Math.random() > upsetChance;
         
         // Generate scores with at least 50 points for each team in finals
@@ -634,7 +634,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
                 <div className="flex justify-center">
                   <div className="w-[600px] grid grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <h4 className="text-xs font-semibold text-gray-500">NATIONAL SEMIFINALS</h4>
+                      <h4 className="text-xs font-semibold text-gray-500">FINAL FOUR</h4>
                       {bracket[4]?.games.filter(g => g.round === 5).map(renderGame)}
                     </div>
                     

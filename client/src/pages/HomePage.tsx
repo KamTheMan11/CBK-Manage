@@ -305,17 +305,20 @@ export default function HomePage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((rank) => (
-                    <div key={rank} className="flex items-center border-b pb-1">
-                      <div className="w-8 text-center font-bold">{rank}</div>
-                      <div className="flex-1">
-                        {teams[rank % teams.length]?.name || 'Team Name'}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {Math.floor(Math.random() * 10) + 15}-{Math.floor(Math.random() * 10)}
-                      </div>
-                    </div>
-                  ))}
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((rank) => {
+                      const team = collegeTeams.find(t => t.id === rank);
+                      return (
+                        <div key={rank} className="flex items-center border-b pb-1">
+                          <div className="w-8 text-center font-bold">{rank}</div>
+                          <div className="flex-1">
+                            {team?.shortName || 'Team Name'}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {team?.id <= 25 ? `${Math.floor(Math.random() * 4) + 17}-${Math.floor(Math.random() * 4) + 2}` : '0-0'}
+                          </div>
+                        </div>
+                      );
+                    })}
                 </div>
                 <div className="space-y-2">
                   {[13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map((rank) => (
