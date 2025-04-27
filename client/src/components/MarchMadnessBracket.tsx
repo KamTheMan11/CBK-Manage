@@ -86,7 +86,7 @@ interface MarchMadnessBracketProps {
   onRoundChange?: (round: number) => void;
 }
 
-export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBracketProps) {
+const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange }) => {
   const [bracket, setBracket] = useState<BracketRegion[]>([]);
   const [currentRound, setCurrentRound] = useState(1);
   const [regionCities, setRegionCities] = useState<{[key: string]: {city: string, state: string}}>({}); // Cities for each region
@@ -341,68 +341,67 @@ export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBrack
     }, 500);
   };
   
-  const simulateNextRound = (bracketData: BracketRegion[], nextRound: number) => {
-    const newBracket = [...bracketData];
+  const simulateNextRound = (bracketData: BracketRegion[], round: number) => {
+    // Create a deep copy of the bracket data
+    const updatedBracket = [...bracketData];
     
-    // Update current round
-    setCurrentRound(nextRound);
+    // Update the current round
+    setCurrentRound(round);
     
-    newBracket.forEach((region, regionIndex) => {
+    updatedBracket.forEach((region) => {
       if (region.name === "Final Four") {
-        if (nextRound === 5 || nextRound === 6) {
+        if (round === 5 || round === 6) {
           // Handle Final Four and Championship games
           const finalFourGames = region.games.filter(g => g.round === 5);
           const championshipGame = region.games.find(g => g.round === 6);
           
-          if (nextRound === 5) {
+          if (round === 5) {
             // Set up Final Four matchups from Elite 8 winners
-            const eliteEightWinners = newBracket
+            const eliteEightWinners = updatedBracket
               .filter(r => r.name !== "Final Four")
               .map(r => {
                 const eliteEightGame = r.games.find(g => g.round === 4);
                 return eliteEightGame?.winner ? 
                   collegeTeams.find(t => t.id === eliteEightGame.winner) : null;
               })
-              .filter(t => t !== null);
+              .filter((t): t is NonNullable<typeof t> => t !== null);
             
             if (eliteEightWinners.length >= 4) {
               // East vs West, South vs Midwest
-              finalFourGames[0].team1 = eliteEightWinners[0] ? {
-                id: eliteEightWinners[0]!.id,
-                name: eliteEightWinners[0]!.shortName,
+              finalFourGames[0].team1 = {
+                id: eliteEightWinners[0].id,
+                name: eliteEightWinners[0].shortName,
                 seed: Math.floor(Math.random() * 8) + 1 // Just for display purposes
-              } : null;
+              };
               
-              finalFourGames[0].team2 = eliteEightWinners[1] ? {
-                id: eliteEightWinners[1]!.id,
-                name: eliteEightWinners[1]!.shortName,
+              finalFourGames[0].team2 = {
+                id: eliteEightWinners[1].id,
+                name: eliteEightWinners[1].shortName,
                 seed: Math.floor(Math.random() * 8) + 1
-              } : null;
+              };
               
-              finalFourGames[1].team1 = eliteEightWinners[2] ? {
-                id: eliteEightWinners[2]!.id,
-                name: eliteEightWinners[2]!.shortName,
+              finalFourGames[1].team1 = {
+                id: eliteEightWinners[2].id,
+                name: eliteEightWinners[2].shortName,
                 seed: Math.floor(Math.random() * 8) + 1
-              } : null;
+              };
               
-              finalFourGames[1].team2 = eliteEightWinners[3] ? {
-                id: eliteEightWinners[3]!.id,
-                name: eliteEightWinners[3]!.shortName,
+              finalFourGames[1].team2 = {
+                id: eliteEightWinners[3].id,
+                name: eliteEightWinners[3].shortName,
                 seed: Math.floor(Math.random() * 8) + 1
-              } : null;
+              };
               
               // Random winner for 1st Final Four game with 50+ points for each team
-              if (finalFourGames[0].team1 && finalFourGames[0].team2) {
-                const score1 = Math.floor(Math.random() * 30) + 50; // 50-79
-                const score2 = Math.floor(Math.random() * 30) + 50; // 50-79
-                
-                finalFourGames[0].team1.score = score1;
-                finalFourGames[0].team2.score = score2;
-                finalFourGames[0].winner = score1 > score2 ? 
-                  finalFourGames[0].team1.id : finalFourGames[0].team2.id;
-              }
+              const score1 = Math.floor(Math.random() * 30) + 50; // 50-79
+              const score2 = Math.floor(Math.random() * 30) + 50; // 50-79
+              
+              finalFourGames[0].team1.score = score1;
+              finalFourGames[0].team2.score = score2;
+              finalFourGames[0].winner = score1 > score2 ? 
+                finalFourGames[0].team1.id : finalFourGames[0].team2.id;
             }
-          } else if (nextRound === 6) {
+          } else if (round === 6 && championshipGame) {
             // Set up Championship game
             if (finalFourGames[0].winner && finalFourGames[1].team1 && finalFourGames[1].team2) {
               const finalist1 = collegeTeams.find(t => t.id === finalFourGames[0].winner);
@@ -418,7 +417,7 @@ export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBrack
               
               const finalist2 = collegeTeams.find(t => t.id === finalFourGames[1].winner);
               
-              if (finalist1 && finalist2 && championshipGame) {
+              if (finalist1 && finalist2) {
                 championshipGame.team1 = {
                   id: finalist1.id,
                   name: finalist1.shortName,
@@ -431,57 +430,62 @@ export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBrack
                   seed: Math.floor(Math.random() * 5) + 1
                 };
                 
-                // Championship game is still to be played
+                // Championship game with both teams scoring 65-85 points
+                const champScore1 = Math.floor(Math.random() * 20) + 65;
+                const champScore2 = Math.floor(Math.random() * 20) + 65;
+                
+                // Avoid ties
+                championshipGame.team1.score = champScore1;
+                championshipGame.team2.score = champScore1 === champScore2 ? champScore2 + 2 : champScore2;
+                
+                // Determine the champion
+                championshipGame.winner = championshipGame.team1.score > championshipGame.team2.score ?
+                  championshipGame.team1.id : championshipGame.team2.id;
               }
             }
           }
         }
-        return;
-      }
-      
-      // For regular regions (East, West, South, Midwest)
-      const prevRoundGames = region.games.filter(g => g.round === nextRound - 1);
-      const currentRoundGames = region.games.filter(g => g.round === nextRound);
-      
-      for (let i = 0; i < currentRoundGames.length; i++) {
-        const game1Index = i * 2;
-        const game2Index = i * 2 + 1;
+      } else {
+        // For regular regions (East, West, South, Midwest)
+        const prevRoundGames = region.games.filter(g => g.round === round - 1);
+        const currentRoundGames = region.games.filter(g => g.round === round);
         
-        if (game1Index < prevRoundGames.length && game2Index < prevRoundGames.length) {
-          const game1 = prevRoundGames[game1Index];
-          const game2 = prevRoundGames[game2Index];
+        for (let i = 0; i < currentRoundGames.length; i++) {
+          const game1Index = i * 2;
+          const game2Index = i * 2 + 1;
           
-          if (game1.winner && game2.winner) {
-            const team1 = collegeTeams.find(t => t.id === game1.winner);
-            const team2 = collegeTeams.find(t => t.id === game2.winner);
+          if (game1Index < prevRoundGames.length && game2Index < prevRoundGames.length) {
+            const game1 = prevRoundGames[game1Index];
+            const game2 = prevRoundGames[game2Index];
             
-            if (team1 && team2) {
-              const nextRoundGame = currentRoundGames[i];
-              nextRoundGame.team1 = {
-                id: team1.id,
-                name: team1.shortName,
-                seed: game1.team1?.id === team1.id ? game1.team1.seed : game1.team2!.seed
-              };
-              nextRoundGame.team2 = {
-                id: team2.id,
-                name: team2.shortName,
-                seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
-              };
+            if (game1.winner && game2.winner) {
+              const team1 = collegeTeams.find(t => t.id === game1.winner);
+              const team2 = collegeTeams.find(t => t.id === game2.winner);
               
-              // Determine if this game has already been played
-              const roundCompleted = Math.random() > (round === 4 ? 0.8 : 0.4); // Less likely for Elite 8 games
-              
-              // All games should have 50+ points for each team
-              nextRoundGame.team1.score = Math.floor(Math.random() * 30) + 50; // 50-79
-              nextRoundGame.team2.score = Math.floor(Math.random() * 30) + 50; // 50-79
-              
-              if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
-                nextRoundGame.team1.score += 2; // Avoid ties
-              }
-              
-              nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
-                ? nextRoundGame.team1.id 
-                : nextRoundGame.team2.id;
+              if (team1 && team2) {
+                const nextRoundGame = currentRoundGames[i];
+                nextRoundGame.team1 = {
+                  id: team1.id,
+                  name: team1.shortName,
+                  seed: game1.team1?.id === team1.id ? game1.team1.seed : game1.team2!.seed
+                };
+                nextRoundGame.team2 = {
+                  id: team2.id,
+                  name: team2.shortName,
+                  seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
+                };
+                
+                // All games should have 50+ points for each team
+                nextRoundGame.team1.score = Math.floor(Math.random() * 30) + 50; // 50-79
+                nextRoundGame.team2.score = Math.floor(Math.random() * 30) + 50; // 50-79
+                
+                if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
+                  nextRoundGame.team1.score += 2; // Avoid ties
+                }
+                
+                nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
+                  ? nextRoundGame.team1.id 
+                  : nextRoundGame.team2.id;
               }
             }
           }
@@ -489,13 +493,13 @@ export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBrack
       }
     });
     
-    setBracket(newBracket);
-    setCurrentRound(round);
+    // Update the bracket state
+    setBracket(updatedBracket);
     
     // Continue to next round if needed
     if (round < 6) {
       setTimeout(() => {
-        simulateNextRound(newBracket, round + 1);
+        simulateNextRound(updatedBracket, round + 1);
       }, 500);
     }
   };
@@ -677,4 +681,6 @@ export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBrack
       </Card>
     </div>
   );
-}
+};
+
+export default MarchMadnessBracket;
