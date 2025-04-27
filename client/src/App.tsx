@@ -12,6 +12,7 @@ const TeamManagementPage = lazy(() => import("./pages/TeamManagementPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const MarchMadnessPage = lazy(() => import("./pages/MarchMadnessPage"));
 const NotFoundPage = lazy(() => import("./pages/not-found"));
+const CoachModePage = lazy(() => import("./pages/CoachModePage")); // Added CoachModePage import
 
 function App() {
   const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();
@@ -36,7 +37,7 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F9FA] dark:bg-gray-900 dark:text-white">
       <Navigation />
-      
+
       <main className="flex-1 container mx-auto p-4">
         <Suspense fallback={<div className="flex items-center justify-center h-96">Loading...</div>}>
           <Routes>
@@ -45,11 +46,12 @@ function App() {
             <Route path="/team-management" element={<TeamManagementPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/march-madness" element={<MarchMadnessPage />} />
+            <Route path="/coach-mode" element={<CoachModePage />} /> {/* Added Coach Mode route */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </main>
-      
+
       <Toaster position="top-center" richColors />
     </div>
   );

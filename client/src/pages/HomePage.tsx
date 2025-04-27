@@ -178,6 +178,15 @@ export default function HomePage() {
             
             <Button 
               variant="outline" 
+              onClick={() => navigate('/coach-mode')}
+              className="w-full border-[#003087] text-[#003087] mb-2"
+            >
+              <Trophy className="mr-2 h-4 w-4" />
+              Coach Mode
+            </Button>
+            
+            <Button 
+              variant="outline" 
               onClick={() => navigate('/settings')}
               className="w-full border-[#B2BEB5] text-[#212529]"
             >
