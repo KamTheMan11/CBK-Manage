@@ -118,6 +118,62 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 73, name: "St. John's Red Storm", shortName: "St. John's", nickname: "Red Storm", primaryColor: "#BA0C2F", secondaryColor: "#FFFFFF", conferenceId: 6 },
   { id: 74, name: "Georgetown Hoyas", shortName: "Georgetown", nickname: "Hoyas", primaryColor: "#041E42", secondaryColor: "#A7A8AA", conferenceId: 6 },
   { id: 75, name: "DePaul Blue Demons", shortName: "DePaul", nickname: "Blue Demons", primaryColor: "#003DA5", secondaryColor: "#E31837", conferenceId: 6 },
+
+  // American Athletic Conference (AAC) Teams
+  { id: 76, name: "Houston Cougars", shortName: "Houston", nickname: "Cougars", primaryColor: "#C8102E", secondaryColor: "#76232F", conferenceId: 7 },
+  { id: 77, name: "Memphis Tigers", shortName: "Memphis", nickname: "Tigers", primaryColor: "#003087", secondaryColor: "#8A8D8F", conferenceId: 7 },
+  { id: 78, name: "Wichita State Shockers", shortName: "Wichita State", nickname: "Shockers", primaryColor: "#000000", secondaryColor: "#FFCD00", conferenceId: 7 },
+  { id: 79, name: "Cincinnati Bearcats", shortName: "Cincinnati", nickname: "Bearcats", primaryColor: "#000000", secondaryColor: "#E00122", conferenceId: 7 },
+  { id: 80, name: "SMU Mustangs", shortName: "SMU", nickname: "Mustangs", primaryColor: "#0033A0", secondaryColor: "#C8102E", conferenceId: 7 },
+  { id: 81, name: "UCF Knights", shortName: "UCF", nickname: "Knights", primaryColor: "#000000", secondaryColor: "#BA9B37", conferenceId: 7 },
+  { id: 82, name: "Tulsa Golden Hurricane", shortName: "Tulsa", nickname: "Golden Hurricane", primaryColor: "#002D72", secondaryColor: "#C8102E", conferenceId: 7 },
+  { id: 83, name: "Temple Owls", shortName: "Temple", nickname: "Owls", primaryColor: "#9D2235", secondaryColor: "#FFCD00", conferenceId: 7 },
+  { id: 84, name: "East Carolina Pirates", shortName: "East Carolina", nickname: "Pirates", primaryColor: "#592A8A", secondaryColor: "#FDC82F", conferenceId: 7 },
+  { id: 85, name: "Tulane Green Wave", shortName: "Tulane", nickname: "Green Wave", primaryColor: "#006747", secondaryColor: "#418FDE", conferenceId: 7 },
+  { id: 86, name: "South Florida Bulls", shortName: "South Florida", nickname: "Bulls", primaryColor: "#006747", secondaryColor: "#CFC493", conferenceId: 7 },
+
+  // Mountain West Conference (MWC) Teams
+  { id: 87, name: "San Diego State Aztecs", shortName: "San Diego State", nickname: "Aztecs", primaryColor: "#A6192E", secondaryColor: "#000000", conferenceId: 8 },
+  { id: 88, name: "UNLV Runnin' Rebels", shortName: "UNLV", nickname: "Runnin' Rebels", primaryColor: "#CF0A2C", secondaryColor: "#231F20", conferenceId: 8 },
+  { id: 89, name: "Utah State Aggies", shortName: "Utah State", nickname: "Aggies", primaryColor: "#00263A", secondaryColor: "#8A8D8F", conferenceId: 8 },
+  { id: 90, name: "Boise State Broncos", shortName: "Boise State", nickname: "Broncos", primaryColor: "#0033A0", secondaryColor: "#D64309", conferenceId: 8 },
+  { id: 91, name: "Nevada Wolf Pack", shortName: "Nevada", nickname: "Wolf Pack", primaryColor: "#003366", secondaryColor: "#807F84", conferenceId: 8 },
+  { id: 92, name: "Colorado State Rams", shortName: "Colorado State", nickname: "Rams", primaryColor: "#1E4D2B", secondaryColor: "#C8C372", conferenceId: 8 },
+  { id: 93, name: "Fresno State Bulldogs", shortName: "Fresno State", nickname: "Bulldogs", primaryColor: "#DB0032", secondaryColor: "#231F20", conferenceId: 8 },
+  { id: 94, name: "Wyoming Cowboys", shortName: "Wyoming", nickname: "Cowboys", primaryColor: "#492F24", secondaryColor: "#FFC425", conferenceId: 8 },
+  { id: 95, name: "New Mexico Lobos", shortName: "New Mexico", nickname: "Lobos", primaryColor: "#BA0C2F", secondaryColor: "#63666A", conferenceId: 8 },
+  { id: 96, name: "Air Force Falcons", shortName: "Air Force", nickname: "Falcons", primaryColor: "#0033A0", secondaryColor: "#A5A9AD", conferenceId: 8 },
+  { id: 97, name: "San Jose State Spartans", shortName: "San Jose State", nickname: "Spartans", primaryColor: "#0055A2", secondaryColor: "#E5A823", conferenceId: 8 },
+
+  // Mid-American Conference (MAC) Teams
+  { id: 98, name: "Buffalo Bulls", shortName: "Buffalo", nickname: "Bulls", primaryColor: "#005BBB", secondaryColor: "#FFFFFF", conferenceId: 11 },
+  { id: 99, name: "Akron Zips", shortName: "Akron", nickname: "Zips", primaryColor: "#00285E", secondaryColor: "#84754E", conferenceId: 11 },
+  { id: 100, name: "Toledo Rockets", shortName: "Toledo", nickname: "Rockets", primaryColor: "#00338D", secondaryColor: "#FFCC80", conferenceId: 11 },
+  { id: 101, name: "Kent State Golden Flashes", shortName: "Kent State", nickname: "Golden Flashes", primaryColor: "#002664", secondaryColor: "#EAAB00", conferenceId: 11 },
+  { id: 102, name: "Ohio Bobcats", shortName: "Ohio", nickname: "Bobcats", primaryColor: "#00694E", secondaryColor: "#CDA077", conferenceId: 11 },
+  { id: 103, name: "Ball State Cardinals", shortName: "Ball State", nickname: "Cardinals", primaryColor: "#BA0C2F", secondaryColor: "#FFFFFF", conferenceId: 11 },
+  { id: 104, name: "Bowling Green Falcons", shortName: "Bowling Green", nickname: "Falcons", primaryColor: "#4F2C1D", secondaryColor: "#FF7300", conferenceId: 11 },
+  { id: 105, name: "Miami (OH) RedHawks", shortName: "Miami (OH)", nickname: "RedHawks", primaryColor: "#B61E2E", secondaryColor: "#000000", conferenceId: 11 },
+  { id: 106, name: "Northern Illinois Huskies", shortName: "Northern Illinois", nickname: "Huskies", primaryColor: "#BA0C2F", secondaryColor: "#000000", conferenceId: 11 },
+  { id: 107, name: "Central Michigan Chippewas", shortName: "Central Michigan", nickname: "Chippewas", primaryColor: "#6A0032", secondaryColor: "#FFC82E", conferenceId: 11 },
+  { id: 108, name: "Western Michigan Broncos", shortName: "Western Michigan", nickname: "Broncos", primaryColor: "#6C4023", secondaryColor: "#B59966", conferenceId: 11 },
+  { id: 109, name: "Eastern Michigan Eagles", shortName: "Eastern Michigan", nickname: "Eagles", primaryColor: "#046A38", secondaryColor: "#FFFFFF", conferenceId: 11 },
+
+  // Conference USA (C-USA) Teams
+  { id: 110, name: "UAB Blazers", shortName: "UAB", nickname: "Blazers", primaryColor: "#00594C", secondaryColor: "#F4C300", conferenceId: 12 },
+  { id: 111, name: "Western Kentucky Hilltoppers", shortName: "Western Kentucky", nickname: "Hilltoppers", primaryColor: "#C8102E", secondaryColor: "#FFFFFF", conferenceId: 12 },
+  { id: 112, name: "UTSA Roadrunners", shortName: "UTSA", nickname: "Roadrunners", primaryColor: "#002A5C", secondaryColor: "#E74A25", conferenceId: 12 },
+  { id: 113, name: "North Texas Mean Green", shortName: "North Texas", nickname: "Mean Green", primaryColor: "#00853E", secondaryColor: "#FFFFFF", conferenceId: 12 },
+  { id: 114, name: "Marshall Thundering Herd", shortName: "Marshall", nickname: "Thundering Herd", primaryColor: "#00B140", secondaryColor: "#000000", conferenceId: 12 },
+  { id: 115, name: "Rice Owls", shortName: "Rice", nickname: "Owls", primaryColor: "#00205B", secondaryColor: "#C1C6C8", conferenceId: 12 },
+  { id: 116, name: "Middle Tennessee Blue Raiders", shortName: "Middle Tennessee", nickname: "Blue Raiders", primaryColor: "#0066CC", secondaryColor: "#000000", conferenceId: 12 },
+  { id: 117, name: "Charlotte 49ers", shortName: "Charlotte", nickname: "49ers", primaryColor: "#046A38", secondaryColor: "#B5A268", conferenceId: 12 },
+  { id: 118, name: "Louisiana Tech Bulldogs", shortName: "Louisiana Tech", nickname: "Bulldogs", primaryColor: "#002F8B", secondaryColor: "#E31B23", conferenceId: 12 },
+  { id: 119, name: "UTEP Miners", shortName: "UTEP", nickname: "Miners", primaryColor: "#041E42", secondaryColor: "#FF8200", conferenceId: 12 },
+  { id: 120, name: "Florida Atlantic Owls", shortName: "Florida Atlantic", nickname: "Owls", primaryColor: "#003366", secondaryColor: "#CC0000", conferenceId: 12 },
+  { id: 121, name: "Florida International Panthers", shortName: "FIU", nickname: "Panthers", primaryColor: "#081E3F", secondaryColor: "#B6862C", conferenceId: 12 },
+  { id: 122, name: "Old Dominion Monarchs", shortName: "Old Dominion", nickname: "Monarchs", primaryColor: "#003057", secondaryColor: "#7C878E", conferenceId: 12 },
+  { id: 123, name: "Southern Miss Golden Eagles", shortName: "Southern Miss", nickname: "Golden Eagles", primaryColor: "#000000", secondaryColor: "#FFC637", conferenceId: 12 },
 ];
 
 // Helper function to get regional TV network based on teams and conference regions
@@ -132,9 +188,16 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   
   if (!homeConference || !awayConference) return "Local TV";
   
+  // Random chance to get CW network
+  const isCW = Math.random() < 0.15; // 15% chance for a game to be on CW
+  if (isCW) {
+    return "CW Network";
+  }
+  
   // Logic for determining the appropriate Fox Sports regional network
   const regions = [homeConference.region, awayConference.region];
   
+  // Southeast and South region
   if (regions.includes("Southeast") || regions.includes("South")) {
     if (homeTeam.shortName.includes("Florida") || awayTeam.shortName.includes("Florida") ||
         homeTeam.shortName.includes("Miami") || awayTeam.shortName.includes("Miami")) {
@@ -154,6 +217,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
     }
   }
   
+  // Midwest region
   if (regions.includes("Midwest")) {
     if (homeTeam.shortName.includes("Michigan") || awayTeam.shortName.includes("Michigan")) {
       return "FOX Sports Detroit";
@@ -178,6 +242,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
     }
   }
   
+  // Central region
   if (regions.includes("Central")) {
     if (
       (homeTeam.shortName.includes("Kansas") || awayTeam.shortName.includes("Kansas")) ||
@@ -195,7 +260,68 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
     }
   }
   
-  // Default fallback
+  // West region
+  if (regions.includes("West")) {
+    if (
+      (homeTeam.shortName.includes("Arizona") || awayTeam.shortName.includes("Arizona")) ||
+      (homeTeam.shortName.includes("Utah") || awayTeam.shortName.includes("Utah")) ||
+      (homeTeam.shortName.includes("New Mexico") || awayTeam.shortName.includes("New Mexico"))
+    ) {
+      return "FOX Sports Arizona";
+    } else if (
+      (homeTeam.shortName.includes("Colorado") || awayTeam.shortName.includes("Colorado")) ||
+      (homeTeam.shortName.includes("Wyoming") || awayTeam.shortName.includes("Wyoming"))
+    ) {
+      return "FOX Sports Rocky Mountain";
+    } else if (
+      (homeTeam.shortName.includes("California") || awayTeam.shortName.includes("California")) ||
+      (homeTeam.shortName.includes("UCLA") || awayTeam.shortName.includes("UCLA")) ||
+      (homeTeam.shortName.includes("USC") || awayTeam.shortName.includes("USC")) ||
+      (homeTeam.shortName.includes("Stanford") || awayTeam.shortName.includes("Stanford"))
+    ) {
+      return "FOX Sports West";
+    } else if (
+      (homeTeam.shortName.includes("Washington") || awayTeam.shortName.includes("Washington")) ||
+      (homeTeam.shortName.includes("Oregon") || awayTeam.shortName.includes("Oregon"))
+    ) {
+      return "FOX Sports Northwest";
+    }
+  }
+  
+  // East and Northeast region
+  if (regions.includes("East") || regions.includes("Northeast")) {
+    if (
+      (homeTeam.shortName.includes("New York") || awayTeam.shortName.includes("New York")) ||
+      (homeTeam.shortName.includes("St. John's") || awayTeam.shortName.includes("St. John's"))
+    ) {
+      return "FOX Sports New York";
+    } else if (
+      (homeTeam.shortName.includes("Boston") || awayTeam.shortName.includes("Boston")) ||
+      (homeTeam.shortName.includes("Connecticut") || awayTeam.shortName.includes("Connecticut"))
+    ) {
+      return "FOX Sports New England";
+    } else if (
+      (homeTeam.shortName.includes("Pittsburgh") || awayTeam.shortName.includes("Pittsburgh")) ||
+      (homeTeam.shortName.includes("Penn State") || awayTeam.shortName.includes("Penn State"))
+    ) {
+      return "FOX Sports Pittsburgh";
+    }
+  }
+  
+  // Default fallback based on home team's conference region
+  if (homeConference.region === "Southeast" || homeConference.region === "South") {
+    return "FOX Sports South";
+  } else if (homeConference.region === "Midwest") {
+    return "FOX Sports Midwest";
+  } else if (homeConference.region === "Central") {
+    return "FOX Sports Southwest";
+  } else if (homeConference.region === "West") {
+    return "FOX Sports West";
+  } else if (homeConference.region === "East" || homeConference.region === "Northeast") {
+    return "FOX Sports Atlantic";
+  }
+  
+  // Final fallback
   return "Regional Sports Network";
 }
 

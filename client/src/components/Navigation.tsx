@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Volleyball, Settings, Home, Users, Volume2, VolumeX, Trophy } from "lucide-react";
+import { Settings, Home, Users, Volume2, VolumeX, Trophy } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAudio } from "../lib/stores/useAudio";
 import { useTheme } from "./ui/theme-provider";
 import { Moon, Sun } from "lucide-react";
+import { BasketballIcon } from "./BasketballIcon";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo and brand */}
           <div className="flex items-center">
-            <Volleyball className="h-8 w-8 text-[#FFD700]" />
+            <BasketballIcon className="h-8 w-8" />
             <span className="ml-2 text-xl font-bold">College Hoops Sim</span>
           </div>
 
@@ -42,7 +43,7 @@ export default function Navigation() {
               <Home className="h-4 w-4 mr-1" /> Home
             </NavLink>
             <NavLink to="/game" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`}>
-              <Volleyball className="h-4 w-4 mr-1" /> Play Game
+              <BasketballIcon className="h-4 w-4 mr-1" /> Play Game
             </NavLink>
             <NavLink to="/team-management" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`}>
               <Users className="h-4 w-4 mr-1" /> Teams
@@ -99,7 +100,7 @@ export default function Navigation() {
                 <Home className="h-4 w-4 mr-2" /> Home
               </NavLink>
               <NavLink to="/game" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`} onClick={() => setIsMenuOpen(false)}>
-                <Volleyball className="h-4 w-4 mr-2" /> Play Game
+                <BasketballIcon className="h-4 w-4 mr-2" /> Play Game
               </NavLink>
               <NavLink to="/team-management" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`} onClick={() => setIsMenuOpen(false)}>
                 <Users className="h-4 w-4 mr-2" /> Teams

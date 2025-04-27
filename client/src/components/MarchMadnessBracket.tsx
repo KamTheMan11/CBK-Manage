@@ -427,115 +427,121 @@ export default function MarchMadnessBracket() {
         <BackButton />
       </div>
       
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-        <div className="xl:col-span-3">
-          <button
-            onClick={generateBracket}
-            className="px-4 py-2 bg-[#003087] hover:bg-[#002066] text-white rounded-md mr-4"
-          >
-            Randomize Bracket
-          </button>
-          
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            Current Simulation Round: {
-              currentRound === 1 ? "First Round" :
-              currentRound === 2 ? "Second Round" :
-              currentRound === 3 ? "Sweet 16" :
-              currentRound === 4 ? "Elite 8" :
-              currentRound === 5 ? "Final Four" :
-              "Championship"
-            }
-          </span>
-        </div>
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={generateBracket}
+          className="px-4 py-2 bg-[#003087] hover:bg-[#002066] text-white rounded-md"
+        >
+          Randomize Bracket
+        </button>
         
-        {/* First two regions */}
-        {bracket.slice(0, 2).map((region) => (
-          <Card key={region.name} className="overflow-hidden">
-            <CardContent className="pt-4">
-              <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
-              <div className="grid grid-cols-4 gap-2">
-                {/* First Round (Round of 64) */}
-                <div className="space-y-2">
-                  <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
-                  {region.games.filter(g => g.round === 1).map(renderGame)}
-                </div>
-                
-                {/* Second Round (Round of 32) */}
-                <div className="space-y-2 mt-6">
-                  <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
-                  {region.games.filter(g => g.round === 2).map(renderGame)}
-                </div>
-                
-                {/* Sweet 16 */}
-                <div className="space-y-2 mt-12">
-                  <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
-                  {region.games.filter(g => g.round === 3).map(renderGame)}
-                </div>
-                
-                {/* Elite 8 */}
-                <div className="space-y-2 mt-16">
-                  <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
-                  {region.games.filter(g => g.round === 4).map(renderGame)}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-        
-        {/* Final Four and Championship */}
-        <Card className="overflow-hidden">
-          <CardContent className="pt-4">
-            <h3 className="text-lg font-bold mb-4">Final Four</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <h4 className="text-xs font-semibold text-gray-500">NATIONAL SEMIFINALS</h4>
-                {bracket[4]?.games.filter(g => g.round === 5).map(renderGame)}
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          Current Simulation Round: {
+            currentRound === 1 ? "First Round" :
+            currentRound === 2 ? "Second Round" :
+            currentRound === 3 ? "Sweet 16" :
+            currentRound === 4 ? "Elite 8" :
+            currentRound === 5 ? "Final Four" :
+            "Championship"
+          }
+        </span>
+      </div>
+      
+      <Card className="overflow-hidden">
+        <CardContent className="pt-6">
+          <div className="overflow-x-auto max-h-[75vh]">
+            <div className="w-[2000px] flex flex-col space-y-8">
+              {/* First 2 regions */}
+              <div className="flex space-x-8">
+                {bracket.slice(0, 2).map((region) => (
+                  <div key={region.name} className="w-[900px]">
+                    <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
+                    <div className="grid grid-cols-4 gap-8">
+                      {/* First Round (Round of 64) */}
+                      <div className="space-y-2">
+                        <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
+                        {region.games.filter(g => g.round === 1).map(renderGame)}
+                      </div>
+                      
+                      {/* Second Round (Round of 32) */}
+                      <div className="space-y-2 mt-6">
+                        <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
+                        {region.games.filter(g => g.round === 2).map(renderGame)}
+                      </div>
+                      
+                      {/* Sweet 16 */}
+                      <div className="space-y-2 mt-12">
+                        <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
+                        {region.games.filter(g => g.round === 3).map(renderGame)}
+                      </div>
+                      
+                      {/* Elite 8 */}
+                      <div className="space-y-2 mt-16">
+                        <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
+                        {region.games.filter(g => g.round === 4).map(renderGame)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
               
-              <div className="space-y-2">
-                <h4 className="text-xs font-semibold text-gray-500">NATIONAL CHAMPIONSHIP</h4>
-                <div className="mt-12">
-                  {bracket[4]?.games.filter(g => g.round === 6).map(renderGame)}
+              {/* Final Four */}
+              <div className="w-full">
+                <h3 className="text-lg font-bold mb-4">Final Four</h3>
+                <div className="flex justify-center">
+                  <div className="w-[600px] grid grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-semibold text-gray-500">NATIONAL SEMIFINALS</h4>
+                      {bracket[4]?.games.filter(g => g.round === 5).map(renderGame)}
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-semibold text-gray-500">NATIONAL CHAMPIONSHIP</h4>
+                      <div className="mt-12">
+                        {bracket[4]?.games.filter(g => g.round === 6).map(renderGame)}
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              
+              {/* Last 2 regions */}
+              <div className="flex space-x-8">
+                {bracket.slice(2, 4).map((region) => (
+                  <div key={region.name} className="w-[900px]">
+                    <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
+                    <div className="grid grid-cols-4 gap-8">
+                      {/* First Round (Round of 64) */}
+                      <div className="space-y-2">
+                        <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
+                        {region.games.filter(g => g.round === 1).map(renderGame)}
+                      </div>
+                      
+                      {/* Second Round (Round of 32) */}
+                      <div className="space-y-2 mt-6">
+                        <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
+                        {region.games.filter(g => g.round === 2).map(renderGame)}
+                      </div>
+                      
+                      {/* Sweet 16 */}
+                      <div className="space-y-2 mt-12">
+                        <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
+                        {region.games.filter(g => g.round === 3).map(renderGame)}
+                      </div>
+                      
+                      {/* Elite 8 */}
+                      <div className="space-y-2 mt-16">
+                        <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
+                        {region.games.filter(g => g.round === 4).map(renderGame)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          </CardContent>
-        </Card>
-        
-        {/* Last two regions */}
-        {bracket.slice(2, 4).map((region) => (
-          <Card key={region.name} className="overflow-hidden">
-            <CardContent className="pt-4">
-              <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
-              <div className="grid grid-cols-4 gap-2">
-                {/* First Round (Round of 64) */}
-                <div className="space-y-2">
-                  <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
-                  {region.games.filter(g => g.round === 1).map(renderGame)}
-                </div>
-                
-                {/* Second Round (Round of 32) */}
-                <div className="space-y-2 mt-6">
-                  <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
-                  {region.games.filter(g => g.round === 2).map(renderGame)}
-                </div>
-                
-                {/* Sweet 16 */}
-                <div className="space-y-2 mt-12">
-                  <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
-                  {region.games.filter(g => g.round === 3).map(renderGame)}
-                </div>
-                
-                {/* Elite 8 */}
-                <div className="space-y-2 mt-16">
-                  <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
-                  {region.games.filter(g => g.round === 4).map(renderGame)}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
