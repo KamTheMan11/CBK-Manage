@@ -82,12 +82,23 @@ interface BracketRegion {
   games: BracketGame[];
 }
 
-export default function MarchMadnessBracket() {
+interface MarchMadnessBracketProps {
+  onRoundChange?: (round: number) => void;
+}
+
+export default function MarchMadnessBracket({ onRoundChange }: MarchMadnessBracketProps) {
   const [bracket, setBracket] = useState<BracketRegion[]>([]);
   const [currentRound, setCurrentRound] = useState(1);
   const [regionCities, setRegionCities] = useState<{[key: string]: {city: string, state: string}}>({}); // Cities for each region
   const ncaaLogoUrl = "/images/ncaa-logo.png";
   const ncaaBasketballLogoUrl = "/images/ncaa-basketball-logo.png";
+  
+  // Notify parent component when round changes
+  useEffect(() => {
+    if (onRoundChange) {
+      onRoundChange(currentRound);
+    }
+  }, [currentRound, onRoundChange]);
   const marchMadnessLogoUrl = "/images/march-madness-logo.png";
   
   useEffect(() => {
@@ -330,17 +341,20 @@ export default function MarchMadnessBracket() {
     }, 500);
   };
   
-  const simulateNextRound = (bracketData: BracketRegion[], round: number) => {
+  const simulateNextRound = (bracketData: BracketRegion[], nextRound: number) => {
     const newBracket = [...bracketData];
+    
+    // Update current round
+    setCurrentRound(nextRound);
     
     newBracket.forEach((region, regionIndex) => {
       if (region.name === "Final Four") {
-        if (round === 5 || round === 6) {
+        if (nextRound === 5 || nextRound === 6) {
           // Handle Final Four and Championship games
           const finalFourGames = region.games.filter(g => g.round === 5);
           const championshipGame = region.games.find(g => g.round === 6);
           
-          if (round === 5) {
+          if (nextRound === 5) {
             // Set up Final Four matchups from Elite 8 winners
             const eliteEightWinners = newBracket
               .filter(r => r.name !== "Final Four")
@@ -388,7 +402,7 @@ export default function MarchMadnessBracket() {
                   finalFourGames[0].team1.id : finalFourGames[0].team2.id;
               }
             }
-          } else if (round === 6) {
+          } else if (nextRound === 6) {
             // Set up Championship game
             if (finalFourGames[0].winner && finalFourGames[1].team1 && finalFourGames[1].team2) {
               const finalist1 = collegeTeams.find(t => t.id === finalFourGames[0].winner);
@@ -426,8 +440,8 @@ export default function MarchMadnessBracket() {
       }
       
       // For regular regions (East, West, South, Midwest)
-      const prevRoundGames = region.games.filter(g => g.round === round - 1);
-      const currentRoundGames = region.games.filter(g => g.round === round);
+      const prevRoundGames = region.games.filter(g => g.round === nextRound - 1);
+      const currentRoundGames = region.games.filter(g => g.round === nextRound);
       
       for (let i = 0; i < currentRoundGames.length; i++) {
         const game1Index = i * 2;
