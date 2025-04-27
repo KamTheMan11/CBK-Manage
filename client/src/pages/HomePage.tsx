@@ -338,7 +338,9 @@ export default function HomePage() {
       
       {/* ESPN-style ticker at the bottom */}
       <div className="espn-ticker">
-        <div className="espn-ticker-logo">ESPN</div>
+        <div className="espn-ticker-logo">
+          <img src="/assets/logos/espn.png" alt="ESPN" className="h-full w-full object-contain" />
+        </div>
         <div className="espn-ticker-content" style={{ paddingLeft: "80px" }}>
           {tickerData.map((game, index) => (
             <TickerItem 

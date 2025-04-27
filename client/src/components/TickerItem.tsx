@@ -41,6 +41,9 @@ export const TickerItem: React.FC<TickerGameProps> = ({
       return `1st Half • ${getRandomTime('1st Half')}`;
     } else if (status === '2nd Half') {
       return `2nd Half • ${getRandomTime('2nd Half')}`;
+    } else if (status.includes('PM')) {
+      // Add ET to time displays that include PM
+      return status.replace('PM', 'PM ET');
     } else {
       return status;
     }

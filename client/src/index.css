@@ -69,14 +69,16 @@
 }
 
 .espn-ticker-logo {
-  background-color: #ff0000;
+  background-color: #000000;
   color: white;
-  padding: 0 10px;
+  padding: 6px 10px;
   font-weight: bold;
   letter-spacing: 1px;
   height: 100%;
+  width: 80px;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: absolute;
   left: 0;
   z-index: 1;
