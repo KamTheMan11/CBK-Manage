@@ -145,14 +145,6 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     // Select 8 teams for First Four (4 lowest at-large and 4 lowest auto-bids)
     const firstFourTeams = remainingTeams.slice(-8).sort(() => Math.random() - 0.5);
     
-    // Filter teams by major conferences and rankings
-    const majorConfTeams = rankedTeams.filter(team => 
-      [1, 2, 3, 4, 5, 6].includes(team.conferenceId) // ACC, SEC, Big Ten, Big 12, Big East, American
-    );
-    const otherTeams = rankedTeams.filter(team => 
-      ![1, 2, 3, 4, 5, 6].includes(team.conferenceId)
-    );
-
     // Remaining teams for main bracket
     const shuffledTeams = [
       ...majorConfTeams.sort(() => Math.random() - 0.5).slice(0, 16), // Top 16 teams (1-4 seeds)
