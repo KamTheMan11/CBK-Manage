@@ -153,55 +153,45 @@ export default function MarchMadnessBracket() {
           
         if (!team1 || !team2) return; // Skip if we can't find matching seeds
         
-        // For some games, fill in scores to show completed games
-        const completed = Math.random() > 0.5;
+        // Always create completed games for March Madness
+        // Higher seeds more likely to win (but upsets still possible)
+        const seedDifference = Math.abs(matchup[0] - matchup[1]);
+        const upsetChance = seedDifference > 10 ? 0.05 : seedDifference > 5 ? 0.25 : 0.4;
+        const higherSeedWins = Math.random() > upsetChance;
+        
+        // Generate scores with at least 50 points for each team in finals
+        let team1Score = Math.floor(Math.random() * 30) + 50; // 50-79
+        let team2Score = Math.floor(Math.random() * 30) + 50; // 50-79
         let winner = null;
         
-        if (completed) {
-          // Higher seeds more likely to win (but upsets still possible)
-          const seedDifference = Math.abs(matchup[0] - matchup[1]);
-          const upsetChance = seedDifference > 10 ? 0.05 : seedDifference > 5 ? 0.25 : 0.4;
-          const higherSeedWins = Math.random() > upsetChance;
-          
-          let team1Score = Math.floor(Math.random() * 20) + 60; // 60-79
-          let team2Score = Math.floor(Math.random() * 20) + 60; // 60-79
-          
-          // Adjust scores to match the winner
-          if (higherSeedWins && team1.seed < team2.seed) {
-            // Team 1 wins (higher seed)
-            if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
-            winner = team1.id;
-          } else if (higherSeedWins && team2.seed < team1.seed) {
-            // Team 2 wins (higher seed)
-            if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
-            winner = team2.id;
-          } else if (!higherSeedWins && team1.seed < team2.seed) {
-            // Upset: Team 2 wins
-            if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
-            winner = team2.id;
-          } else {
-            // Upset: Team 1 wins
-            if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
-            winner = team1.id;
-          }
-          
-          regionGames.push({
-            id: regionIndex * 100 + i,
-            round: 1,
-            region,
-            team1: { ...team1, score: team1Score },
-            team2: { ...team2, score: team2Score },
-            winner
-          });
+        // Adjust scores to match the winner
+        if (higherSeedWins && team1.seed < team2.seed) {
+          // Team 1 wins (higher seed)
+          if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
+          winner = team1.id;
+        } else if (higherSeedWins && team2.seed < team1.seed) {
+          // Team 2 wins (higher seed)
+          if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
+          winner = team2.id;
+        } else if (!higherSeedWins && team1.seed < team2.seed) {
+          // Upset: Team 2 wins
+          if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
+          winner = team2.id;
         } else {
-          regionGames.push({
-            id: regionIndex * 100 + i,
-            round: 1,
-            region,
-            team1,
-            team2
-          });
+          // Upset: Team 1 wins
+          if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
+          winner = team1.id;
         }
+        
+        // Add the game to the region games
+        regionGames.push({
+          id: regionIndex * 100 + i,
+          round: 1,
+          region,
+          team1: { ...team1, score: team1Score },
+          team2: { ...team2, score: team2Score },
+          winner
+        });
       });
       
       // Second round games (Round of 32)
@@ -314,19 +304,17 @@ export default function MarchMadnessBracket() {
                 seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
               };
               
-              // Randomly decide if this game has completed
-              if (Math.random() > 0.7) {
-                nextRoundGame.team1.score = Math.floor(Math.random() * 20) + 60;
-                nextRoundGame.team2.score = Math.floor(Math.random() * 20) + 60;
-                
-                if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
-                  nextRoundGame.team1.score += 2; // Avoid ties
-                }
-                
-                nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
-                  ? nextRoundGame.team1.id 
-                  : nextRoundGame.team2.id;
+              // All games should be completed with 50+ points for each team
+              nextRoundGame.team1.score = Math.floor(Math.random() * 30) + 50; // 50-79
+              nextRoundGame.team2.score = Math.floor(Math.random() * 30) + 50; // 50-79
+              
+              if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
+                nextRoundGame.team1.score += 2; // Avoid ties
               }
+              
+              nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
+                ? nextRoundGame.team1.id 
+                : nextRoundGame.team2.id;
             }
           }
         }
@@ -389,10 +377,10 @@ export default function MarchMadnessBracket() {
                 seed: Math.floor(Math.random() * 8) + 1
               } : null;
               
-              // Random winner for 1st Final Four game
+              // Random winner for 1st Final Four game with 50+ points for each team
               if (finalFourGames[0].team1 && finalFourGames[0].team2) {
-                const score1 = Math.floor(Math.random() * 20) + 65;
-                const score2 = Math.floor(Math.random() * 20) + 65;
+                const score1 = Math.floor(Math.random() * 30) + 50; // 50-79
+                const score2 = Math.floor(Math.random() * 30) + 50; // 50-79
                 
                 finalFourGames[0].team1.score = score1;
                 finalFourGames[0].team2.score = score2;
@@ -469,17 +457,17 @@ export default function MarchMadnessBracket() {
               // Determine if this game has already been played
               const roundCompleted = Math.random() > (round === 4 ? 0.8 : 0.4); // Less likely for Elite 8 games
               
-              if (roundCompleted) {
-                nextRoundGame.team1.score = Math.floor(Math.random() * 20) + 60;
-                nextRoundGame.team2.score = Math.floor(Math.random() * 20) + 60;
-                
-                if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
-                  nextRoundGame.team1.score += 2; // Avoid ties
-                }
-                
-                nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
-                  ? nextRoundGame.team1.id 
-                  : nextRoundGame.team2.id;
+              // All games should have 50+ points for each team
+              nextRoundGame.team1.score = Math.floor(Math.random() * 30) + 50; // 50-79
+              nextRoundGame.team2.score = Math.floor(Math.random() * 30) + 50; // 50-79
+              
+              if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
+                nextRoundGame.team1.score += 2; // Avoid ties
+              }
+              
+              nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
+                ? nextRoundGame.team1.id 
+                : nextRoundGame.team2.id;
               }
             }
           }
