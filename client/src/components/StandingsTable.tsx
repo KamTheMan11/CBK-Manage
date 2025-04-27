@@ -1,3 +1,4 @@
+
 import { Team } from "../lib/types";
 import { useTeams } from "../lib/stores/useTeams";
 import { conferences } from "../lib/data/conferences";
@@ -11,7 +12,7 @@ export default function StandingsTable() {
   const teamsByConference = conferences.map(conference => {
     const teamsInConference = teams.filter(team => team.conferenceId === conference.id);
     
-    // Sort teams by win percentage (assuming wins and losses are tracked)
+    // Sort teams by win percentage
     const sortedTeams = teamsInConference.sort((a, b) => {
       const aWinPct = a.wins ? a.wins / (a.wins + a.losses) : 0;
       const bWinPct = b.wins ? b.wins / (b.wins + b.losses) : 0;
@@ -76,32 +77,19 @@ export default function StandingsTable() {
                           <div 
                             className="w-3 h-3 rounded-full mr-2"
                             style={{ backgroundColor: team.primaryColor }}
-                          ></div>
-                          {team.name}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-center">{team.wins}</TableCell>
-                      <TableCell className="text-center">{team.losses}</TableCell>
-                      <TableCell className="text-center">{calculateWinPct(team)}</TableCell>
-                      <TableCell className="text-center hidden md:table-cell">
-                        {team.homeWins}-{team.homeLosses}
-                      </TableCell>
-                      <TableCell className="text-center hidden md:table-cell">
-                        {team.awayWins}-{team.awayLosses}
-                      </TableCell>
-                      <TableCell className="text-center hidden lg:table-cell">
-                        {team.streak > 0 ? `W${team.streak}` : team.streak < 0 ? `L${Math.abs(team.streak)}` : '-'}
-                      </TableCell>
-                            style={{ backgroundColor: team.primaryColor }}
-                          ></div>
+                          />
                           <span>{team.name}</span>
                         </div>
                       </TableCell>
                       <TableCell className="text-center">{team.wins || 0}</TableCell>
                       <TableCell className="text-center">{team.losses || 0}</TableCell>
                       <TableCell className="text-center">{calculateWinPct(team)}</TableCell>
-                      <TableCell className="text-center hidden md:table-cell">{team.homeWins || 0}-{team.homeLosses || 0}</TableCell>
-                      <TableCell className="text-center hidden md:table-cell">{team.awayWins || 0}-{team.awayLosses || 0}</TableCell>
+                      <TableCell className="text-center hidden md:table-cell">
+                        {team.homeWins || 0}-{team.homeLosses || 0}
+                      </TableCell>
+                      <TableCell className="text-center hidden md:table-cell">
+                        {team.awayWins || 0}-{team.awayLosses || 0}
+                      </TableCell>
                       <TableCell className="text-center hidden lg:table-cell">
                         <span className={team.streak > 0 ? 'text-green-600' : 'text-red-600'}>
                           {team.streak > 0 ? 'W' : team.streak < 0 ? 'L' : '-'}
