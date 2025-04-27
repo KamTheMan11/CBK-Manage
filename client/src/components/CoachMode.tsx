@@ -31,17 +31,15 @@ export default function CoachMode() {
     let newSchedule: GameSchedule[] = [];
     
     // Generate 20 conference games (10 home, 10 away)
-    const confGameCount = 20;
-    const gamesPerTeam = confGameCount / 2;
+    const confOpponents = [...confTeams];
+    let homeGames = 10;
+    let awayGames = 10;
     
-    // Shuffle conference teams
-    const shuffledConfTeams = [...confTeams].sort(() => Math.random() - 0.5);
-    
-    // Generate home and away games
-    for (let i = 0; i < gamesPerTeam; i++) {
-      const opponent = shuffledConfTeams[i];
-      if (opponent) {
-        // Home game
+    while (homeGames > 0 || awayGames > 0) {
+      const opponent = confOpponents[Math.floor(Math.random() * confOpponents.length)];
+      const isHome = homeGames > 0 && (awayGames === 0 || Math.random() < 0.5);
+      
+      if (isHome && homeGames > 0) {
         newSchedule.push({
           week: 0,
           homeTeam: team,
@@ -49,8 +47,8 @@ export default function CoachMode() {
           isConference: true,
           completed: false
         });
-        
-        // Away game
+        homeGames--;
+      } else if (!isHome && awayGames > 0) {
         newSchedule.push({
           week: 0,
           homeTeam: opponent,
@@ -58,6 +56,19 @@ export default function CoachMode() {
           isConference: true,
           completed: false
         });
+        awayGames--;
+      }
+      
+      // Remove opponent if we've used them twice
+      const opponentGames = newSchedule.filter(g => 
+        g.isConference && (g.homeTeam.id === opponent.id || g.awayTeam.id === opponent.id)
+      ).length;
+      
+      if (opponentGames >= 2) {
+        const index = confOpponents.findIndex(t => t.id === opponent.id);
+        if (index !== -1) {
+          confOpponents.splice(index, 1);
+        }
       }
     }
 
@@ -151,8 +162,45 @@ export default function CoachMode() {
             <CardTitle>Select Your Team</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {teams.map(team => (
+            <select 
+              className="w-full mb-4 p-2 rounded border dark:bg-gray-800 dark:border-gray-700"
+              onChange={(e) => {
+                const select = document.getElementById('teamGrid');
+                if (select) {
+                  select.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                  });
+                }
+                const conf = parseInt(e.target.value);
+                const grid = document.getElementById('teamGrid');
+                if (grid) {
+                  grid.dataset.conference = conf.toString();
+                }
+              }}
+            >
+              <option value="0">All Conferences</option>
+              {conferences.map(conf => (
+                <option key={conf.id} value={conf.id}>
+                  {conf.name}
+                </option>
+              ))}
+            </select>
+            <div id="teamGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto">
+              {teams
+                .sort((a, b) => {
+                  const confCompare = a.conferenceId - b.conferenceId;
+                  if (confCompare === 0) {
+                    return a.name.localeCompare(b.name);
+                  }
+                  return confCompare;
+                })
+                .filter(team => {
+                  const grid = document.getElementById('teamGrid');
+                  const conf = grid?.dataset.conference ? parseInt(grid.dataset.conference) : 0;
+                  return conf === 0 || team.conferenceId === conf;
+                })
+                .map(team => (
                 <Button
                   key={team.id}
                   onClick={() => startNewSeason(team)}
