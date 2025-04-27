@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -13,7 +14,6 @@ interface GameSchedule {
   completed: boolean;
   homeScore?: number;
   awayScore?: number;
-  isTournament?: boolean;
 }
 
 export default function CoachMode() {
@@ -27,16 +27,16 @@ export default function CoachMode() {
     const otherTeams = teams.filter(t => t.id !== team.id);
     const confTeams = otherTeams.filter(t => t.conferenceId === team.conferenceId);
     const nonConfTeams = otherTeams.filter(t => t.conferenceId !== team.conferenceId);
-
+    
     let newSchedule: GameSchedule[] = [];
-
+    
     // Generate 20 conference games (10 home, 10 away)
     const confGameCount = 20;
     const gamesPerTeam = confGameCount / 2;
-
+    
     // Shuffle conference teams
     const shuffledConfTeams = [...confTeams].sort(() => Math.random() - 0.5);
-
+    
     // Generate home and away games
     for (let i = 0; i < gamesPerTeam; i++) {
       const opponent = shuffledConfTeams[i];
@@ -49,7 +49,7 @@ export default function CoachMode() {
           isConference: true,
           completed: false
         });
-
+        
         // Away game
         newSchedule.push({
           week: 0,
@@ -59,6 +59,20 @@ export default function CoachMode() {
           completed: false
         });
       }
+    }
+
+    // Generate 10 non-conference games
+    for (let i = 0; i < 10; i++) {
+      const opponent = nonConfTeams[Math.floor(Math.random() * nonConfTeams.length)];
+      const isHome = Math.random() > 0.5;
+      
+      newSchedule.push({
+        week: 0,
+        homeTeam: isHome ? team : opponent,
+        awayTeam: isHome ? opponent : team,
+        isConference: false,
+        completed: false
+      });
     }
 
     // Shuffle and assign weeks
@@ -80,7 +94,7 @@ export default function CoachMode() {
   const advanceWeek = () => {
     const updatedSchedule = [...schedule];
     const weekGames = updatedSchedule.filter(game => game.week === currentWeek);
-
+    
     weekGames.forEach(game => {
       const scores = simulateGame();
       game.homeScore = scores.homeScore;
@@ -127,47 +141,6 @@ export default function CoachMode() {
     setCurrentWeek(1);
     setRecord({ wins: 0, losses: 0, confWins: 0, confLosses: 0 });
     generateSchedule(team);
-  };
-
-  const startConferenceTournament = () => {
-    const confTeams = teams
-      .filter(t => t.conferenceId === selectedTeam?.conferenceId)
-      .sort((a, b) => {
-        const aRecord = schedule
-          .filter(g => g.completed && g.isConference && (g.homeTeam.id === a.id || g.awayTeam.id === a.id))
-          .reduce((acc, game) => {
-            const isHome = game.homeTeam.id === a.id;
-            const won = isHome ? (game.homeScore! > game.awayScore!) : (game.awayScore! > game.homeScore!);
-            return { wins: acc.wins + (won ? 1 : 0), losses: acc.losses + (won ? 0 : 1) };
-          }, { wins: 0, losses: 0 });
-
-        const bRecord = schedule
-          .filter(g => g.completed && g.isConference && (g.homeTeam.id === b.id || g.awayTeam.id === b.id))
-          .reduce((acc, game) => {
-            const isHome = game.homeTeam.id === b.id;
-            const won = isHome ? (game.homeScore! > game.awayScore!) : (game.awayScore! > game.homeScore!);
-            return { wins: acc.wins + (won ? 1 : 0), losses: acc.losses + (won ? 0 : 1) };
-          }, { wins: 0, losses: 0 });
-
-        return bRecord.wins - aRecord.wins;
-      })
-      .slice(0, 8);
-
-    // Generate conference tournament matchups (1v8, 4v5, 3v6, 2v7)
-    const tournamentGames = [
-      { homeTeam: confTeams[0], awayTeam: confTeams[7] },
-      { homeTeam: confTeams[3], awayTeam: confTeams[4] },
-      { homeTeam: confTeams[2], awayTeam: confTeams[5] },
-      { homeTeam: confTeams[1], awayTeam: confTeams[6] }
-    ].map(game => ({
-      ...game,
-      week: currentWeek,
-      isConference: true,
-      completed: false,
-      isTournament: true
-    }));
-
-    setSchedule([...schedule, ...tournamentGames]);
   };
 
   return (
@@ -269,7 +242,7 @@ export default function CoachMode() {
                           losses: acc.losses + (won ? 0 : 1)
                         };
                       }, { wins: 0, losses: 0 });
-
+                    
                     const bRecord = schedule
                       .filter(g => g.completed && g.isConference && (g.homeTeam.id === b.id || g.awayTeam.id === b.id))
                       .reduce((acc, game) => {
@@ -280,7 +253,7 @@ export default function CoachMode() {
                           losses: acc.losses + (won ? 0 : 1)
                         };
                       }, { wins: 0, losses: 0 });
-
+                    
                     return bRecord.wins - aRecord.wins;
                   })
                   .map(team => {
@@ -294,7 +267,7 @@ export default function CoachMode() {
                           losses: acc.losses + (won ? 0 : 1)
                         };
                       }, { wins: 0, losses: 0 });
-
+                    
                     return (
                       <div 
                         key={team.id} 
@@ -314,7 +287,7 @@ export default function CoachMode() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Trophy className="h-6 w-6" />
-                  Season Complete - Conference Tournament Begins!
+                  Season Complete
                 </CardTitle>
               </CardHeader>
               <CardContent>
