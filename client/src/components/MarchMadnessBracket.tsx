@@ -173,9 +173,14 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         if (!team1 || !team2) return; // Skip if we can't find matching seeds
         
         // Always create completed games for March Madness
-        // Higher seeds more likely to win (but upsets still possible)
-        const seedDifference = Math.abs(matchup[0] - matchup[1]);
-        const upsetChance = seedDifference > 10 ? 0.15 : seedDifference > 5 ? 0.35 : 0.45;
+        // 30% chance for upsets, limited to 5 per region
+        const upsetCount = regionGames.filter(g => 
+          g.winner && g.team1 && g.team2 && 
+          ((g.team1.seed < g.team2.seed && g.winner === g.team2.id) ||
+           (g.team2.seed < g.team1.seed && g.winner === g.team1.id))
+        ).length;
+        
+        const upsetChance = upsetCount >= 5 ? 0 : 0.3;
         const higherSeedWins = Math.random() > upsetChance;
         
         // Generate scores with at least 50 points for each team in finals
