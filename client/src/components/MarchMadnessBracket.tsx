@@ -1,0 +1,541 @@
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from './ui/card';
+import { collegeTeams } from '../lib/data/collegeTeams';
+import BackButton from './BackButton';
+
+interface BracketTeam {
+  id: number;
+  seed: number;
+  name: string;
+  score?: number;
+}
+
+interface BracketGame {
+  id: number;
+  round: number;
+  region: string;
+  team1: BracketTeam | null;
+  team2: BracketTeam | null;
+  winner?: number; // ID of winning team
+}
+
+interface BracketRegion {
+  name: string;
+  games: BracketGame[];
+}
+
+export default function MarchMadnessBracket() {
+  const [bracket, setBracket] = useState<BracketRegion[]>([]);
+  const [currentRound, setCurrentRound] = useState(1);
+  
+  useEffect(() => {
+    // Generate a randomized bracket when component loads
+    generateBracket();
+  }, []);
+  
+  const generateBracket = () => {
+    // Regions of the NCAA tournament
+    const regions = ["East", "West", "South", "Midwest"];
+    
+    // Shuffle teams to randomize the bracket
+    const shuffledTeams = [...collegeTeams]
+      .sort(() => Math.random() - 0.5)
+      .map((team, index) => ({
+        id: team.id,
+        name: team.shortName,
+        primaryColor: team.primaryColor,
+        seed: (index % 16) + 1 // Assign seeds 1-16 in each region
+      }));
+    
+    const bracketData: BracketRegion[] = [];
+    
+    // Create four regions with 8 games each in the first round
+    regions.forEach((region, regionIndex) => {
+      const regionGames: BracketGame[] = [];
+      
+      // First round games (Round of 64)
+      for (let i = 0; i < 8; i++) {
+        const teamIndex = regionIndex * 16 + i;
+        const team1 = shuffledTeams[teamIndex];
+        const team2 = shuffledTeams[regionIndex * 16 + 15 - i]; // Opposite seed
+        
+        // For some games, fill in scores to show completed games
+        const completed = Math.random() > 0.5;
+        let winner = null;
+        
+        if (completed) {
+          const team1Score = Math.floor(Math.random() * 20) + 60; // 60-79
+          const team2Score = Math.floor(Math.random() * 20) + 60; // 60-79
+          
+          winner = team1Score > team2Score ? team1.id : team2.id;
+          
+          regionGames.push({
+            id: regionIndex * 100 + i,
+            round: 1,
+            region,
+            team1: { ...team1, score: team1Score },
+            team2: { ...team2, score: team2Score },
+            winner
+          });
+        } else {
+          regionGames.push({
+            id: regionIndex * 100 + i,
+            round: 1,
+            region,
+            team1,
+            team2
+          });
+        }
+      }
+      
+      // Second round games (Round of 32)
+      for (let i = 0; i < 4; i++) {
+        regionGames.push({
+          id: regionIndex * 100 + 8 + i,
+          round: 2,
+          region,
+          team1: null,
+          team2: null
+        });
+      }
+      
+      // Sweet 16 games
+      for (let i = 0; i < 2; i++) {
+        regionGames.push({
+          id: regionIndex * 100 + 12 + i,
+          round: 3,
+          region,
+          team1: null,
+          team2: null
+        });
+      }
+      
+      // Elite 8 game
+      regionGames.push({
+        id: regionIndex * 100 + 14,
+        round: 4,
+        region,
+        team1: null,
+        team2: null
+      });
+      
+      bracketData.push({
+        name: region,
+        games: regionGames
+      });
+    }
+    
+    // Final Four games
+    const finalFour: BracketRegion = {
+      name: "Final Four",
+      games: [
+        {
+          id: 401,
+          round: 5,
+          region: "Final Four",
+          team1: null,
+          team2: null
+        },
+        {
+          id: 402,
+          round: 5,
+          region: "Final Four",
+          team1: null,
+          team2: null
+        },
+        {
+          id: 403,
+          round: 6,
+          region: "Championship",
+          team1: null,
+          team2: null
+        }
+      ]
+    };
+    
+    bracketData.push(finalFour);
+    setBracket(bracketData);
+    
+    // Simulate the bracket by filling in winners from first round games
+    simulateBracket(bracketData);
+  };
+  
+  const simulateBracket = (bracketData: BracketRegion[]) => {
+    // This would be called after generating a new bracket to fill in some results
+    // For simplicity, we'll randomly advance some teams to later rounds
+    
+    // We'll update the bracket in stages to simulate tournament progression
+    setTimeout(() => {
+      // Simulate Round of 32 games (some of them)
+      const newBracket = [...bracketData];
+      
+      newBracket.forEach((region, regionIndex) => {
+        if (region.name === "Final Four") return;
+        
+        // Process first round games to fill in second round matchups
+        const firstRoundGames = region.games.filter(g => g.round === 1);
+        const secondRoundGames = region.games.filter(g => g.round === 2);
+        
+        // Only fill in games where both first round games have been completed
+        for (let i = 0; i < 4; i++) {
+          const game1 = firstRoundGames[i * 2];
+          const game2 = firstRoundGames[i * 2 + 1];
+          
+          if (game1.winner && game2.winner) {
+            const team1 = collegeTeams.find(t => t.id === game1.winner);
+            const team2 = collegeTeams.find(t => t.id === game2.winner);
+            
+            if (team1 && team2) {
+              const nextRoundGame = secondRoundGames[i];
+              nextRoundGame.team1 = {
+                id: team1.id,
+                name: team1.shortName,
+                seed: game1.team1?.id === team1.id ? game1.team1.seed : game1.team2!.seed
+              };
+              nextRoundGame.team2 = {
+                id: team2.id,
+                name: team2.shortName,
+                seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
+              };
+              
+              // Randomly decide if this game has completed
+              if (Math.random() > 0.7) {
+                nextRoundGame.team1.score = Math.floor(Math.random() * 20) + 60;
+                nextRoundGame.team2.score = Math.floor(Math.random() * 20) + 60;
+                
+                if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
+                  nextRoundGame.team1.score += 2; // Avoid ties
+                }
+                
+                nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
+                  ? nextRoundGame.team1.id 
+                  : nextRoundGame.team2.id;
+              }
+            }
+          }
+        }
+      });
+      
+      setBracket(newBracket);
+      setCurrentRound(2);
+      
+      // Continue to Sweet 16
+      setTimeout(() => {
+        simulateNextRound(newBracket, 3);
+      }, 500);
+    }, 500);
+  };
+  
+  const simulateNextRound = (bracketData: BracketRegion[], round: number) => {
+    const newBracket = [...bracketData];
+    
+    newBracket.forEach((region, regionIndex) => {
+      if (region.name === "Final Four") {
+        if (round === 5 || round === 6) {
+          // Handle Final Four and Championship games
+          const finalFourGames = region.games.filter(g => g.round === 5);
+          const championshipGame = region.games.find(g => g.round === 6);
+          
+          if (round === 5) {
+            // Set up Final Four matchups from Elite 8 winners
+            const eliteEightWinners = newBracket
+              .filter(r => r.name !== "Final Four")
+              .map(r => {
+                const eliteEightGame = r.games.find(g => g.round === 4);
+                return eliteEightGame?.winner ? 
+                  collegeTeams.find(t => t.id === eliteEightGame.winner) : null;
+              })
+              .filter(t => t !== null);
+            
+            if (eliteEightWinners.length >= 4) {
+              // East vs West, South vs Midwest
+              finalFourGames[0].team1 = eliteEightWinners[0] ? {
+                id: eliteEightWinners[0]!.id,
+                name: eliteEightWinners[0]!.shortName,
+                seed: Math.floor(Math.random() * 8) + 1 // Just for display purposes
+              } : null;
+              
+              finalFourGames[0].team2 = eliteEightWinners[1] ? {
+                id: eliteEightWinners[1]!.id,
+                name: eliteEightWinners[1]!.shortName,
+                seed: Math.floor(Math.random() * 8) + 1
+              } : null;
+              
+              finalFourGames[1].team1 = eliteEightWinners[2] ? {
+                id: eliteEightWinners[2]!.id,
+                name: eliteEightWinners[2]!.shortName,
+                seed: Math.floor(Math.random() * 8) + 1
+              } : null;
+              
+              finalFourGames[1].team2 = eliteEightWinners[3] ? {
+                id: eliteEightWinners[3]!.id,
+                name: eliteEightWinners[3]!.shortName,
+                seed: Math.floor(Math.random() * 8) + 1
+              } : null;
+              
+              // Random winner for 1st Final Four game
+              if (finalFourGames[0].team1 && finalFourGames[0].team2) {
+                const score1 = Math.floor(Math.random() * 20) + 65;
+                const score2 = Math.floor(Math.random() * 20) + 65;
+                
+                finalFourGames[0].team1.score = score1;
+                finalFourGames[0].team2.score = score2;
+                finalFourGames[0].winner = score1 > score2 ? 
+                  finalFourGames[0].team1.id : finalFourGames[0].team2.id;
+              }
+            }
+          } else if (round === 6) {
+            // Set up Championship game
+            if (finalFourGames[0].winner && finalFourGames[1].team1 && finalFourGames[1].team2) {
+              const finalist1 = collegeTeams.find(t => t.id === finalFourGames[0].winner);
+              
+              // Random winner for 2nd Final Four game
+              const score1 = Math.floor(Math.random() * 20) + 65;
+              const score2 = Math.floor(Math.random() * 20) + 65;
+              
+              finalFourGames[1].team1.score = score1;
+              finalFourGames[1].team2.score = score2;
+              finalFourGames[1].winner = score1 > score2 ? 
+                finalFourGames[1].team1.id : finalFourGames[1].team2.id;
+              
+              const finalist2 = collegeTeams.find(t => t.id === finalFourGames[1].winner);
+              
+              if (finalist1 && finalist2 && championshipGame) {
+                championshipGame.team1 = {
+                  id: finalist1.id,
+                  name: finalist1.shortName,
+                  seed: Math.floor(Math.random() * 5) + 1
+                };
+                
+                championshipGame.team2 = {
+                  id: finalist2.id,
+                  name: finalist2.shortName,
+                  seed: Math.floor(Math.random() * 5) + 1
+                };
+                
+                // Championship game is still to be played
+              }
+            }
+          }
+        }
+        return;
+      }
+      
+      // For regular regions (East, West, South, Midwest)
+      const prevRoundGames = region.games.filter(g => g.round === round - 1);
+      const currentRoundGames = region.games.filter(g => g.round === round);
+      
+      for (let i = 0; i < currentRoundGames.length; i++) {
+        const game1Index = i * 2;
+        const game2Index = i * 2 + 1;
+        
+        if (game1Index < prevRoundGames.length && game2Index < prevRoundGames.length) {
+          const game1 = prevRoundGames[game1Index];
+          const game2 = prevRoundGames[game2Index];
+          
+          if (game1.winner && game2.winner) {
+            const team1 = collegeTeams.find(t => t.id === game1.winner);
+            const team2 = collegeTeams.find(t => t.id === game2.winner);
+            
+            if (team1 && team2) {
+              const nextRoundGame = currentRoundGames[i];
+              nextRoundGame.team1 = {
+                id: team1.id,
+                name: team1.shortName,
+                seed: game1.team1?.id === team1.id ? game1.team1.seed : game1.team2!.seed
+              };
+              nextRoundGame.team2 = {
+                id: team2.id,
+                name: team2.shortName,
+                seed: game2.team1?.id === team2.id ? game2.team1.seed : game2.team2!.seed
+              };
+              
+              // Determine if this game has already been played
+              const roundCompleted = Math.random() > (round === 4 ? 0.8 : 0.4); // Less likely for Elite 8 games
+              
+              if (roundCompleted) {
+                nextRoundGame.team1.score = Math.floor(Math.random() * 20) + 60;
+                nextRoundGame.team2.score = Math.floor(Math.random() * 20) + 60;
+                
+                if (nextRoundGame.team1.score === nextRoundGame.team2.score) {
+                  nextRoundGame.team1.score += 2; // Avoid ties
+                }
+                
+                nextRoundGame.winner = nextRoundGame.team1.score! > nextRoundGame.team2.score! 
+                  ? nextRoundGame.team1.id 
+                  : nextRoundGame.team2.id;
+              }
+            }
+          }
+        }
+      }
+    });
+    
+    setBracket(newBracket);
+    setCurrentRound(round);
+    
+    // Continue to next round if needed
+    if (round < 6) {
+      setTimeout(() => {
+        simulateNextRound(newBracket, round + 1);
+      }, 500);
+    }
+  };
+  
+  const renderGame = (game: BracketGame) => {
+    const gameCompleted = game.winner !== undefined;
+    
+    return (
+      <div 
+        key={game.id} 
+        className="bracket-game bg-white dark:bg-gray-800 p-2 rounded-md shadow mb-2 text-sm"
+      >
+        <div className={`team ${gameCompleted && game.team1 && game.winner === game.team1.id ? 'font-bold' : ''}`}>
+          {game.team1 ? (
+            <div className="flex justify-between">
+              <span>
+                <span className="w-5 inline-block text-center font-semibold mr-1">{game.team1.seed}</span>
+                {game.team1.name}
+              </span>
+              <span>{game.team1.score}</span>
+            </div>
+          ) : (
+            <div className="h-5 bg-gray-100 dark:bg-gray-700 rounded animate-pulse"></div>
+          )}
+        </div>
+        <div className={`team ${gameCompleted && game.team2 && game.winner === game.team2.id ? 'font-bold' : ''}`}>
+          {game.team2 ? (
+            <div className="flex justify-between">
+              <span>
+                <span className="w-5 inline-block text-center font-semibold mr-1">{game.team2.seed}</span>
+                {game.team2.name}
+              </span>
+              <span>{game.team2.score}</span>
+            </div>
+          ) : (
+            <div className="h-5 mt-1 bg-gray-100 dark:bg-gray-700 rounded animate-pulse"></div>
+          )}
+        </div>
+      </div>
+    );
+  };
+  
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-[#003087] dark:text-[#4a90e2]">NCAA Tournament Bracket</h1>
+        <BackButton />
+      </div>
+      
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div className="xl:col-span-3">
+          <button
+            onClick={generateBracket}
+            className="px-4 py-2 bg-[#003087] hover:bg-[#002066] text-white rounded-md mr-4"
+          >
+            Randomize Bracket
+          </button>
+          
+          <span className="text-sm text-gray-600 dark:text-gray-400">
+            Current Simulation Round: {
+              currentRound === 1 ? "First Round" :
+              currentRound === 2 ? "Second Round" :
+              currentRound === 3 ? "Sweet 16" :
+              currentRound === 4 ? "Elite 8" :
+              currentRound === 5 ? "Final Four" :
+              "Championship"
+            }
+          </span>
+        </div>
+        
+        {/* First two regions */}
+        {bracket.slice(0, 2).map((region) => (
+          <Card key={region.name} className="overflow-hidden">
+            <CardContent className="pt-4">
+              <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
+              <div className="grid grid-cols-4 gap-2">
+                {/* First Round (Round of 64) */}
+                <div className="space-y-2">
+                  <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
+                  {region.games.filter(g => g.round === 1).map(renderGame)}
+                </div>
+                
+                {/* Second Round (Round of 32) */}
+                <div className="space-y-2 mt-6">
+                  <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
+                  {region.games.filter(g => g.round === 2).map(renderGame)}
+                </div>
+                
+                {/* Sweet 16 */}
+                <div className="space-y-2 mt-12">
+                  <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
+                  {region.games.filter(g => g.round === 3).map(renderGame)}
+                </div>
+                
+                {/* Elite 8 */}
+                <div className="space-y-2 mt-16">
+                  <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
+                  {region.games.filter(g => g.round === 4).map(renderGame)}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+        
+        {/* Final Four and Championship */}
+        <Card className="overflow-hidden">
+          <CardContent className="pt-4">
+            <h3 className="text-lg font-bold mb-4">Final Four</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <h4 className="text-xs font-semibold text-gray-500">NATIONAL SEMIFINALS</h4>
+                {bracket[4]?.games.filter(g => g.round === 5).map(renderGame)}
+              </div>
+              
+              <div className="space-y-2">
+                <h4 className="text-xs font-semibold text-gray-500">NATIONAL CHAMPIONSHIP</h4>
+                <div className="mt-12">
+                  {bracket[4]?.games.filter(g => g.round === 6).map(renderGame)}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* Last two regions */}
+        {bracket.slice(2, 4).map((region) => (
+          <Card key={region.name} className="overflow-hidden">
+            <CardContent className="pt-4">
+              <h3 className="text-lg font-bold mb-4">{region.name} Region</h3>
+              <div className="grid grid-cols-4 gap-2">
+                {/* First Round (Round of 64) */}
+                <div className="space-y-2">
+                  <h4 className="text-xs font-semibold text-gray-500">FIRST ROUND</h4>
+                  {region.games.filter(g => g.round === 1).map(renderGame)}
+                </div>
+                
+                {/* Second Round (Round of 32) */}
+                <div className="space-y-2 mt-6">
+                  <h4 className="text-xs font-semibold text-gray-500">SECOND ROUND</h4>
+                  {region.games.filter(g => g.round === 2).map(renderGame)}
+                </div>
+                
+                {/* Sweet 16 */}
+                <div className="space-y-2 mt-12">
+                  <h4 className="text-xs font-semibold text-gray-500">SWEET 16</h4>
+                  {region.games.filter(g => g.round === 3).map(renderGame)}
+                </div>
+                
+                {/* Elite 8 */}
+                <div className="space-y-2 mt-16">
+                  <h4 className="text-xs font-semibold text-gray-500">ELITE 8</h4>
+                  {region.games.filter(g => g.round === 4).map(renderGame)}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}

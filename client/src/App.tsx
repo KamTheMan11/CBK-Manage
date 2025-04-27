@@ -10,6 +10,7 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const GamePage = lazy(() => import("./pages/GamePage"));
 const TeamManagementPage = lazy(() => import("./pages/TeamManagementPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const MarchMadnessPage = lazy(() => import("./pages/MarchMadnessPage"));
 const NotFoundPage = lazy(() => import("./pages/not-found"));
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/game" element={<GamePage />} />
             <Route path="/team-management" element={<TeamManagementPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/march-madness" element={<MarchMadnessPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
