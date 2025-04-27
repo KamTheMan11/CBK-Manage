@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { useTeams } from '../lib/stores/useTeams';
 import { Team } from '../lib/types';
 import { Calendar, Trophy } from 'lucide-react';
+import { conferences } from '../lib/data/conferences';
 
 interface GameSchedule {
   week: number;
