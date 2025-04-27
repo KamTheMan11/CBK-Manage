@@ -513,7 +513,7 @@ export default function MarchMadnessBracket() {
                 <span className="w-5 inline-block text-center font-semibold mr-1">{game.team1.seed}</span>
                 {game.team1.name}
               </span>
-              <span>{game.team1.score}</span>
+              <span>{typeof game.team1.score === 'number' ? game.team1.score : ''}</span>
             </div>
           ) : (
             <div className="h-5 bg-gray-100 dark:bg-gray-700 rounded animate-pulse"></div>
@@ -526,7 +526,7 @@ export default function MarchMadnessBracket() {
                 <span className="w-5 inline-block text-center font-semibold mr-1">{game.team2.seed}</span>
                 {game.team2.name}
               </span>
-              <span>{game.team2.score}</span>
+              <span>{typeof game.team2.score === 'number' ? game.team2.score : ''}</span>
             </div>
           ) : (
             <div className="h-5 mt-1 bg-gray-100 dark:bg-gray-700 rounded animate-pulse"></div>
@@ -539,17 +539,26 @@ export default function MarchMadnessBracket() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-[#003087] dark:text-[#4a90e2]">NCAA Tournament Bracket</h1>
-        <BackButton />
+        <div className="flex items-center">
+          <img src={marchMadnessLogoUrl} alt="March Madness Logo" className="h-12 mr-4" />
+          <h1 className="text-2xl font-bold text-[#003087] dark:text-[#4a90e2]">NCAA Tournament Bracket</h1>
+        </div>
+        <div className="flex items-center">
+          <img src={ncaaLogoUrl} alt="NCAA Logo" className="h-8 mr-2" />
+          <img src={ncaaBasketballLogoUrl} alt="NCAA Basketball Logo" className="h-10" />
+        </div>
       </div>
       
       <div className="flex justify-between items-center mb-4">
-        <button
-          onClick={generateBracket}
-          className="px-4 py-2 bg-[#003087] hover:bg-[#002066] text-white rounded-md"
-        >
-          Randomize Bracket
-        </button>
+        <div className="flex items-center space-x-3">
+          <BackButton />
+          <button
+            onClick={generateBracket}
+            className="px-4 py-2 bg-[#003087] hover:bg-[#002066] text-white rounded-md"
+          >
+            Randomize Bracket
+          </button>
+        </div>
         
         <span className="text-sm text-gray-600 dark:text-gray-400">
           Current Simulation Round: {
