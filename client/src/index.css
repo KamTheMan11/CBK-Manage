@@ -3,18 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
 }
 
 [data-theme="dark"] {
-  --background: 222.2 84% 4.9%;
+  --background: 0 0% 0%;
   --foreground: 0 0% 100%;
 }
 
 body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  background-color: black;
+  color: white;
+}
+
+/* March Madness section styling */
+.march-madness-section {
+  background-color: #003087 !important;
+  color: white !important;
 }
 
 /* Custom scrollbar */

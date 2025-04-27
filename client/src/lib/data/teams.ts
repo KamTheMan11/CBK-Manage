@@ -61,26 +61,31 @@ export const getTop25Teams = (teams: Team[]): Team[] => {
     return totalGames >= 19 && totalGames <= 23 && team.wins > team.losses;
   });
 
-  // Separate teams by conference
-  const majorConferenceTeams = eligibleTeams.filter(team => 
-    [1, 2, 3, 4].includes(team.conferenceId) // ACC, SEC, Big Ten, Big 12
-  );
+  // Group teams by conference
+  const conferenceGroups = [1, 2, 3, 4].map(confId => {
+    return eligibleTeams.filter(team => team.conferenceId === confId);
+  });
 
-  // Randomly select teams, ensuring major conference representation
-  const shuffledMajor = [...majorConferenceTeams].sort(() => Math.random() - 0.5);
-  const top25 = shuffledMajor.slice(0, Math.min(20, shuffledMajor.length)); // At least 20 major conference teams
+  // Select random teams from each major conference
+  const top25: Team[] = [];
+  const teamsPerConference = 6; // Roughly 24 teams total from major conferences
 
-  // Fill remaining spots with other eligible teams
-  const remainingSpots = 25 - top25.length;
-  if (remainingSpots > 0) {
-    const otherTeams = eligibleTeams
+  conferenceGroups.forEach(confTeams => {
+    const shuffled = [...confTeams].sort(() => Math.random() - 0.5);
+    top25.push(...shuffled.slice(0, teamsPerConference));
+  });
+
+  // If we need more teams to reach 25, add random teams from any conference
+  if (top25.length < 25) {
+    const remainingTeams = eligibleTeams
       .filter(team => !top25.includes(team))
       .sort(() => Math.random() - 0.5)
-      .slice(0, remainingSpots);
-    top25.push(...otherTeams);
+      .slice(0, 25 - top25.length);
+    top25.push(...remainingTeams);
   }
 
-  return top25;
+  // Final shuffle within conference groups
+  return top25.sort((a, b) => a.conferenceId - b.conferenceId);
 };
 
 export default {
