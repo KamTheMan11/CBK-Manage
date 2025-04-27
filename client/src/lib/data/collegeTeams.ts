@@ -188,10 +188,10 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   
   if (!homeConference || !awayConference) return "Local TV";
   
-  // Random chance to get CW network
-  const isCW = Math.random() < 0.15; // 15% chance for a game to be on CW
+  // Random chance to get The CW network
+  const isCW = Math.random() < 0.15; // 15% chance for a game to be on The CW
   if (isCW) {
-    return "CW Network";
+    return "The CW";
   }
   
   // Logic for determining the appropriate Fox Sports regional network
