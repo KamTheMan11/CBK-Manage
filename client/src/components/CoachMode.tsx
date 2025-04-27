@@ -30,26 +30,36 @@ export default function CoachMode() {
     
     let newSchedule: GameSchedule[] = [];
     
-    // Generate 20 conference games (home and away with each conf team)
-    confTeams.forEach(opponent => {
-      // Home game
-      newSchedule.push({
-        week: 0, // Will be assigned later
-        homeTeam: team,
-        awayTeam: opponent,
-        isConference: true,
-        completed: false
-      });
-      
-      // Away game
-      newSchedule.push({
-        week: 0,
-        homeTeam: opponent,
-        awayTeam: team,
-        isConference: true,
-        completed: false
-      });
-    });
+    // Generate 20 conference games (10 home, 10 away)
+    const confGameCount = 20;
+    const gamesPerTeam = confGameCount / 2;
+    
+    // Shuffle conference teams
+    const shuffledConfTeams = [...confTeams].sort(() => Math.random() - 0.5);
+    
+    // Generate home and away games
+    for (let i = 0; i < gamesPerTeam; i++) {
+      const opponent = shuffledConfTeams[i];
+      if (opponent) {
+        // Home game
+        newSchedule.push({
+          week: 0,
+          homeTeam: team,
+          awayTeam: opponent,
+          isConference: true,
+          completed: false
+        });
+        
+        // Away game
+        newSchedule.push({
+          week: 0,
+          homeTeam: opponent,
+          awayTeam: team,
+          isConference: true,
+          completed: false
+        });
+      }
+    }
 
     // Generate 10 non-conference games
     for (let i = 0; i < 10; i++) {
@@ -209,6 +219,65 @@ export default function CoachMode() {
                       )}
                     </div>
                   ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-4">
+            <CardHeader>
+              <CardTitle>Conference Standings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {teams
+                  .filter(t => t.conferenceId === selectedTeam?.conferenceId)
+                  .sort((a, b) => {
+                    const aRecord = schedule
+                      .filter(g => g.completed && g.isConference && (g.homeTeam.id === a.id || g.awayTeam.id === a.id))
+                      .reduce((acc, game) => {
+                        const isHome = game.homeTeam.id === a.id;
+                        const won = isHome ? (game.homeScore! > game.awayScore!) : (game.awayScore! > game.homeScore!);
+                        return {
+                          wins: acc.wins + (won ? 1 : 0),
+                          losses: acc.losses + (won ? 0 : 1)
+                        };
+                      }, { wins: 0, losses: 0 });
+                    
+                    const bRecord = schedule
+                      .filter(g => g.completed && g.isConference && (g.homeTeam.id === b.id || g.awayTeam.id === b.id))
+                      .reduce((acc, game) => {
+                        const isHome = game.homeTeam.id === b.id;
+                        const won = isHome ? (game.homeScore! > game.awayScore!) : (game.awayScore! > game.homeScore!);
+                        return {
+                          wins: acc.wins + (won ? 1 : 0),
+                          losses: acc.losses + (won ? 0 : 1)
+                        };
+                      }, { wins: 0, losses: 0 });
+                    
+                    return bRecord.wins - aRecord.wins;
+                  })
+                  .map(team => {
+                    const teamRecord = schedule
+                      .filter(g => g.completed && g.isConference && (g.homeTeam.id === team.id || g.awayTeam.id === team.id))
+                      .reduce((acc, game) => {
+                        const isHome = game.homeTeam.id === team.id;
+                        const won = isHome ? (game.homeScore! > game.awayScore!) : (game.awayScore! > game.homeScore!);
+                        return {
+                          wins: acc.wins + (won ? 1 : 0),
+                          losses: acc.losses + (won ? 0 : 1)
+                        };
+                      }, { wins: 0, losses: 0 });
+                    
+                    return (
+                      <div 
+                        key={team.id} 
+                        className={`flex justify-between items-center p-2 rounded ${team.id === selectedTeam?.id ? 'bg-primary/10' : ''}`}
+                      >
+                        <span>{team.name}</span>
+                        <span>{teamRecord.wins}-{teamRecord.losses}</span>
+                      </div>
+                    );
+                  })}
               </div>
             </CardContent>
           </Card>
