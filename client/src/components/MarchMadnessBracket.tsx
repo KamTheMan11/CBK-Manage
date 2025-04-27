@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { collegeTeams } from '../lib/data/collegeTeams';
+import { defaultTeams } from '../lib/data/teams';
 import BackButton from './BackButton';
 
 // List of US cities for tournament locations
