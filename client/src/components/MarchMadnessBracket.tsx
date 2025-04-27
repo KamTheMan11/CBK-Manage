@@ -86,6 +86,9 @@ export default function MarchMadnessBracket() {
   const [bracket, setBracket] = useState<BracketRegion[]>([]);
   const [currentRound, setCurrentRound] = useState(1);
   const [regionCities, setRegionCities] = useState<{[key: string]: {city: string, state: string}}>({}); // Cities for each region
+  const ncaaLogoUrl = "/images/ncaa-logo.png";
+  const ncaaBasketballLogoUrl = "/images/ncaa-basketball-logo.png";
+  const marchMadnessLogoUrl = "/images/march-madness-logo.png";
   
   useEffect(() => {
     // Generate a randomized bracket when component loads
@@ -160,7 +163,7 @@ export default function MarchMadnessBracket() {
           const upsetChance = seedDifference > 10 ? 0.05 : seedDifference > 5 ? 0.25 : 0.4;
           const higherSeedWins = Math.random() > upsetChance;
           
-          const team1Score = Math.floor(Math.random() * 20) + 60; // 60-79
+          let team1Score = Math.floor(Math.random() * 20) + 60; // 60-79
           let team2Score = Math.floor(Math.random() * 20) + 60; // 60-79
           
           // Adjust scores to match the winner
