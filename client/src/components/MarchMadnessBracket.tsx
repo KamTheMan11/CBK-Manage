@@ -124,13 +124,16 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     // Major conferences for top seeds
     const majorConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, American
     
-    // Sort teams by conference first
-    const majorConfTeams = collegeTeams.filter(team => majorConferences.includes(team.conferenceId));
-    const otherTeams = collegeTeams.filter(team => !majorConferences.includes(team.conferenceId));
+    // Power conferences for top seeds
+    const powerConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, Big East
     
-    // Ensure top seeds (1-4) are from major conferences
+    // Get teams from power conferences for top seeds (1-4)
+    const powerConfTeams = collegeTeams.filter(team => powerConferences.includes(team.conferenceId));
+    const otherTeams = collegeTeams.filter(team => !powerConferences.includes(team.conferenceId));
+    
+    // Ensure top seeds (1-4) are from power conferences
     const shuffledTeams = [
-      ...majorConfTeams.sort(() => Math.random() - 0.5).slice(0, 16), // Top 16 teams (1-4 seeds)
+      ...powerConfTeams.sort(() => Math.random() - 0.5).slice(0, 16), // Top 16 teams (1-4 seeds)
       ...otherTeams.sort(() => Math.random() - 0.5)
     ].map((team, index) => ({
         id: team.id,
@@ -173,14 +176,20 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         if (!team1 || !team2) return; // Skip if we can't find matching seeds
         
         // Always create completed games for March Madness
-        // 30% chance for upsets, limited to 5 per region
+        // Custom upset chances based on seed matchup
         const upsetCount = regionGames.filter(g => 
           g.winner && g.team1 && g.team2 && 
           ((g.team1.seed < g.team2.seed && g.winner === g.team2.id) ||
            (g.team2.seed < g.team1.seed && g.winner === g.team1.id))
         ).length;
         
-        const upsetChance = upsetCount >= 5 ? 0 : 0.3;
+        let upsetChance = upsetCount >= 5 ? 0 : 0.27; // Base 27% upset chance
+        
+        // Special case for 16 seeds (3% chance to win against 1 seeds)
+        if ((team1.seed === 1 && team2.seed === 16) || (team1.seed === 16 && team2.seed === 1)) {
+          upsetChance = 0.03;
+        }
+        
         const higherSeedWins = Math.random() > upsetChance;
         
         // Generate scores with at least 50 points for each team in finals
