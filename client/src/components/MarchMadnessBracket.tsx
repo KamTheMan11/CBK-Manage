@@ -123,10 +123,10 @@ export default function MarchMadnessBracket() {
         name: region,
         games: regionGames
       });
-    }
+    });
     
     // Final Four games
-    const finalFour: BracketRegion = {
+    const finalFourRegion: BracketRegion = {
       name: "Final Four",
       games: [
         {
@@ -153,7 +153,7 @@ export default function MarchMadnessBracket() {
       ]
     };
     
-    bracketData.push(finalFour);
+    bracketData.push(finalFourRegion);
     setBracket(bracketData);
     
     // Simulate the bracket by filling in winners from first round games
