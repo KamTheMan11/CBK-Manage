@@ -33,7 +33,7 @@ function App() {
   }, [setBackgroundMusic, setHitSound, setSuccessSound]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F9FA]">
+    <div className="min-h-screen flex flex-col bg-[#F8F9FA] dark:bg-gray-900 dark:text-white">
       <Navigation />
       
       <main className="flex-1 container mx-auto p-4">

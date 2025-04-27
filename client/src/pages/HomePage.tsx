@@ -312,21 +312,61 @@ export default function HomePage() {
         <div className="espn-ticker-content" style={{ paddingLeft: "80px" }}>
           {tickerData.map((game, index) => (
             <div key={index} className="ticker-item">
-              <span className="ticker-team">{game.teamA}</span>
-              <span className="ticker-score">{game.scoreA}</span>
-              <span className="ticker-team">{game.teamB}</span>
-              <span className="ticker-score">{game.scoreB}</span>
-              <span className="ticker-status">{game.status}</span>
+              <span className="ticker-team">
+                {game.teamARank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamARank}</span>}
+                {game.teamA}
+              </span>
+              
+              {/* Only show score if game has started or is complete */}
+              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
+                <span className="ticker-score">{game.scoreA}</span>
+              )}
+              
+              <span className="ticker-team">
+                {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
+                {game.teamB}
+              </span>
+              
+              {/* Only show score if game has started or is complete */}
+              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
+                <span className="ticker-score">{game.scoreB}</span>
+              )}
+              
+              <span className="ticker-status">
+                {game.status}
+                {game.network && ` • ${game.network}`}
+                {game.nationally && ' • Nat\'l TV'}
+              </span>
             </div>
           ))}
           {/* Duplicate ticker items to create a seamless loop */}
           {tickerData.map((game, index) => (
             <div key={`dup-${index}`} className="ticker-item">
-              <span className="ticker-team">{game.teamA}</span>
-              <span className="ticker-score">{game.scoreA}</span>
-              <span className="ticker-team">{game.teamB}</span>
-              <span className="ticker-score">{game.scoreB}</span>
-              <span className="ticker-status">{game.status}</span>
+              <span className="ticker-team">
+                {game.teamARank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamARank}</span>}
+                {game.teamA}
+              </span>
+              
+              {/* Only show score if game has started or is complete */}
+              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
+                <span className="ticker-score">{game.scoreA}</span>
+              )}
+              
+              <span className="ticker-team">
+                {game.teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{game.teamBRank}</span>}
+                {game.teamB}
+              </span>
+              
+              {/* Only show score if game has started or is complete */}
+              {(game.status === 'Final' || game.status === '1st Half' || game.status === '2nd Half' || game.status === 'Halftime') && (
+                <span className="ticker-score">{game.scoreB}</span>
+              )}
+              
+              <span className="ticker-status">
+                {game.status}
+                {game.network && ` • ${game.network}`}
+                {game.nationally && ' • Nat\'l TV'}
+              </span>
             </div>
           ))}
         </div>
