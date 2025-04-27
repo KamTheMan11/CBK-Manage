@@ -201,7 +201,8 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   if (regions.includes("Southeast") || regions.includes("South")) {
     if (homeTeam.shortName.includes("Florida") || awayTeam.shortName.includes("Florida") ||
         homeTeam.shortName.includes("Miami") || awayTeam.shortName.includes("Miami")) {
-      return "FOX Sports Florida";
+      // FL teams get either FOX Sports Florida or FOX Sports Sun
+      return Math.random() > 0.5 ? "FOX Sports Florida" : "FOX Sports Sun";
     } else if (
       (homeTeam.shortName.includes("Georgia") || awayTeam.shortName.includes("Georgia")) ||
       (homeTeam.shortName.includes("Alabama") || awayTeam.shortName.includes("Alabama")) ||
@@ -210,9 +211,18 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
     ) {
       return "FOX Sports South";
     } else if (
-      (homeTeam.shortName.includes("Tennessee") || awayTeam.shortName.includes("Tennessee")) ||
+      (homeTeam.shortName.includes("Tennessee") || awayTeam.shortName.includes("Tennessee"))
+    ) {
+      return "FOX Sports Tennessee";
+    } else if (
       (homeTeam.shortName.includes("North Carolina") || awayTeam.shortName.includes("North Carolina"))
     ) {
+      return "FOX Sports Carolinas";
+    } else if (
+      (homeTeam.shortName.includes("Louisiana") || awayTeam.shortName.includes("Louisiana"))
+    ) {
+      return "FOX Sports New Orleans";
+    } else {
       return "FOX Sports Southeast";
     }
   }
@@ -220,19 +230,22 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   // Midwest region
   if (regions.includes("Midwest")) {
     if (homeTeam.shortName.includes("Michigan") || awayTeam.shortName.includes("Michigan")) {
-      return "FOX Sports Detroit";
+      // Michigan teams get either FOX Sports Detroit or FOX Sports Detroit Plus
+      return Math.random() > 0.3 ? "FOX Sports Detroit" : "FOX Sports Detroit Plus";
     } else if (homeTeam.shortName.includes("Indiana") || awayTeam.shortName.includes("Indiana")) {
       return "FOX Sports Indiana";
     } else if (
       (homeTeam.shortName.includes("Minnesota") || awayTeam.shortName.includes("Minnesota")) ||
       (homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin"))
     ) {
-      return "FOX Sports North";
+      return homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin") 
+        ? "FOX Sports Wisconsin" : "FOX Sports North";
     } else if (
       (homeTeam.shortName.includes("Ohio") || awayTeam.shortName.includes("Ohio")) ||
       (homeTeam.shortName.includes("Cincinnati") || awayTeam.shortName.includes("Cincinnati"))
     ) {
-      return "FOX Sports Ohio";
+      // Ohio teams get either FOX Sports Ohio or SportsTime Ohio
+      return Math.random() > 0.5 ? "FOX Sports Ohio" : "SportsTime Ohio";
     } else if (
       (homeTeam.shortName.includes("Missouri") || awayTeam.shortName.includes("Missouri")) || 
       (homeTeam.shortName.includes("Illinois") || awayTeam.shortName.includes("Illinois")) ||
@@ -253,8 +266,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       return "FOX Sports Oklahoma";
     } else if (
       (homeTeam.shortName.includes("Texas") || awayTeam.shortName.includes("Texas")) ||
-      (homeTeam.shortName.includes("Arkansas") || awayTeam.shortName.includes("Arkansas")) ||
-      (homeTeam.shortName.includes("Louisiana") || awayTeam.shortName.includes("Louisiana"))
+      (homeTeam.shortName.includes("Arkansas") || awayTeam.shortName.includes("Arkansas"))
     ) {
       return "FOX Sports Southwest";
     }
@@ -263,16 +275,22 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   // West region
   if (regions.includes("West")) {
     if (
-      (homeTeam.shortName.includes("Arizona") || awayTeam.shortName.includes("Arizona")) ||
-      (homeTeam.shortName.includes("Utah") || awayTeam.shortName.includes("Utah")) ||
-      (homeTeam.shortName.includes("New Mexico") || awayTeam.shortName.includes("New Mexico"))
+      (homeTeam.shortName.includes("Arizona") || awayTeam.shortName.includes("Arizona"))
     ) {
       return "FOX Sports Arizona";
+    } else if (
+      (homeTeam.shortName.includes("Utah") || awayTeam.shortName.includes("Utah"))
+    ) {
+      return "FOX Sports Utah";
     } else if (
       (homeTeam.shortName.includes("Colorado") || awayTeam.shortName.includes("Colorado")) ||
       (homeTeam.shortName.includes("Wyoming") || awayTeam.shortName.includes("Wyoming"))
     ) {
       return "FOX Sports Rocky Mountain";
+    } else if (
+      (homeTeam.shortName.includes("San Diego") || awayTeam.shortName.includes("San Diego"))
+    ) {
+      return "FOX Sports San Diego";
     } else if (
       (homeTeam.shortName.includes("California") || awayTeam.shortName.includes("California")) ||
       (homeTeam.shortName.includes("UCLA") || awayTeam.shortName.includes("UCLA")) ||
@@ -285,6 +303,12 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       (homeTeam.shortName.includes("Oregon") || awayTeam.shortName.includes("Oregon"))
     ) {
       return "FOX Sports Northwest";
+    } else if (
+      (homeTeam.shortName.includes("New Mexico") || awayTeam.shortName.includes("New Mexico"))
+    ) {
+      // New Mexico teams randomly get one of several regional networks
+      const possibleNetworks = ["FOX Sports Arizona", "FOX Sports Rocky Mountain", "FOX Sports Southwest"];
+      return possibleNetworks[Math.floor(Math.random() * possibleNetworks.length)];
     }
   }
   
@@ -299,7 +323,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       (homeTeam.shortName.includes("Boston") || awayTeam.shortName.includes("Boston")) ||
       (homeTeam.shortName.includes("Connecticut") || awayTeam.shortName.includes("Connecticut"))
     ) {
-      return "FOX Sports New England";
+      return "FOX Sports Atlantic";
     } else if (
       (homeTeam.shortName.includes("Pittsburgh") || awayTeam.shortName.includes("Pittsburgh")) ||
       (homeTeam.shortName.includes("Penn State") || awayTeam.shortName.includes("Penn State"))
@@ -314,9 +338,9 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
   } else if (homeConference.region === "Midwest") {
     return "FOX Sports Midwest";
   } else if (homeConference.region === "Central") {
-    return "FOX Sports Southwest";
+    return "FOX Sports Central";
   } else if (homeConference.region === "West") {
-    return "FOX Sports West";
+    return "FOX Sports Pacific";
   } else if (homeConference.region === "East" || homeConference.region === "Northeast") {
     return "FOX Sports Atlantic";
   }
