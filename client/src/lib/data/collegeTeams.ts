@@ -397,8 +397,8 @@ export function generateRandomMatchups(count: number = 8): Array<{
   const matchups = [];
   const usedTeams = new Set<number>();
   
-  // Different statuses for games
-  const statuses = ["Final", "2nd Half", "1st Half", "Halftime", "8:00 PM", "9:00 PM", "7:30 PM"];
+  // Different statuses for games - with limited late games (only ~9% chance for 9:00 PM starts)
+  const statuses = ["Final", "2nd Half", "1st Half", "Halftime", "7:00 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:00 PM", "8:30 PM", "9:00 PM"];
   
   for (let i = 0; i < count; i++) {
     // Get random teams that haven't been used yet
@@ -428,8 +428,16 @@ export function generateRandomMatchups(count: number = 8): Array<{
     
     // Add scores if the game has started or is complete
     if (status === "Final" || status === "2nd Half" || status === "1st Half" || status === "Halftime") {
-      matchup.homeScore = Math.floor(Math.random() * 50) + 30; // 30-79
-      matchup.awayScore = Math.floor(Math.random() * 50) + 30; // 30-79
+      // Different score ranges based on game status
+      if (status === "Final" || status === "2nd Half") {
+        // Final or 2nd half score range (35-80)
+        matchup.homeScore = Math.floor(Math.random() * 46) + 35;
+        matchup.awayScore = Math.floor(Math.random() * 46) + 35;
+      } else {
+        // 1st half or halftime score range (22-45) - ensures teams don't exceed 50 at halftime
+        matchup.homeScore = Math.floor(Math.random() * 24) + 22;
+        matchup.awayScore = Math.floor(Math.random() * 24) + 22;
+      }
       
       // Make sure there's a difference for final games
       if (status === "Final" && matchup.homeScore === matchup.awayScore) {

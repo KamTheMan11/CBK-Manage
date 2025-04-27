@@ -123,21 +123,64 @@ export default function MarchMadnessBracket() {
     regions.forEach((region, regionIndex) => {
       const regionGames: BracketGame[] = [];
       
+      // Define standard NCAA tournament seed matchups for first round
+      const seedMatchups = [
+        [1, 16], // 1 vs 16 seed
+        [8, 9],  // 8 vs 9 seed
+        [5, 12], // 5 vs 12 seed
+        [4, 13], // 4 vs 13 seed
+        [6, 11], // 6 vs 11 seed
+        [3, 14], // 3 vs 14 seed
+        [7, 10], // 7 vs 10 seed
+        [2, 15]  // 2 vs 15 seed
+      ];
+        
       // First round games (Round of 64)
-      for (let i = 0; i < 8; i++) {
-        const teamIndex = regionIndex * 16 + i;
-        const team1 = shuffledTeams[teamIndex];
-        const team2 = shuffledTeams[regionIndex * 16 + 15 - i]; // Opposite seed
+      seedMatchups.forEach((matchup, i) => {
+        // Find teams with these seeds in the current region
+        const team1 = shuffledTeams.find(t => 
+          t.seed === matchup[0] && 
+          Math.floor((shuffledTeams.indexOf(t) / 16)) === regionIndex
+        );
+        
+        const team2 = shuffledTeams.find(t => 
+          t.seed === matchup[1] && 
+          Math.floor((shuffledTeams.indexOf(t) / 16)) === regionIndex
+        );
+          
+        if (!team1 || !team2) return; // Skip if we can't find matching seeds
         
         // For some games, fill in scores to show completed games
         const completed = Math.random() > 0.5;
         let winner = null;
         
         if (completed) {
-          const team1Score = Math.floor(Math.random() * 20) + 60; // 60-79
-          const team2Score = Math.floor(Math.random() * 20) + 60; // 60-79
+          // Higher seeds more likely to win (but upsets still possible)
+          const seedDifference = Math.abs(matchup[0] - matchup[1]);
+          const upsetChance = seedDifference > 10 ? 0.05 : seedDifference > 5 ? 0.25 : 0.4;
+          const higherSeedWins = Math.random() > upsetChance;
           
-          winner = team1Score > team2Score ? team1.id : team2.id;
+          const team1Score = Math.floor(Math.random() * 20) + 60; // 60-79
+          let team2Score = Math.floor(Math.random() * 20) + 60; // 60-79
+          
+          // Adjust scores to match the winner
+          if (higherSeedWins && team1.seed < team2.seed) {
+            // Team 1 wins (higher seed)
+            if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
+            winner = team1.id;
+          } else if (higherSeedWins && team2.seed < team1.seed) {
+            // Team 2 wins (higher seed)
+            if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
+            winner = team2.id;
+          } else if (!higherSeedWins && team1.seed < team2.seed) {
+            // Upset: Team 2 wins
+            if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
+            winner = team2.id;
+          } else {
+            // Upset: Team 1 wins
+            if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
+            winner = team1.id;
+          }
           
           regionGames.push({
             id: regionIndex * 100 + i,
@@ -156,7 +199,7 @@ export default function MarchMadnessBracket() {
             team2
           });
         }
-      }
+      });
       
       // Second round games (Round of 32)
       for (let i = 0; i < 4; i++) {
