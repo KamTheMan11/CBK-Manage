@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { useTeams } from '../lib/stores/useTeams';
 import GameSimulation from '../components/GameSimulation';
 import { ArrowLeft, Volleyball, Users } from 'lucide-react';
+import BackButton from '../components/BackButton';
 
 export default function GamePage() {
   const { teams } = useTeams();
@@ -39,13 +40,7 @@ export default function GamePage() {
               You need at least two teams to play a game. Please create some teams first.
             </p>
             <div className="flex space-x-2">
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/')}
-              >
-                <ArrowLeft className="mr-1 h-4 w-4" />
-                Back to Home
-              </Button>
+              <BackButton />
               <Button 
                 onClick={() => navigate('/team-management')}
                 className="bg-[#003087] hover:bg-[#002a77]"
@@ -121,12 +116,7 @@ export default function GamePage() {
             </div>
             
             <div className="flex justify-end space-x-2 pt-4">
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/')}
-              >
-                Cancel
-              </Button>
+              <BackButton />
               <Button 
                 onClick={handleStartGame}
                 disabled={!homeTeamId || !awayTeamId}
