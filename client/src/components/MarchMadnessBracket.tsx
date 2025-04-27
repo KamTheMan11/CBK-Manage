@@ -3,6 +3,64 @@ import { Card, CardContent } from './ui/card';
 import { collegeTeams } from '../lib/data/collegeTeams';
 import BackButton from './BackButton';
 
+// List of US cities for tournament locations
+const usCities = [
+  { city: "New York", state: "NY" },
+  { city: "Los Angeles", state: "CA" },
+  { city: "Chicago", state: "IL" },
+  { city: "Houston", state: "TX" },
+  { city: "Phoenix", state: "AZ" },
+  { city: "Philadelphia", state: "PA" },
+  { city: "San Antonio", state: "TX" },
+  { city: "San Diego", state: "CA" },
+  { city: "Dallas", state: "TX" },
+  { city: "Austin", state: "TX" },
+  { city: "San Francisco", state: "CA" },
+  { city: "Indianapolis", state: "IN" },
+  { city: "Columbus", state: "OH" },
+  { city: "Charlotte", state: "NC" },
+  { city: "Seattle", state: "WA" },
+  { city: "Denver", state: "CO" },
+  { city: "Washington", state: "DC" },
+  { city: "Boston", state: "MA" },
+  { city: "Oklahoma City", state: "OK" },
+  { city: "Nashville", state: "TN" },
+  { city: "Portland", state: "OR" },
+  { city: "Las Vegas", state: "NV" },
+  { city: "Milwaukee", state: "WI" },
+  { city: "Albuquerque", state: "NM" },
+  { city: "Kansas City", state: "MO" },
+  { city: "Omaha", state: "NE" },
+  { city: "Pittsburgh", state: "PA" },
+  { city: "Atlanta", state: "GA" },
+  { city: "Cincinnati", state: "OH" },
+  { city: "Minneapolis", state: "MN" },
+  { city: "Salt Lake City", state: "UT" },
+  { city: "Orlando", state: "FL" },
+  { city: "Cleveland", state: "OH" },
+  { city: "New Orleans", state: "LA" },
+  { city: "St. Louis", state: "MO" },
+  { city: "Tampa", state: "FL" },
+  { city: "Buffalo", state: "NY" },
+  { city: "Louisville", state: "KY" },
+  { city: "Birmingham", state: "AL" },
+  { city: "Providence", state: "RI" },
+  { city: "Memphis", state: "TN" },
+  { city: "Raleigh", state: "NC" },
+  { city: "Spokane", state: "WA" },
+  { city: "Sacramento", state: "CA" },
+  { city: "Tulsa", state: "OK" },
+  { city: "Dayton", state: "OH" },
+  { city: "Greensboro", state: "NC" },
+  { city: "Albany", state: "NY" }
+];
+
+// Function to get random cities
+const getRandomCities = (count: number) => {
+  const shuffled = [...usCities].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};
+
 interface BracketTeam {
   id: number;
   seed: number;
@@ -27,6 +85,7 @@ interface BracketRegion {
 export default function MarchMadnessBracket() {
   const [bracket, setBracket] = useState<BracketRegion[]>([]);
   const [currentRound, setCurrentRound] = useState(1);
+  const [regionCities, setRegionCities] = useState<{[key: string]: {city: string, state: string}}>({}); // Cities for each region
   
   useEffect(() => {
     // Generate a randomized bracket when component loads
@@ -36,6 +95,17 @@ export default function MarchMadnessBracket() {
   const generateBracket = () => {
     // Regions of the NCAA tournament
     const regions = ["East", "West", "South", "Midwest"];
+    
+    // Generate random cities for each region and Final Four
+    const randomCities = getRandomCities(5); // Get 5 random cities (4 regions + Final Four)
+    const newRegionCities: {[key: string]: {city: string, state: string}} = {};
+    
+    // Assign cities to regions
+    regions.forEach((region, index) => {
+      newRegionCities[region] = randomCities[index];
+    });
+    newRegionCities["Final Four"] = randomCities[4];
+    setRegionCities(newRegionCities);
     
     // Shuffle teams to randomize the bracket
     const shuffledTeams = [...collegeTeams]
