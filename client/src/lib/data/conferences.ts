@@ -1,3 +1,4 @@
+
 import { Conference } from '../types';
 
 // List of basketball conferences
@@ -9,8 +10,8 @@ export const conferences: Conference[] = [
   },
   {
     id: 2,
-    name: 'Big East Conference',
-    abbreviation: 'BE'
+    name: 'Southeastern Conference',
+    abbreviation: 'SEC'
   },
   {
     id: 3,
@@ -24,41 +25,31 @@ export const conferences: Conference[] = [
   },
   {
     id: 5,
-    name: 'Pac-12 Conference',
-    abbreviation: 'PAC'
-  },
-  {
-    id: 6,
-    name: 'Southeastern Conference',
-    abbreviation: 'SEC'
-  },
-  {
-    id: 7,
     name: 'American Athletic Conference',
     abbreviation: 'AAC'
   },
   {
-    id: 8,
-    name: 'Missouri Valley Conference',
-    abbreviation: 'MVC'
+    id: 6,
+    name: 'Big East Conference',
+    abbreviation: 'BE'
   },
   {
-    id: 9,
-    name: 'West Coast Conference',
-    abbreviation: 'WCC'
-  },
-  {
-    id: 10,
+    id: 7,
     name: 'Mountain West Conference',
     abbreviation: 'MWC'
   },
   {
-    id: 11,
+    id: 8,
+    name: 'West Coast Conference',
+    abbreviation: 'WCC'
+  },
+  {
+    id: 9,
     name: 'Mid-American Conference',
     abbreviation: 'MAC'
   },
   {
-    id: 12,
+    id: 10,
     name: 'Atlantic 10 Conference',
     abbreviation: 'A10'
   }
