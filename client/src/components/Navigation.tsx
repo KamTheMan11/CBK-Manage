@@ -3,14 +3,12 @@ import { NavLink } from "react-router-dom";
 import { Settings, Home, Users, Volume2, VolumeX, Trophy } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAudio } from "../lib/stores/useAudio";
-import { useTheme } from "./ui/theme-provider";
-import { Moon, Sun } from "lucide-react";
 import { BasketballIcon } from "./BasketballIcon";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isMuted, toggleMute, backgroundMusic } = useAudio();
-  const { theme, setTheme } = useTheme();
 
   const toggleSound = () => {
     toggleMute();
@@ -21,10 +19,6 @@ export default function Navigation() {
         backgroundMusic.pause();
       }
     }
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
@@ -67,14 +61,7 @@ export default function Navigation() {
               {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
             </Button>
             
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleTheme} 
-              className="text-white hover:bg-[#002a77]"
-            >
-              <Sun className="h-5 w-5 text-yellow-300" />
-            </Button>
+            <ThemeToggle />
 
             {/* Mobile menu button */}
             <button
