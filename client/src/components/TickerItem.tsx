@@ -89,12 +89,7 @@ export const TickerItem: React.FC<TickerGameProps> = ({
           {nationally && ' • Nat\'l TV'}
         </span>
 
-        {/* Network logo placeholder - could be an actual image in production */}
-        {network && (
-          <span className="ml-1 bg-gray-700 text-white text-xs px-1 rounded">
-            {network}
-          </span>
-        )}
+        {/* Network logo will be shown in status text only */}
       </div>
     </div>
   );

@@ -121,10 +121,18 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     newRegionCities["Final Four"] = randomCities[4];
     setRegionCities(newRegionCities);
     
-    // Shuffle teams to randomize the bracket
-    const shuffledTeams = [...collegeTeams]
-      .sort(() => Math.random() - 0.5)
-      .map((team, index) => ({
+    // Major conferences for top seeds
+    const majorConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, American
+    
+    // Sort teams by conference first
+    const majorConfTeams = collegeTeams.filter(team => majorConferences.includes(team.conferenceId));
+    const otherTeams = collegeTeams.filter(team => !majorConferences.includes(team.conferenceId));
+    
+    // Ensure top seeds (1-4) are from major conferences
+    const shuffledTeams = [
+      ...majorConfTeams.sort(() => Math.random() - 0.5).slice(0, 16), // Top 16 teams (1-4 seeds)
+      ...otherTeams.sort(() => Math.random() - 0.5)
+    ].map((team, index) => ({
         id: team.id,
         name: team.shortName,
         primaryColor: team.primaryColor,

@@ -27,8 +27,8 @@ export default function PerfectBracketTracker({
       0.94,        // Round 2 (Second Round): 94% eliminated
       0.98,        // Round 3 (Sweet 16): 98% eliminated
       0.9992,      // Round 4 (Elite 8): 99.92% eliminated
-      0.99994,     // Round 5 (Final Four): 99.994% eliminated
-      0.999999,    // Round 6 (Championship): 99.9999% eliminated
+      0.99998,     // Round 5 (Final Four): 99.998% eliminated
+      1.0,         // Round 6 (Championship): 100% eliminated
     ];
     
     const rate = eliminationRates[Math.min(currentRound, eliminationRates.length - 1)];
