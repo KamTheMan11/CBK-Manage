@@ -2,27 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-}
-
-[data-theme="dark"] {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-}
-
-body {
-  background-color: black;
-  color: white;
-}
-
-/* March Madness section styling */
-.march-madness-section {
-  background-color: #003087 !important;
-  color: white !important;
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

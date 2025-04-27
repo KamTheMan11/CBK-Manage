@@ -12,8 +12,8 @@ export const defaultTeams: Team[] = collegeTeams.map(college => ({
   secondaryColor: college.secondaryColor,
   conferenceId: college.conferenceId,
   players: generateTeamRoster(college.id),
-  wins: Math.floor(Math.random() * 15) + 5, // Random wins between 5-19
-  losses: Math.floor(Math.random() * 15) + 4, // Random losses between 4-18
+  wins: college.id <= 25 ? Math.floor(Math.random() * 6) + 22 : Math.floor(Math.random() * 15) + 10, // Top 25 teams have 22-27 wins
+  losses: college.id <= 25 ? Math.floor(Math.random() * 5) + 1 : Math.floor(Math.random() * 10) + 5, // Top 25 teams have 1-5 losses
   homeWins: 0,
   homeLosses: 0,
   awayWins: 0,
@@ -53,44 +53,8 @@ export const updateTeamRecord = (team: Team, win: boolean, isHome: boolean): Tea
   return updatedTeam;
 };
 
-// Get top 25 teams with specific conference representation
-export const getTop25Teams = (teams: Team[]): Team[] => {
-  // Filter teams that meet minimum requirements (above .500)
-  const eligibleTeams = teams.filter(team => {
-    const totalGames = team.wins + team.losses;
-    return totalGames >= 19 && totalGames <= 23 && team.wins > team.losses;
-  });
-
-  // Group teams by conference
-  const conferenceGroups = [1, 2, 3, 4].map(confId => {
-    return eligibleTeams.filter(team => team.conferenceId === confId);
-  });
-
-  // Select random teams from each major conference
-  const top25: Team[] = [];
-  const teamsPerConference = 6; // Roughly 24 teams total from major conferences
-
-  conferenceGroups.forEach(confTeams => {
-    const shuffled = [...confTeams].sort(() => Math.random() - 0.5);
-    top25.push(...shuffled.slice(0, teamsPerConference));
-  });
-
-  // If we need more teams to reach 25, add random teams from any conference
-  if (top25.length < 25) {
-    const remainingTeams = eligibleTeams
-      .filter(team => !top25.includes(team))
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 25 - top25.length);
-    top25.push(...remainingTeams);
-  }
-
-  // Final shuffle within conference groups
-  return top25.sort((a, b) => a.conferenceId - b.conferenceId);
-};
-
 export default {
   defaultTeams,
   getTeamById,
-  updateTeamRecord,
-  getTop25Teams
+  updateTeamRecord
 };
