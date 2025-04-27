@@ -1,21 +1,47 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { Volleyball, Award, Settings, Users } from 'lucide-react';
+import { Volleyball, Award, Settings, Users, Calendar, TrendingUp, Trophy, Crown, PenTool, User } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
 import StandingsTable from '../components/StandingsTable';
 import { useTeams } from '../lib/stores/useTeams';
+import { useState, useEffect } from 'react';
 
 export default function HomePage() {
   const navigate = useNavigate();
   const { teams } = useTeams();
+  const [currentDate] = useState(new Date());
+  
+  // Dummy data for the ESPN ticker at the bottom
+  const [tickerData] = useState([
+    { teamA: 'Duke', scoreA: 78, teamB: 'UNC', scoreB: 75, status: 'Final' },
+    { teamA: 'Kentucky', scoreA: 68, teamB: 'Kansas', scoreB: 72, status: 'Final' },
+    { teamA: 'Gonzaga', scoreA: 83, teamB: 'Baylor', scoreB: 79, status: '2nd Half' },
+    { teamA: 'UCLA', scoreA: 45, teamB: 'Arizona', scoreB: 51, status: 'Halftime' },
+    { teamA: 'Villanova', scoreA: 28, teamB: 'Michigan', scoreB: 34, status: '1st Half' },
+    { teamA: 'Texas', scoreA: 0, teamB: 'Oklahoma', scoreB: 0, status: '8:00 PM' },
+    { teamA: 'Syracuse', scoreA: 0, teamB: 'Georgetown', scoreB: 0, status: '9:00 PM' },
+  ]);
+  
+  // Format date for college basketball season display
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'long',
+      month: 'long', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+  };
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       <section className="relative overflow-hidden rounded-xl bg-[#003087] text-white shadow-lg md:py-16 py-10">
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center">
-          <h1 className="text-center text-4xl md:text-5xl font-extrabold mb-4">College Hoops Simulator</h1>
+          <div className="flex items-center mb-6">
+            <img src="/assets/sprites/ic_launcher_foreground.png" alt="College Hardwood Logo" className="h-24 w-24 pixel-art" />
+          </div>
+          <h1 className="text-center text-4xl md:text-6xl font-extrabold mb-4">COLLEGE HARDWOOD</h1>
           <p className="text-center text-xl mb-8 max-w-2xl">
-            Create your teams, customize your games, and experience the excitement of college basketball!
+            Experience the excitement of arcade-style college basketball!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button 
@@ -35,6 +61,13 @@ export default function HomePage() {
               <Users className="mr-2 h-5 w-5" />
               Manage Teams
             </Button>
+          </div>
+          
+          <div className="absolute top-2 right-2 md:top-4 md:right-6 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
+            <div className="flex items-center text-sm md:text-base">
+              <Calendar className="h-4 w-4 mr-2" />
+              <span>{formatDate(currentDate)}</span>
+            </div>
           </div>
         </div>
         
@@ -178,6 +211,124 @@ export default function HomePage() {
           </CardFooter>
         </Card>
       </section>
+      
+      {/* New features section with March Madness, Create-a-Player, etc. */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 text-[#003087]">Game Modes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <CardContent className="p-0">
+              <div className="bg-blue-600 p-6 text-white flex flex-col items-center text-center">
+                <Trophy className="w-12 h-12 mb-2" />
+                <h3 className="font-bold text-lg">March Madness</h3>
+                <p className="text-sm mt-2">Play through an entire tournament bracket with 64 teams</p>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <CardContent className="p-0">
+              <div className="bg-orange-600 p-6 text-white flex flex-col items-center text-center">
+                <User className="w-12 h-12 mb-2" />
+                <h3 className="font-bold text-lg">Create-a-Player</h3>
+                <p className="text-sm mt-2">Build custom players with unique attributes and skills</p>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <CardContent className="p-0">
+              <div className="bg-green-600 p-6 text-white flex flex-col items-center text-center">
+                <Volleyball className="w-12 h-12 mb-2" />
+                <h3 className="font-bold text-lg">Practice Mode</h3>
+                <p className="text-sm mt-2">Refine your skills with no time limits or pressure</p>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <CardContent className="p-0">
+              <div className="bg-purple-600 p-6 text-white flex flex-col items-center text-center">
+                <PenTool className="w-12 h-12 mb-2" />
+                <h3 className="font-bold text-lg">Custom Commentary</h3>
+                <p className="text-sm mt-2">Create your own announcer voice and style</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+      
+      {/* Top 25 Rankings */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 text-[#003087] flex items-center">
+          <Crown className="mr-2 h-6 w-6 text-[#FFD700]" />
+          Top 25 Rankings
+        </h2>
+        <Card>
+          <CardContent className="p-4">
+            {teams.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-500">Create teams to see rankings</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((rank) => (
+                    <div key={rank} className="flex items-center border-b pb-1">
+                      <div className="w-8 text-center font-bold">{rank}</div>
+                      <div className="flex-1">
+                        {teams[rank % teams.length]?.name || 'Team Name'}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {Math.floor(Math.random() * 10) + 15}-{Math.floor(Math.random() * 10)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-2">
+                  {[13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map((rank) => (
+                    <div key={rank} className="flex items-center border-b pb-1">
+                      <div className="w-8 text-center font-bold">{rank}</div>
+                      <div className="flex-1">
+                        {teams[rank % teams.length]?.name || 'Team Name'}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {Math.floor(Math.random() * 10) + 10}-{Math.floor(Math.random() * 10) + 5}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </section>
+      
+      {/* ESPN-style ticker at the bottom */}
+      <div className="espn-ticker">
+        <div className="espn-ticker-logo">ESPN</div>
+        <div className="espn-ticker-content" style={{ paddingLeft: "80px" }}>
+          {tickerData.map((game, index) => (
+            <div key={index} className="ticker-item">
+              <span className="ticker-team">{game.teamA}</span>
+              <span className="ticker-score">{game.scoreA}</span>
+              <span className="ticker-team">{game.teamB}</span>
+              <span className="ticker-score">{game.scoreB}</span>
+              <span className="ticker-status">{game.status}</span>
+            </div>
+          ))}
+          {/* Duplicate ticker items to create a seamless loop */}
+          {tickerData.map((game, index) => (
+            <div key={`dup-${index}`} className="ticker-item">
+              <span className="ticker-team">{game.teamA}</span>
+              <span className="ticker-score">{game.scoreA}</span>
+              <span className="ticker-team">{game.teamB}</span>
+              <span className="ticker-score">{game.scoreB}</span>
+              <span className="ticker-status">{game.status}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

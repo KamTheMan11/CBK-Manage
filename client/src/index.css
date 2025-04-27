@@ -2,6 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
+/* College Hardwood Custom Fonts */
+@font-face {
+  font-family: 'ESPN Sans';
+  src: url('./assets/fonts/espn-sans.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ESPN Ticker Styles */
+.espn-ticker {
+  background-color: #0a0a0a;
+  color: white;
+  border-top: 2px solid #ff0000;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'ESPN Sans', system-ui, sans-serif;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.espn-ticker-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 50s linear infinite;
+}
+
+.espn-ticker-logo {
+  background-color: #ff0000;
+  color: white;
+  padding: 0 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
+.ticker-item {
+  margin-right: 30px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ticker-team {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.ticker-score {
+  color: #dadada;
+  margin-right: 5px;
+}
+
+.ticker-status {
+  color: #ff0000;
+  font-size: 0.8em;
+  margin-right: 5px;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Basketball Court Styles */
+.basketball-court {
+  background-color: #c66a24;
+  border: 4px solid #333;
+  position: relative;
+}
+
+.court-line {
+  background-color: white;
+  position: absolute;
+}
+
+/* Game UI Elements */
+.scorebug {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: 'ESPN Sans', system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team-name {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.score {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.game-clock {
+  background-color: #000;
+  color: #ff0000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.shot-clock {
+  background-color: #000;
+  color: #ff0000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* Retro Pixel Art Style */
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
 @layer base {
   * {
     @apply border-border;

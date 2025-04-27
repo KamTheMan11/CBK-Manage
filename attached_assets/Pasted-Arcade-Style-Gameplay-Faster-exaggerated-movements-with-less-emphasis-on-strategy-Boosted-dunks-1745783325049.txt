@@ -1,0 +1,73 @@
+Arcade-Style Gameplay:
+
+Faster, exaggerated movements with less emphasis on strategy.
+
+Boosted dunks, flashy passes, and rapid transitions for an engaging experience.
+
+Ideal for casual players but lacks the depth of realistic decision-making.
+
+Simulation-Based Gameplay:
+
+Emphasizes realistic team dynamics, stamina management, and AI adjustments.
+
+Playcalling and defensive strategies shape game outcomes.
+
+Perfect for college basketball authenticity, where tactics matter as much as raw athleticism.
+
+Hybrid Gameplay:
+
+A mix of fluid arcade mechanics with realistic basketball strategies.
+
+Allows customization of gameplay speed, physics, and AI behavior.
+
+Best suited for users who want control over realism vs. entertainment.
+
+For a college basketball simulation, the hybrid approach is ideal, balancing authentic playstyles while maintaining accessibility for newcomers.
+
+Visual Design: How the Game Should Look
+The presentation of a college basketball simulation should mirror a TV broadcast experience, emphasizing smooth camera transitions, lifelike player models, and accurate court details.
+
+Camera System: Inspired by NBA 2K, the game should include:
+
+Broadcast-style sideline and overhead cameras for a professional feel.
+
+Player lock views enabling individual control immersion.
+
+Auto-zoom mechanics that enhance intensity during fast breaks.
+
+Graphics and Animation:
+
+Polished court textures, reflecting home-court branding and NCAA-approved designs.
+
+Customizable jerseys with accurate team colors and sponsor integration.
+
+Realistic player movements, ensuring dribbles, shots, and defensive reactions mimic real-life execution.
+
+TV Scorebugs and Stat Integration:
+
+Fully customizable scorebugs resembling ESPN, FOX, CBS broadcasts.
+
+Dynamic overlays displaying player stats, shooting percentages, and historical performances.
+
+Halftime reports and post-game breakdowns enhancing storytelling.
+
+Why a 5v5 Format is Essential
+College basketball traditionally operates in a 5v5 format, where team cohesion and individual roles create dynamic gameplay. Implementing this format ensures:
+
+Strategic Playcalling & Defensive Adjustments:
+
+Teams adjust to fast breaks, zone defenses, and full-court presses based on player fatigue and momentum shifts.
+
+Matchups become critical—balancing star players with rotational depth.
+
+Realistic Player Fatigue & Substitutions:
+
+Endurance affects shot accuracy, defensive response, and off-ball movement.
+
+Coaches must manage bench rotations and play styles based on team strengths.
+
+Authentic NCAA Tournament Atmosphere:
+
+A 5v5 format mirrors March Madness intensity, where individual performances can change the course of a game.
+
+Crowd engagement and pressure mechanics create immersive environments, especially during late-game moments.
