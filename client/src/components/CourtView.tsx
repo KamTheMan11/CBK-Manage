@@ -352,7 +352,7 @@ export default function CourtView({ gameState, homeTeam, awayTeam }: CourtViewPr
             {gameState.possession === PossessionType.HOME && 
               Math.floor(Math.random() * 5) === index && (
               <Billboard position={[0, 2.5, 0]}>
-                <Html transform scale={0.1} rotation={[0, Math.PI, 0]} transform>
+                <Html transform scale={0.1} rotation={[0, Math.PI, 0]}>
                   <div style={{ 
                     backgroundColor: '#003087', 
                     color: 'white',
@@ -424,7 +424,7 @@ export default function CourtView({ gameState, homeTeam, awayTeam }: CourtViewPr
             {gameState.possession === PossessionType.AWAY && 
               Math.floor(Math.random() * 5) === index && (
               <Billboard position={[0, 2.5, 0]}>
-                <Html transform scale={0.1} rotation={[0, Math.PI, 0]} transform>
+                <Html transform scale={0.1} rotation={[0, Math.PI, 0]}>
                   <div style={{ 
                     backgroundColor: awayTeam.primaryColor || '#ff0000', 
                     color: 'white',

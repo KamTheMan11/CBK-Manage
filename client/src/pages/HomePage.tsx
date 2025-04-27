@@ -13,13 +13,15 @@ export default function HomePage() {
   
   // Dummy data for the ESPN ticker at the bottom
   const [tickerData] = useState([
-    { teamA: 'Duke', scoreA: 78, teamB: 'UNC', scoreB: 75, status: 'Final' },
-    { teamA: 'Kentucky', scoreA: 68, teamB: 'Kansas', scoreB: 72, status: 'Final' },
-    { teamA: 'Gonzaga', scoreA: 83, teamB: 'Baylor', scoreB: 79, status: '2nd Half' },
-    { teamA: 'UCLA', scoreA: 45, teamB: 'Arizona', scoreB: 51, status: 'Halftime' },
-    { teamA: 'Villanova', scoreA: 28, teamB: 'Michigan', scoreB: 34, status: '1st Half' },
-    { teamA: 'Texas', scoreA: 0, teamB: 'Oklahoma', scoreB: 0, status: '8:00 PM' },
-    { teamA: 'Syracuse', scoreA: 0, teamB: 'Georgetown', scoreB: 0, status: '9:00 PM' },
+    { teamA: 'Duke Blue Devils', scoreA: 78, teamARank: 5, teamB: 'UNC Tar Heels', scoreB: 75, teamBRank: 8, status: 'Final', network: 'ESPN', nationally: true },
+    { teamA: 'Kentucky Wildcats', scoreA: 68, teamARank: 12, teamB: 'Kansas Jayhawks', scoreB: 72, teamBRank: 3, status: 'Final', network: 'CBS', nationally: true },
+    { teamA: 'Gonzaga Bulldogs', scoreA: 83, teamARank: 1, teamB: 'Baylor Bears', scoreB: 79, teamBRank: 2, status: '2nd Half', network: 'FOX', nationally: true },
+    { teamA: 'UCLA Bruins', scoreA: 45, teamARank: 7, teamB: 'Arizona Wildcats', scoreB: 51, teamBRank: 9, status: 'Halftime', network: 'ESPN2', nationally: true },
+    { teamA: 'Villanova Wildcats', scoreA: 28, teamARank: 15, teamB: 'Michigan Wolverines', scoreB: 34, teamBRank: 4, status: '1st Half', network: 'FS1', nationally: true },
+    { teamA: 'Texas Longhorns', teamARank: 18, teamB: 'Oklahoma Sooners', status: '8:00 PM', network: 'FOX Sports Southwest', nationally: false },
+    { teamA: 'Syracuse Orange', teamB: 'Georgetown Hoyas', status: '9:00 PM', network: 'ESPN', nationally: true },
+    { teamA: 'Georgia Bulldogs', teamB: 'Alabama Crimson Tide', status: '7:30 PM', network: 'FOX Sports South', nationally: false },
+    { teamA: 'Memphis Tigers', teamB: 'Montana State Bobcats', status: '6:00 PM', network: 'ESPN+', nationally: false },
   ]);
   
   // Format date for college basketball season display
