@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Volleyball, Settings, Home, Users, Volume2, VolumeX } from "lucide-react";
+import { Volleyball, Settings, Home, Users, Volume2, VolumeX, Trophy } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAudio } from "../lib/stores/useAudio";
 import { useTheme } from "./ui/theme-provider";
@@ -46,6 +46,9 @@ export default function Navigation() {
             </NavLink>
             <NavLink to="/team-management" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`}>
               <Users className="h-4 w-4 mr-1" /> Teams
+            </NavLink>
+            <NavLink to="/march-madness" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`}>
+              <Trophy className="h-4 w-4 mr-1" /> March Madness
             </NavLink>
             <NavLink to="/settings" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`}>
               <Settings className="h-4 w-4 mr-1" /> Settings
@@ -100,6 +103,9 @@ export default function Navigation() {
               </NavLink>
               <NavLink to="/team-management" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`} onClick={() => setIsMenuOpen(false)}>
                 <Users className="h-4 w-4 mr-2" /> Teams
+              </NavLink>
+              <NavLink to="/march-madness" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`} onClick={() => setIsMenuOpen(false)}>
+                <Trophy className="h-4 w-4 mr-2" /> March Madness
               </NavLink>
               <NavLink to="/settings" className={({ isActive }) => `px-3 py-2 rounded-md flex items-center hover:bg-[#002a77] ${isActive ? 'bg-[#002a77]' : ''}`} onClick={() => setIsMenuOpen(false)}>
                 <Settings className="h-4 w-4 mr-2" /> Settings
