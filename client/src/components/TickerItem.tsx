@@ -50,40 +50,52 @@ export const TickerItem: React.FC<TickerGameProps> = ({
   };
 
   return (
-    <div className="ticker-item">
-      <span className="ticker-team">
-        {teamARank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{teamARank}</span>}
-        {teamA}
-      </span>
-      
-      {/* Show score for games in progress or completed */}
-      {(status === 'Final' || status === '1st Half' || status === '2nd Half' || status === 'Halftime') ? (
-        <>
-          <span className="ticker-score">{scoreA}</span>
-          <span className="ticker-team">
-            {teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{teamBRank}</span>}
-            {teamB}
-          </span>
-          <span className="ticker-score">{scoreB}</span>
-        </>
-      ) : (
-        /* Show vs. between teams for upcoming games */
-        <>
-          <span className="mx-1 text-white">vs.</span>
-          <span className="ticker-team">
-            {teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{teamBRank}</span>}
-            {teamB}
-          </span>
-        </>
-      )}
-      
-      <span className="ticker-status ml-2">
-        {getStatusDisplay()}
+    <div className="ticker-item flex items-center space-x-2 bg-black text-white">
+      <div className="flex flex-1 items-center">
+        <span className="ticker-team flex items-center">
+          {teamARank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{teamARank}</span>}
+          {teamA}
+        </span>
         
-        {/* Only show network for upcoming games or nationally televised games - omit for completed games */}
-        {(status !== 'Final' && network) && ` • ${network}`}
-        {nationally && ' • Nat\'l TV'}
-      </span>
+        {/* Show score for games in progress or completed */}
+        {(status === 'Final' || status === '1st Half' || status === '2nd Half' || status === 'Halftime') ? (
+          <>
+            <span className="ticker-score ml-1 font-semibold">{scoreA}</span>
+            <span className="mx-2">-</span>
+            <span className="ticker-team flex items-center">
+              {teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{teamBRank}</span>}
+              {teamB}
+            </span>
+            <span className="ticker-score ml-1 font-semibold">{scoreB}</span>
+          </>
+        ) : (
+          /* Show vs. between teams for upcoming games */
+          <>
+            <span className="mx-1 text-white">vs.</span>
+            <span className="ticker-team flex items-center">
+              {teamBRank && <span className="bg-[#D30000] text-white px-1 text-xs mr-1">#{teamBRank}</span>}
+              {teamB}
+            </span>
+          </>
+        )}
+      </div>
+      
+      <div className="flex items-center px-2">
+        <span className="ticker-status text-gray-300 text-sm">
+          {getStatusDisplay()}
+          
+          {/* Only show network for upcoming games or nationally televised games - omit for completed games */}
+          {(status !== 'Final' && network) && ` • ${network}`}
+          {nationally && ' • Nat\'l TV'}
+        </span>
+
+        {/* Network logo placeholder - could be an actual image in production */}
+        {network && (
+          <span className="ml-1 bg-gray-700 text-white text-xs px-1 rounded">
+            {network}
+          </span>
+        )}
+      </div>
     </div>
   );
 };

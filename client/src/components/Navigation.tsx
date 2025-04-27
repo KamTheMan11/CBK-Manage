@@ -73,7 +73,7 @@ export default function Navigation() {
               onClick={toggleTheme} 
               className="text-white hover:bg-[#002a77]"
             >
-              {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              <Sun className="h-5 w-5 text-yellow-300" />
             </Button>
 
             {/* Mobile menu button */}
