@@ -1,0 +1,73 @@
+### **Prompt: Developing a Fully Customizable College Basketball Game with 2K Camera Options and Custom Scorebugs**  
+
+#### **Objective:**  
+Create a **fully functional college basketball video game** that includes **all FBS and FCS teams**, with customizable **conferences, team rosters, scorebugs, and a dynamic camera system inspired by NBA 2K** to replicate a realistic broadcast experience.
+
+#### **Core Features:**  
+
+1. **Comprehensive Team Rosters & Schools:**  
+   - Include **all FBS and FCS schools** from Division I.  
+   - Each team should have **editable rosters, player attributes, and historical statistics**.  
+   - Allow users to **import custom teams** for additional league expansion.  
+
+2. **Custom Conferences & League Structures:**  
+   - Users can **restructure conferences**, create their own **tournament formats**, and set season schedules.  
+   - Implement **promotion/relegation** options between conferences for an evolving league experience.  
+
+3. **Advanced Gameplay Mechanics:**  
+   - Realistic **player movements, dribbling physics, and AI decision-making**.  
+   - Adaptive **fatigue and stamina system** influencing gameplay.  
+   - Customizable **game sliders**, allowing adjustments to difficulty and realism.  
+
+4. **Customizable Camera Options (Inspired by 2K Cameras):**  
+   - Include **multiple broadcast-style camera angles**, such as:  
+     - **2K Broadcast Camera** – Classic **side-view** angle for a TV-style experience.  
+     - **Player Lock Camera** – Follows an individual player dynamically.  
+     - **Overhead Camera** – Birds-eye view for tactical gameplay.  
+     - **Baseline & Sideline Cameras** – Provide immersive angles used in **NBA 2K** and real broadcasts.  
+     - **Dynamic Auto-Zoom** – Adjusts focus based on fast breaks, dunks, and clutch moments.  
+
+5. **Authentic TV Broadcast Features:**  
+   - Fully customizable **scorebug designs**, allowing users to replicate **ESPN, CBS, FOX, and local sports networks**.  
+   - Dynamic **camera transitions, replay integration, and stat overlays** for a professional feel.  
+   - **Pre-game intros, halftime reports, and post-game analysis** with AI-generated commentary.  
+
+6. **Custom Scorebug Creation:**  
+   - Users can **edit scorebug layouts**, choosing styles from different networks.  
+   - Include features like **team logos, shot clock timers, possession indicators, and live stats**.  
+   - Option to **import new scorebug themes** or design them from scratch.  
+
+7. **Multiplayer & Career Modes:**  
+   - **Single-player dynasty mode**, where users manage a college program, handling **recruiting, training, and tournament success**.  
+   - **Local & Online multiplayer**, allowing competitive college basketball matchups.  
+
+#### **Development Approach:**  
+
+1. **Game Engine Selection:**  
+   - Use **Unity or Unreal Engine** for high-quality graphics and animation.  
+   - Implement **ragdoll physics and motion-capture animations** for realism.  
+
+2. **Programming Frameworks:**  
+   - **C++ or C#** for core gameplay mechanics.  
+   - **Python or SQL** for roster and stat management.  
+
+3. **Database & Modding Support:**  
+   - Store **team statistics, tournament history, and player attributes** using **a scalable database**.  
+   - Provide **modding tools** so users can create **custom teams, uniforms, arenas, scorebugs, and even alternative rule sets**.  
+
+4. **UI Enhancements:**  
+   - Develop **theme-based UI options**, allowing users to switch between different broadcast styles.  
+   - Include **in-game overlays** for stat tracking and real-time commentary integration.  
+
+5. **AI & Realistic Match Simulation:**  
+   - Implement **adaptive AI**, where teams adjust strategies based on opponent playstyles.  
+   - Simulated **momentum shifts** based on scoring runs and crowd engagement.  
+
+#### **Deliverables:**  
+- Full-fledged **college basketball simulation** with **customizable teams, conferences, scorebugs, and multiple camera options inspired by NBA 2K**.  
+- Advanced **game mechanics, TV-style presentation, and a dynamic career mode**.  
+- Open-ended **modding potential** for **community-driven customization and expansion**.  
+
+---
+
+This prompt fully integrates **2K-style camera options and custom scorebug designs**, giving users **complete control over the game’s visual presentation**. Let me know if you need refinements or more technical details!
