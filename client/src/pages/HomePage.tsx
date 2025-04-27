@@ -250,7 +250,7 @@ export default function HomePage() {
             onClick={() => navigate('/march-madness')}
           >
             <CardContent className="p-0">
-              <div className="march-madness-section p-6 text-white flex flex-col items-center text-center">
+              <div className="bg-blue-600 p-6 text-white flex flex-col items-center text-center">
                 <Trophy className="w-12 h-12 mb-2" />
                 <h3 className="font-bold text-lg">March Madness</h3>
                 <p className="text-sm mt-2">Play through an entire tournament bracket with 64 teams</p>
