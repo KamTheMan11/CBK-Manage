@@ -12,8 +12,8 @@ export const defaultTeams: Team[] = collegeTeams.map(college => ({
   secondaryColor: college.secondaryColor,
   conferenceId: college.conferenceId,
   players: generateTeamRoster(college.id),
-  wins: college.id <= 25 ? Math.floor(Math.random() * 4) + 17 : Math.floor(Math.random() * 8) + 12,
-  losses: college.id <= 25 ? Math.floor(Math.random() * 4) + 2 : Math.floor(Math.random() * 6) + 5,
+  wins: Math.floor(Math.random() * 12) + 12, // 12-23 wins for all teams
+  losses: Math.floor(Math.random() * 8) + 2,  // 2-9 losses for all teams
   homeWins: Math.floor(Math.random() * 3) + 9,
   homeLosses: Math.floor(Math.random() * 2) + 1,
   awayWins: Math.floor(Math.random() * 3) + 8,

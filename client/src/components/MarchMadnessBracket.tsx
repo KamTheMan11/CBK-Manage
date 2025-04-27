@@ -70,11 +70,13 @@ interface BracketTeam {
 
 interface BracketGame {
   id: number;
-  round: number;
+  round: number; // 0 for First Four, 1-6 for main tournament
   region: string;
   team1: BracketTeam | null;
   team2: BracketTeam | null;
   winner?: number; // ID of winning team
+  isFirstFour?: boolean;
+  firstFourWinnerSlot?: number; // Which slot in Round of 64 this winner goes to
 }
 
 interface BracketRegion {
@@ -108,10 +110,14 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
   
   const generateBracket = () => {
     // Regions of the NCAA tournament
-    const regions = ["East", "West", "South", "Midwest"];
+    const regions = ["First Four", "East", "West", "South", "Midwest"];
     
-    // Generate random cities for each region and Final Four
-    const randomCities = getRandomCities(5); // Get 5 random cities (4 regions + Final Four)
+    // Generate random cities for First Four, regions and Final Four
+    const randomCities = getRandomCities(6); // Get 6 random cities (First Four + 4 regions + Final Four)
+    
+    // Dayton, OH is always the First Four host
+    const cityList = [...randomCities];
+    cityList[0] = { city: "Dayton", state: "OH" };
     const newRegionCities: {[key: string]: {city: string, state: string}} = {};
     
     // Assign cities to regions
@@ -124,11 +130,21 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     // Major conferences for top seeds
     const majorConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, American
     
-    // Sort teams by conference first
-    const majorConfTeams = collegeTeams.filter(team => majorConferences.includes(team.conferenceId));
-    const otherTeams = collegeTeams.filter(team => !majorConferences.includes(team.conferenceId));
+    // Calculate win percentage for ranking
+    const rankedTeams = collegeTeams.map(team => {
+      const teamData = defaultTeams.find(t => t.id === team.id);
+      const winPct = teamData ? teamData.wins / (teamData.wins + teamData.losses) : 0;
+      return { ...team, winPct };
+    }).sort((a, b) => b.winPct - a.winPct);
+
+    // Top 25 teams are the ones with best win percentage
+    const top25Teams = rankedTeams.slice(0, 25);
+    const remainingTeams = rankedTeams.slice(25);
+
+    // Select 8 teams for First Four (4 lowest at-large and 4 lowest auto-bids)
+    const firstFourTeams = remainingTeams.slice(-8).sort(() => Math.random() - 0.5);
     
-    // Ensure top seeds (1-4) are from major conferences
+    // Remaining teams for main bracket
     const shuffledTeams = [
       ...majorConfTeams.sort(() => Math.random() - 0.5).slice(0, 16), // Top 16 teams (1-4 seeds)
       ...otherTeams.sort(() => Math.random() - 0.5)
@@ -595,6 +611,24 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         <CardContent className="pt-6">
           <div className="overflow-x-auto max-h-[75vh]">
             <div className="w-[2000px] flex flex-col space-y-8">
+              {/* First Four */}
+              <div className="flex space-x-8">
+                <div className="w-[900px]">
+                  <h3 className="text-lg font-bold mb-4">
+                    First Four – Dayton, OH
+                  </h3>
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-semibold text-gray-500">FIRST FOUR - DAY 1</h4>
+                      {bracket[0]?.games.slice(0, 2).map(renderGame)}
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-semibold text-gray-500">FIRST FOUR - DAY 2</h4>
+                      {bracket[0]?.games.slice(2, 4).map(renderGame)}
+                    </div>
+                  </div>
+                </div>
+              </div>
               {/* First 2 regions */}
               <div className="flex space-x-8">
                 {bracket.slice(0, 2).map((region) => (
