@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Basketball background -->
+  <circle cx="16" cy="16" r="15" fill="#FF8C00" stroke="#003087" stroke-width="2" />
+  
+  <!-- Basketball lines -->
+  <path d="M16 1 C16 31" stroke="#003087" stroke-width="1.5" />
+  <path d="M1 16 C31 16" stroke="#003087" stroke-width="1.5" />
+  
+  <!-- Basketball curved lines -->
+  <path d="M4 7 Q16 15, 28 7" stroke="#003087" stroke-width="1.5" fill="none" />
+  <path d="M4 25 Q16 17, 28 25" stroke="#003087" stroke-width="1.5" fill="none" />
+  
+  <!-- Basketball seams texture -->
+  <circle cx="16" cy="16" r="12" stroke="#003087" stroke-width="0.5" stroke-dasharray="2,3" fill="none" />
+  <circle cx="16" cy="16" r="8" stroke="#003087" stroke-width="0.5" stroke-dasharray="1,2" fill="none" />
+</svg>

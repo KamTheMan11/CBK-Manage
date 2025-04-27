@@ -1,0 +1,30 @@
+<svg width="500" height="100" viewBox="0 0 500 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="500" height="100" rx="5" fill="#003087" />
+  
+  <!-- Header bar -->
+  <rect width="500" height="30" rx="5" fill="#002a77" />
+  
+  <!-- Quarter/Time display -->
+  <text x="20" y="20" font-family="Arial" font-size="16" font-weight="bold" fill="white">1Q</text>
+  <text x="250" y="20" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">10:00</text>
+  <text x="480" y="20" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="end">SHOT: 30</text>
+  
+  <!-- Scores section -->
+  <rect x="0" y="30" width="500" height="25" fill="#e9e9e9" />
+  <text x="85" y="48" font-family="Arial" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">AWAY</text>
+  <text x="250" y="48" font-family="Arial" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">SCORE</text>
+  <text x="415" y="48" font-family="Arial" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">HOME</text>
+  
+  <!-- Team sections -->
+  <text x="85" y="75" font-family="Arial" font-size="18" font-weight="bold" fill="#003087" text-anchor="middle">VIS</text>
+  <text x="250" y="75" font-family="Arial" font-size="22" font-weight="bold" fill="white" text-anchor="middle">0 - 0</text>
+  <text x="415" y="75" font-family="Arial" font-size="18" font-weight="bold" fill="#003087" text-anchor="middle">HOME</text>
+  
+  <!-- Timeout indicators -->
+  <text x="85" y="90" font-family="Arial" font-size="12" fill="white" text-anchor="middle">4 TO</text>
+  <text x="415" y="90" font-family="Arial" font-size="12" fill="white" text-anchor="middle">4 TO</text>
+  
+  <!-- Bottom status bar -->
+  <rect x="0" y="95" width="500" height="5" fill="#002a77" />
+</svg>

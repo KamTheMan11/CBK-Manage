@@ -1,0 +1,39 @@
+<svg width="500" height="100" viewBox="0 0 500 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="500" height="100" rx="5" fill="#222222" />
+  
+  <!-- Header bar (ESPN Red) -->
+  <rect width="500" height="30" rx="5" fill="#C41230" />
+  
+  <!-- ESPN logo -->
+  <rect x="10" y="5" width="50" height="20" rx="2" fill="white" />
+  <text x="35" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="#C41230" text-anchor="middle">ESPN</text>
+  
+  <!-- Quarter/Time display -->
+  <text x="90" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="white">1Q</text>
+  <text x="250" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">10:00</text>
+  <text x="480" y="20" font-family="Arial" font-size="14" fill="white" text-anchor="end">SHOT: 30</text>
+  
+  <!-- Team sections with colored background -->
+  <rect x="10" y="35" width="150" height="55" rx="3" fill="#333333" />
+  <rect x="340" y="35" width="150" height="55" rx="3" fill="#333333" />
+  
+  <!-- Team logos (simulated with circles) -->
+  <circle cx="30" cy="55" r="15" fill="#666666" />
+  <circle cx="470" cy="55" r="15" fill="#666666" />
+  
+  <!-- Team names -->
+  <text x="85" y="55" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">AWAY</text>
+  <text x="415" y="55" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">HOME</text>
+  
+  <!-- Center score display -->
+  <rect x="170" y="35" width="160" height="55" rx="3" fill="#111111" />
+  <text x="250" y="70" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">0 - 0</text>
+  
+  <!-- Timeout indicators -->
+  <text x="85" y="80" font-family="Arial" font-size="12" fill="#aaaaaa" text-anchor="middle">4 TO</text>
+  <text x="415" y="80" font-family="Arial" font-size="12" fill="#aaaaaa" text-anchor="middle">4 TO</text>
+  
+  <!-- Bottom status bar -->
+  <rect x="0" y="95" width="500" height="5" fill="#C41230" />
+</svg>
