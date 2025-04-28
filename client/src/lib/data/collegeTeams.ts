@@ -438,8 +438,50 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
 
 // Function to get a national TV network
 export function getNationalTVNetwork(): string {
-  const networks = ["ABC", "CBS", "ESPN", "FOX", "Big Ten Network"];
+  const currentHour = new Date().getHours();
+  const networks = ["ESPN", "FOX", "CBSSN"];
+  
+  // ABC and CBS only available before 7 PM
+  if (currentHour < 19) {
+    networks.push("ABC", "CBS");
+  }
+  
   return networks[Math.floor(Math.random() * networks.length)];
+}
+
+// Function to determine specialized network
+export function getSpecializedNetwork(homeTeam: CollegeTeam, awayTeam: CollegeTeam): string | null {
+  // Big Ten Network - only for games between Big Ten teams
+  if (homeTeam.conferenceId === 3 && awayTeam.conferenceId === 3) {
+    return "Big Ten Network";
+  }
+  
+  // Longhorn Network - for select Texas games
+  if (homeTeam.id === 46 || awayTeam.id === 46) {
+    return Math.random() < 0.3 ? "Longhorn Network" : null;
+  }
+  
+  // SEC Network - for select SEC games
+  if (homeTeam.conferenceId === 2 && awayTeam.conferenceId === 2) {
+    return Math.random() < 0.4 ? "SEC Network" : null;
+  }
+  
+  // ACC Network - for lower tier ACC matchups
+  if (homeTeam.conferenceId === 1 && awayTeam.conferenceId === 1) {
+    const homeRanking = getTeamRanking(homeTeam.id);
+    const awayRanking = getTeamRanking(awayTeam.id);
+    if ((!homeRanking || homeRanking > 15) && (!awayRanking || awayRanking > 15)) {
+      return "ACC Network";
+    }
+  }
+  
+  // CBSSN for CUSA and MWC games
+  if ((homeTeam.conferenceId === 11 || homeTeam.conferenceId === 8) && 
+      (awayTeam.conferenceId === 11 || awayTeam.conferenceId === 8)) {
+    return Math.random() < 0.6 ? "CBSSN" : null;
+  }
+  
+  return null;
 }
 
 // Function to generate random matchups
@@ -476,12 +518,16 @@ export function generateRandomMatchups(count: number = 8): Array<{
     const status = statuses[Math.floor(Math.random() * statuses.length)];
     const nationally = shouldBeNationallyTelevised(homeTeamId, awayTeamId);
 
+    const homeTeam = collegeTeams.find(team => team.id === homeTeamId);
+    const awayTeam = collegeTeams.find(team => team.id === awayTeamId);
+    const specialNetwork = homeTeam && awayTeam ? getSpecializedNetwork(homeTeam, awayTeam) : null;
+    
     const matchup: any = {
       homeTeamId,
       awayTeamId,
       status,
-      network: nationally ? getNationalTVNetwork() : getRegionalNetwork(homeTeamId, awayTeamId),
-      nationally
+      network: specialNetwork || (nationally ? getNationalTVNetwork() : getRegionalNetwork(homeTeamId, awayTeamId)),
+      nationally: nationally || !!specialNetwork
     };
 
     // Add scores if the game has started or is complete
