@@ -12,10 +12,19 @@ export default function StandingsTable() {
   const teamsByConference = conferences.map(conference => {
     const teamsInConference = teams.filter(team => team.conferenceId === conference.id);
     
-    // Sort teams by win percentage
+    // Sort teams by conference win percentage
     const sortedTeams = teamsInConference.sort((a, b) => {
-      const aWinPct = a.wins ? a.wins / (a.wins + a.losses) : 0;
-      const bWinPct = b.wins ? b.wins / (b.wins + b.losses) : 0;
+      const aConfWins = a.confWins || 0;
+      const aConfLosses = a.confLosses || 0;
+      const bConfWins = b.confWins || 0;
+      const bConfLosses = b.confLosses || 0;
+      
+      const aWinPct = aConfWins ? aConfWins / (aConfWins + aConfLosses) : 0;
+      const bWinPct = bConfWins ? bConfWins / (bConfWins + bConfLosses) : 0;
+      
+      if (bWinPct === aWinPct) {
+        return (bConfWins - aConfWins); // If win percentage is equal, team with more wins is ranked higher
+      }
       return bWinPct - aWinPct;
     });
     

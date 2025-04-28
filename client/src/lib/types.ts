@@ -96,6 +96,8 @@ export interface Team {
   homeLosses?: number;
   awayWins?: number;
   awayLosses?: number;
+  confWins?: number;     // Conference wins
+  confLosses?: number;   // Conference losses
   streak?: number;        // Positive for win streak, negative for losing streak
 }
 
