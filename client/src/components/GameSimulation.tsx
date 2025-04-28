@@ -204,10 +204,6 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
           <div>Spin: R</div>
         </div>
       </div>
-
-            selectedView={selectedCameraView} 
-            onViewChange={setSelectedCameraView} 
-          />
         </div>
       </div>
 
