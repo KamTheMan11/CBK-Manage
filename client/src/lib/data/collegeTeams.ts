@@ -440,21 +440,32 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
 export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeTeam): string {
   const currentHour = new Date().getHours();
   let networks = ["ESPN"];
-  
-  // ACC teams can't be on FOX
+
+  // ACC teams can't be on FOX, but Big East games should be on FOX
   const isACCGame = homeTeam?.conferenceId === 1 || awayTeam?.conferenceId === 1;
-  if (!isACCGame) {
+  const isBigEastGame = homeTeam?.conferenceId === 6 || awayTeam?.conferenceId === 6;
+  if (!isACCGame || isBigEastGame) {
     networks.push("FOX");
   }
-  
-  // ABC and CBS only available before 7 PM
-  if (currentHour < 19) {
-    networks.push("ABC", "CBS");
-  } else {
-    // After 7 PM, remove ABC and CBS from consideration
-    networks = networks.filter(network => network !== "ABC" && network !== "CBS");
+
+  // ABC restrictions: before 2 PM, no MWC/AAC teams
+  const isMWCorAACGame = [7, 8].includes(homeTeam?.conferenceId || 0) || [7, 8].includes(awayTeam?.conferenceId || 0);
+  if (currentHour < 14 && !isMWCorAACGame) {
+    networks.push("ABC");
   }
-  
+
+  // CBS available before 7 PM
+  if (currentHour < 19) {
+    networks.push("CBS");
+  }
+
+  // SEC games should be on ABC when possible
+  const isSECGame = homeTeam?.conferenceId === 2 || awayTeam?.conferenceId === 2;
+  if (isSECGame && currentHour < 14) {
+    // Prioritize ABC for SEC games during allowed hours
+    return "ABC";
+  }
+
   return networks[Math.floor(Math.random() * networks.length)];
 }
 
@@ -464,17 +475,17 @@ export function getSpecializedNetwork(homeTeam: CollegeTeam, awayTeam: CollegeTe
   if (homeTeam.conferenceId === 3 && awayTeam.conferenceId === 3) {
     return "Big Ten Network";
   }
-  
+
   // Longhorn Network - for select Texas games
   if (homeTeam.id === 46 || awayTeam.id === 46) {
     return Math.random() < 0.3 ? "Longhorn Network" : null;
   }
-  
+
   // SEC Network - for select SEC games
   if (homeTeam.conferenceId === 2 && awayTeam.conferenceId === 2) {
     return Math.random() < 0.4 ? "SEC Network" : null;
   }
-  
+
   // ACC Network - for lower tier ACC matchups
   if (homeTeam.conferenceId === 1 && awayTeam.conferenceId === 1) {
     const homeRanking = getTeamRanking(homeTeam.id);
@@ -483,17 +494,17 @@ export function getSpecializedNetwork(homeTeam: CollegeTeam, awayTeam: CollegeTe
       return "ACC Network";
     }
   }
-  
+
   // Power 5 conferences + Big East can't play on CBSSN
   const powerConferences = [1, 2, 3, 4, 5, 6]; // ACC, SEC, Big Ten, Big 12, Pac-12, Big East
   const isHomeTeamPower = powerConferences.includes(homeTeam.conferenceId);
   const isAwayTeamPower = powerConferences.includes(awayTeam.conferenceId);
-  
+
   // CBSSN for non-power conference games only (not nationally televised)
   if (!isHomeTeamPower && !isAwayTeamPower) {
     return Math.random() < 0.6 ? "CBSSN" : null;
   }
-  
+
   return null;
 }
 
@@ -534,12 +545,12 @@ export function generateRandomMatchups(count: number = 8): Array<{
     const homeTeam = collegeTeams.find(team => team.id === homeTeamId);
     const awayTeam = collegeTeams.find(team => team.id === awayTeamId);
     const specialNetwork = homeTeam && awayTeam ? getSpecializedNetwork(homeTeam, awayTeam) : null;
-    
+
     const matchup: any = {
       homeTeamId,
       awayTeamId,
       status,
-      network: specialNetwork || (nationally ? getNationalTVNetwork() : getRegionalNetwork(homeTeamId, awayTeamId)),
+      network: specialNetwork || (nationally ? getNationalTVNetwork(homeTeam, awayTeam) : getRegionalNetwork(homeTeamId, awayTeamId)),
       nationally: nationally || !!specialNetwork
     };
 
