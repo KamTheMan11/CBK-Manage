@@ -127,12 +127,25 @@ export const takeShot = (
     points = shotType === ShotType.THREE_POINTER ? 3 : (shotType === ShotType.FREE_THROW ? 1 : 2);
   }
   
-  // Update the score
+  // Update the score with first half scoring limit
   if (success) {
+    const isFirstHalf = gameState.quarter <= 2;
+    const timeRemainingInHalf = isFirstHalf ? 
+      (gameState.quarter === 1 ? gameState.timeRemaining : gameState.timeRemaining + 600) : 0;
+    
+    // Check if we're in first half with >10 minutes remaining
+    const shouldApplyScoreLimit = isFirstHalf && timeRemainingInHalf > 600;
+    
     if (gameState.possession === 'home') {
-      newGameState.score.home += points;
+      // Only add points if under 25 or not in score limit period
+      if (!shouldApplyScoreLimit || (newGameState.score.home + points) <= 25) {
+        newGameState.score.home += points;
+      }
     } else {
-      newGameState.score.away += points;
+      // Only add points if under 25 or not in score limit period
+      if (!shouldApplyScoreLimit || (newGameState.score.away + points) <= 25) {
+        newGameState.score.away += points;
+      }
     }
   }
   
