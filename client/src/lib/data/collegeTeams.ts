@@ -296,7 +296,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       (homeTeam.shortName.includes("Minnesota") || awayTeam.shortName.includes("Minnesota")) ||
       (homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin"))
     ) {
-      return homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin") 
+      return homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin")
         ? "FOX Sports Wisconsin" : "FOX Sports North";
     } else if (
       (homeTeam.shortName.includes("Ohio") || awayTeam.shortName.includes("Ohio")) ||
@@ -305,7 +305,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
       // Ohio teams get either FOX Sports Ohio or SportsTime Ohio
       return Math.random() > 0.5 ? "FOX Sports Ohio" : "SportsTime Ohio";
     } else if (
-      (homeTeam.shortName.includes("Missouri") || awayTeam.shortName.includes("Missouri")) || 
+      (homeTeam.shortName.includes("Missouri") || awayTeam.shortName.includes("Missouri")) ||
       (homeTeam.shortName.includes("Illinois") || awayTeam.shortName.includes("Illinois")) ||
       (homeTeam.shortName.includes("Iowa") || awayTeam.shortName.includes("Iowa"))
     ) {
@@ -430,8 +430,8 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
   ];
 
   return rivalries.some(
-    ([teamA, teamB]) => 
-      (homeTeamId === teamA && awayTeamId === teamB) || 
+    ([teamA, teamB]) =>
+      (homeTeamId === teamA && awayTeamId === teamB) ||
       (homeTeamId === teamB && awayTeamId === teamA)
   );
 }
@@ -464,6 +464,9 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
   if (isSECGame && currentHour < 14) {
     // Prioritize ABC for SEC games during allowed hours
     return "ABC";
+  }
+  if (isBigEastGame && networks.includes("FOX")) {
+    return "FOX";
   }
 
   return networks[Math.floor(Math.random() * networks.length)];
