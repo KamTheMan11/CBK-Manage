@@ -36,6 +36,26 @@ export const conferences: Conference[] = [
     id: 7,
     name: 'American Athletic Conference',
     abbreviation: 'AAC'
+  },
+  {
+    id: 8,
+    name: 'Mountain West Conference',
+    abbreviation: 'MWC'
+  },
+  {
+    id: 9,
+    name: 'Sun Belt Conference',
+    abbreviation: 'SBC'
+  },
+  {
+    id: 10,
+    name: 'Mid-American Conference',
+    abbreviation: 'MAC'
+  },
+  {
+    id: 11,
+    name: 'Conference USA',
+    abbreviation: 'CUSA'
   }
 ];
 
