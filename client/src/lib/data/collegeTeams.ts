@@ -176,8 +176,11 @@ export const collegeTeams: CollegeTeam[] = [
 
 // Current Top 25 Rankings and records
 export const rankings = [
-  { id: 18, rank: 1, wins: 36, losses: 4, points: 775, trend: 2, shortName: "FLA", firstPlaceVotes: 31 }, // Florida
-  { id: 76, rank: 2, wins: 35, losses: 5, points: 744, trend: 0, shortName: "HOU" }, // Houston
+  { id: 44, rank: 1, wins: 28, losses: 2, points: 775, trend: 0, shortName: "KU", firstPlaceVotes: 45 }, // Kansas
+  { id: 16, rank: 2, wins: 27, losses: 2, points: 744, trend: 0, shortName: "UK" }, // Kentucky
+  { id: 1, rank: 3, wins: 26, losses: 3, points: 706, trend: 1, shortName: "DUKE" }, // Duke
+  { id: 66, rank: 4, wins: 25, losses: 3, points: 689, trend: 1, shortName: "CONN" }, // UConn
+  { id: 30, rank: 5, wins: 24, losses: 4, points: 621, trend: -2, shortName: "MICH" }, // Michigan
   { id: 1, rank: 3, wins: 35, losses: 4, points: 706, trend: 2, shortName: "DUKE" }, // Duke
   { id: 19, rank: 4, wins: 32, losses: 6, points: 689, trend: 0, shortName: "AUB" }, // Auburn
   { id: 17, rank: 5, wins: 30, losses: 8, points: 621, trend: 1, shortName: "TENN" }, // Tennessee
@@ -503,7 +506,14 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
     networks = networks.filter(network => network !== "ESPN");
   }
 
-  return networks[Math.floor(Math.random() * networks.length)];
+  const network = networks[Math.floor(Math.random() * networks.length)];
+  return network;
+}
+
+// Function to check if a network is considered national TV
+export function isNationalNetwork(network: string): boolean {
+  const nationalNetworks = ["ESPN", "ABC", "CBS", "FOX", "FS1"];
+  return nationalNetworks.includes(network);
 }
 
 // Function to determine specialized network
