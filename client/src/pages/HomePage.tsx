@@ -314,30 +314,58 @@ export default function HomePage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((rank) => {
-                      const team = collegeTeams.find(t => t.id === rank);
-                      return (
-                        <div key={rank} className="flex items-center border-b pb-1">
-                          <div className="w-8 text-center font-bold">{rank}</div>
-                          <div className="flex-1">
-                            {team?.shortName || 'Team Name'}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {team?.id <= 25 ? `${Math.floor(Math.random() * 4) + 17}-${Math.floor(Math.random() * 4) + 2}` : '0-0'}
-                          </div>
-                        </div>
-                      );
-                    })}
+                  {[
+                  { rank: 1, team: "Florida", abbr: "FLA", record: "36-4", points: 775, trend: 2 },
+                  { rank: 2, team: "Houston", abbr: "HOU", record: "35-5", points: 744, trend: 0 },
+                  { rank: 3, team: "Duke", abbr: "DUKE", record: "35-4", points: 706, trend: 2 },
+                  { rank: 4, team: "Auburn", abbr: "AUB", record: "32-6", points: 689, trend: 0 },
+                  { rank: 5, team: "Tennessee", abbr: "TENN", record: "30-8", points: 621, trend: 1 },
+                  { rank: 6, team: "Alabama", abbr: "ALA", record: "28-9", points: 610, trend: 2 },
+                  { rank: 7, team: "Michigan State", abbr: "MSU", record: "30-7", points: 593, trend: 0 },
+                  { rank: 8, team: "Texas Tech", abbr: "TTU", record: "28-9", points: 582, trend: 1 },
+                  { rank: 9, team: "Maryland", abbr: "MD", record: "27-9", points: 469, trend: 3 },
+                  { rank: 10, team: "St. John's", abbr: "SJU", record: "31-5", points: 436, trend: 5 },
+                  { rank: 11, team: "Michigan", abbr: "MICH", record: "27-10", points: 427, trend: 4 },
+                  { rank: 12, team: "Purdue", abbr: "PUR", record: "24-12", points: 384, trend: 10 }
+                ].map((team) => (
+                  <div key={team.rank} className="flex items-center border-b pb-1">
+                    <div className="w-8 text-center font-bold">{team.rank}</div>
+                    <div className="flex-1 flex items-center">
+                      <span className="mr-2">{team.team}</span>
+                      <span className="text-sm text-gray-500">{team.abbr}</span>
+                    </div>
+                    <div className="text-sm text-gray-500 mr-2">{team.record}</div>
+                    <div className={`text-xs ${team.trend > 0 ? 'text-green-600' : team.trend < 0 ? 'text-red-600' : 'text-gray-500'}`}>
+                      {team.trend > 0 ? '▲' : team.trend < 0 ? '▼' : '-'}
+                    </div>
+                  </div>
+                ))}
                 </div>
                 <div className="space-y-2">
-                  {[13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map((rank) => (
-                    <div key={rank} className="flex items-center border-b pb-1">
-                      <div className="w-8 text-center font-bold">{rank}</div>
-                      <div className="flex-1">
-                        {teams[rank % teams.length]?.name || 'Team Name'}
+                  {[
+                    { rank: 13, team: "Arizona", abbr: "ARIZ", record: "24-13", points: 353, trend: 7 },
+                    { rank: 14, team: "Kentucky", abbr: "UK", record: "24-12", points: 330, trend: 7 },
+                    { rank: 15, team: "BYU", abbr: "BYU", record: "26-10", points: 316, trend: 2 },
+                    { rank: 16, team: "Wisconsin", abbr: "WIS", record: "27-10", points: 315, trend: 6 },
+                    { rank: 17, team: "Iowa State", abbr: "ISU", record: "25-10", points: 280, trend: 3 },
+                    { rank: 18, team: "Ole Miss", abbr: "MISS", record: "24-12", points: 214, trend: 8 },
+                    { rank: 19, team: "Texas A&M", abbr: "TA&M", record: "23-11", points: 195, trend: 1 },
+                    { rank: 20, team: "Gonzaga", abbr: "GONZ", record: "26-9", points: 155, trend: 3 },
+                    { rank: 21, team: "Louisville", abbr: "LOU", record: "27-8", points: 146, trend: 10 },
+                    { rank: 22, team: "Saint Mary's", abbr: "SMC", record: "29-6", points: 97, trend: 3 },
+                    { rank: 23, team: "Clemson", abbr: "CLEM", record: "27-7", points: 95, trend: 10 },
+                    { rank: 24, team: "Creighton", abbr: "CREI", record: "25-11", points: 90, trend: 2 },
+                    { rank: 25, team: "Arkansas", abbr: "ARK", record: "22-14", points: 84, trend: 1 }
+                  ].map((team) => (
+                    <div key={team.rank} className="flex items-center border-b pb-1">
+                      <div className="w-8 text-center font-bold">{team.rank}</div>
+                      <div className="flex-1 flex items-center">
+                        <span className="mr-2">{team.team}</span>
+                        <span className="text-sm text-gray-500">{team.abbr}</span>
                       </div>
-                      <div className="text-sm text-gray-500">
-                        {Math.floor(Math.random() * 10) + 10}-{Math.floor(Math.random() * 10) + 5}
+                      <div className="text-sm text-gray-500 mr-2">{team.record}</div>
+                      <div className={`text-xs ${team.trend > 0 ? 'text-green-600' : team.trend < 0 ? 'text-red-600' : 'text-gray-500'}`}>
+                        {team.trend > 0 ? '▲' : team.trend < 0 ? '▼' : '-'}
                       </div>
                     </div>
                   ))}
