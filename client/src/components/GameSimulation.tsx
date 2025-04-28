@@ -52,6 +52,85 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
     }
   }, [gameState.lastEvent, playHit, playSuccess]);
 
+  const [keysPressed, setKeysPressed] = useState<{ [key: string]: boolean }>({});
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'p' || e.key === 'P') {
+        handleGameControl();
+        return;
+      }
+
+      setKeysPressed(prev => ({ ...prev, [e.key.toLowerCase()]: true }));
+
+      // Handle action keys
+      switch (e.key.toLowerCase()) {
+        case 'x':
+          // Pass ball
+          console.log('Pass ball');
+          break;
+        case 'z':
+          // Shoot ball
+          console.log('Shoot ball');
+          break;
+        case 'c':
+          // Jump
+          console.log('Jump');
+          break;
+        case ' ':
+          // Timeout/Foul
+          console.log('Timeout/Foul');
+          break;
+        case 'l':
+          // Juke move
+          console.log('Juke move');
+          break;
+        case 'r':
+          // Spin move
+          console.log('Spin move');
+          break;
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      setKeysPressed(prev => ({ ...prev, [e.key.toLowerCase()]: false }));
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
+
+  // Movement handling in game loop
+  useEffect(() => {
+    if (isGamePaused || gamePhase !== GamePhase.PLAYING) return;
+
+    const movePlayer = () => {
+      const speed = 0.1;
+      let moveX = 0;
+      let moveY = 0;
+
+      // WASD or Arrow keys movement
+      if (keysPressed['w'] || keysPressed['arrowup']) moveY -= speed;
+      if (keysPressed['s'] || keysPressed['arrowdown']) moveY += speed;
+      if (keysPressed['a'] || keysPressed['arrowleft']) moveX -= speed;
+      if (keysPressed['d'] || keysPressed['arrowright']) moveX += speed;
+
+      // TODO: Update player position in game state
+      if (moveX !== 0 || moveY !== 0) {
+        console.log(`Move player: ${moveX}, ${moveY}`);
+      }
+    };
+
+    const gameLoop = setInterval(movePlayer, 16); // ~60fps
+
+    return () => clearInterval(gameLoop);
+  }, [keysPressed, isGamePaused, gamePhase]);
+
   const handleGameControl = () => {
     if (isGamePaused || gamePhase === GamePhase.READY) {
       startGame();
@@ -108,6 +187,21 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
         
         <div>
           <CameraControls 
+
+      <div className="mt-4 p-4 bg-white rounded-lg shadow">
+        <h3 className="text-lg font-bold mb-2">Controls</h3>
+        <div className="grid grid-cols-2 gap-2 text-sm">
+          <div>Movement: WASD or Arrow Keys</div>
+          <div>Pass: X</div>
+          <div>Shoot: Z</div>
+          <div>Jump: C</div>
+          <div>Pause: P</div>
+          <div>Timeout/Foul: Space</div>
+          <div>Juke: L</div>
+          <div>Spin: R</div>
+        </div>
+      </div>
+
             selectedView={selectedCameraView} 
             onViewChange={setSelectedCameraView} 
           />
