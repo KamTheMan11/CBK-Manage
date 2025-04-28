@@ -452,7 +452,7 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
   const isMWGame = homeTeam?.conferenceId === 8 || awayTeam?.conferenceId === 8;
   const isBigTenGame = homeTeam?.conferenceId === 3 && awayTeam?.conferenceId === 3;
   const isBigEastGame = homeTeam?.conferenceId === 6 || awayTeam?.conferenceId === 6;
-  
+
   if (isMWGame || isBigEastGame || (isBigTenGame && Math.random() < 0.3)) {
     networks.push("FS1");
     if (Math.random() < 0.3) networks.push("FS2");
@@ -469,13 +469,13 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
     networks.push("ABC");
   }
 
-  // CBS available before 5 PM, unless it's a Big 12 vs Big 12 game
-  if (currentHour < 17) {
+  // CBS available before 7 PM, unless it's a Big 12 vs Big 12 game
+  if (currentHour < 19) {
     const isBig12Game = homeTeam?.conferenceId === 4 && awayTeam?.conferenceId === 4;
     if (!isBig12Game) {
       networks.push("CBS");
     } else {
-      networks.push("ESPN+"); //Big 12 vs Big 12 on ESPN+
+      networks.push("ESPN+"); // Big 12 vs Big 12 on ESPN+
     }
   }
 

@@ -194,12 +194,33 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         let team2Score = Math.floor(Math.random() * 30) + 50; // 50-79
         let winner = null;
 
-        // Adjust scores to match the winner
-        if (higherSeedWins && team1.seed < team2.seed) {
-          // Team 1 wins (higher seed)
-          if (team2Score >= team1Score) team2Score = team1Score - (1 + Math.floor(Math.random() * 5));
-          winner = team1.id;
-        } else if (higherSeedWins && team2.seed < team1.seed) {
+        // Check if it's a 1 vs 16 matchup
+        const is1v16Match = (team1.seed === 1 && team2.seed === 16) || (team1.seed === 16 && team2.seed === 1);
+        const isUpset = Math.random() < 0.03; // 3% chance for upset
+
+        if (is1v16Match) {
+          if (isUpset) {
+            // 16 seed upset - margin less than 9 points
+            const margin = Math.floor(Math.random() * 8) + 1;
+            if (team1.seed === 16) {
+              team1Score = team2Score + margin;
+              winner = team1.id;
+            } else {
+              team2Score = team1Score + margin;
+              winner = team2.id;
+            }
+          } else {
+            // 1 seed wins by 20+ points
+            const margin = Math.floor(Math.random() * 15) + 20;
+            if (team1.seed === 1) {
+              team1Score = team2Score + margin;
+              winner = team1.id;
+            } else {
+              team2Score = team1Score + margin;
+              winner = team2.id;
+            }
+          }
+        } else if (higherSeedWins && team1.seed < team2.seed) {
           // Team 2 wins (higher seed)
           if (team1Score >= team2Score) team1Score = team2Score - (1 + Math.floor(Math.random() * 5));
           winner = team2.id;
