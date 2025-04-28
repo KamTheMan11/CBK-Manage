@@ -437,9 +437,15 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
 }
 
 // Function to get a national TV network
-export function getNationalTVNetwork(): string {
+export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeTeam): string {
   const currentHour = new Date().getHours();
-  const networks = ["ESPN", "FOX", "CBSSN"];
+  let networks = ["ESPN"];
+  
+  // ACC teams can't be on FOX
+  const isACCGame = homeTeam?.conferenceId === 1 || awayTeam?.conferenceId === 1;
+  if (!isACCGame) {
+    networks.push("FOX");
+  }
   
   // ABC and CBS only available before 7 PM
   if (currentHour < 19) {
@@ -475,9 +481,13 @@ export function getSpecializedNetwork(homeTeam: CollegeTeam, awayTeam: CollegeTe
     }
   }
   
-  // CBSSN for CUSA and MWC games
-  if ((homeTeam.conferenceId === 11 || homeTeam.conferenceId === 8) && 
-      (awayTeam.conferenceId === 11 || awayTeam.conferenceId === 8)) {
+  // Power 5 conferences + Big East can't play on CBSSN
+  const powerConferences = [1, 2, 3, 4, 5, 6]; // ACC, SEC, Big Ten, Big 12, Pac-12, Big East
+  const isHomeTeamPower = powerConferences.includes(homeTeam.conferenceId);
+  const isAwayTeamPower = powerConferences.includes(awayTeam.conferenceId);
+  
+  // CBSSN for non-power conference games only
+  if (!isHomeTeamPower && !isAwayTeamPower) {
     return Math.random() < 0.6 ? "CBSSN" : null;
   }
   
