@@ -12,9 +12,10 @@ const TeamManagementPage = lazy(() => import("./pages/TeamManagementPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const MarchMadnessPage = lazy(() => import("./pages/MarchMadnessPage"));
 const NotFoundPage = lazy(() => import("./pages/not-found"));
-const CoachModePage = lazy(() => import("./pages/CoachModePage")); // Added CoachModePage import
-const BasketballTrivia = lazy(() => import("./components/BasketballTrivia")); // Added BasketballTrivia import
-const PlayerCreation = lazy(() => import("./components/PlayerCreation")); // Added PlayerCreation import
+const CoachModePage = lazy(() => import("./pages/CoachModePage"));
+const BasketballTrivia = lazy(() => import("./components/BasketballTrivia"));
+const PlayerCreation = lazy(() => import("./components/PlayerCreation"));
+const GameplayPage = lazy(() => import("./pages/GameplayPage"));
 
 function App() {
   const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();
@@ -45,6 +46,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/game" element={<GamePage />} />
+            <Route path="/gameplay" element={<GameplayPage />} />
             <Route path="/team-management" element={<TeamManagementPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/march-madness" element={<MarchMadnessPage />} />
