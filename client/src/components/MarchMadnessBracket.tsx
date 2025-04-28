@@ -121,12 +121,12 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     newRegionCities["Final Four"] = randomCities[4];
     setRegionCities(newRegionCities);
 
-    // Power conferences for 1-4 seeds (SEC, ACC, American, Big 12, Big East)
-    const powerConferences = [1, 2, 4, 6, 7]; // ACC, SEC, Big 12, Big East, American
+    // Power conferences for 1-4 seeds (SEC, ACC, Big Ten, Big 12, Big East)
+    const powerConferences = [1, 2, 3, 4, 6]; // ACC, SEC, Big Ten, Big 12, Big East
 
     // Get teams from power conferences for top seeds (1-4)
-    const powerConfTeams = collegeTeams.filter(team => eliteConferences.includes(team.conferenceId));
-    const otherTeams = collegeTeams.filter(team => !eliteConferences.includes(team.conferenceId));
+    const powerConfTeams = collegeTeams.filter(team => powerConferences.includes(team.conferenceId));
+    const otherTeams = collegeTeams.filter(team => !powerConferences.includes(team.conferenceId));
 
     // Ensure top seeds (1-4) are from power conferences
     const shuffledTeams = [
@@ -182,7 +182,7 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
 
         const eliteConferences = ['SEC', 'ACC', 'Big East', 'Big 12', 'American'];
         
-        // Base upset chance starts at 30% but decreases for top seeds
+        // Base upset chance starts at 30% but adjusts based on seed matchups
         let upsetChance = 0.30;
         
         // Adjust upset chances based on seed matchups
@@ -192,6 +192,11 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
           upsetChance = 0.15; // 2 seeds have 85% chance to win
         } else if (team1.seed === 3 || team2.seed === 3) {
           upsetChance = 0.20; // 3 seeds have 80% chance to win
+        } else if ((team1.seed === 8 && team2.seed === 9) || 
+                   (team1.seed === 9 && team2.seed === 8) ||
+                   (team1.seed === 7 && team2.seed === 10) ||
+                   (team1.seed === 10 && team2.seed === 7)) {
+          upsetChance = 0.50; // True 50/50 chance for 8/9 and 7/10 matchups
         }
 
         // Prevent too many upsets in one region
