@@ -438,7 +438,7 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
 
 // Function to get a national TV network
 export function getNationalTVNetwork(): string {
-  const networks = ["ABC", "CBS", "ESPN", "FOX"];
+  const networks = ["ABC", "CBS", "ESPN", "FOX", "Big Ten Network"];
   return networks[Math.floor(Math.random() * networks.length)];
 }
 
@@ -486,15 +486,19 @@ export function generateRandomMatchups(count: number = 8): Array<{
 
     // Add scores if the game has started or is complete
     if (status === "Final" || status === "2nd Half" || status === "1st Half" || status === "Halftime") {
-      // Different score ranges based on game status
       if (status === "Final" || status === "2nd Half") {
-        // Final or 2nd half score range (50-85)
-        matchup.homeScore = Math.floor(Math.random() * 36) + 50;
-        matchup.awayScore = Math.floor(Math.random() * 36) + 50;
+        // Generate base scores for both teams (60-80 range)
+        const baseScore = Math.floor(Math.random() * 21) + 60;
+        // Generate point differential (-8 to +8)
+        const differential = Math.floor(Math.random() * 17) - 8;
+        matchup.homeScore = baseScore;
+        matchup.awayScore = baseScore + differential;
       } else {
-        // 1st half or halftime score range (22-45) - ensures teams don't exceed 50 at halftime
-        matchup.homeScore = Math.floor(Math.random() * 24) + 22;
-        matchup.awayScore = Math.floor(Math.random() * 24) + 22;
+        // First half scores (25-35 range with closer margins)
+        const baseScore = Math.floor(Math.random() * 11) + 25;
+        const differential = Math.floor(Math.random() * 9) - 4;
+        matchup.homeScore = baseScore;
+        matchup.awayScore = baseScore + differential;
       }
 
       // Make sure there's a difference for final games

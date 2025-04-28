@@ -188,10 +188,19 @@ export default function HomePage() {
             <Button 
               variant="outline" 
               onClick={() => navigate('/settings')}
-              className="w-full border-[#B2BEB5] text-[#212529]"
+              className="w-full border-[#B2BEB5] text-[#212529] mb-2"
             >
               <Settings className="mr-2 h-4 w-4" />
               Game Settings
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/team-management')}
+              className="w-full border-[#003087] text-[#003087]"
+            >
+              <Trophy className="mr-2 h-4 w-4" />
+              Team Details
             </Button>
           </CardFooter>
         </Card>
