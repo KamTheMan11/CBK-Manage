@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bahnschrift';
+  src: local('Bahnschrift');
+}
+
+body {
+  font-family: 'Bahnschrift', system-ui, sans-serif;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

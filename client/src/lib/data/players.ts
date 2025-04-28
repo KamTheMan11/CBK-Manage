@@ -1,3 +1,12 @@
+
+// Random name generation
+const firstNames = ['James', 'John', 'Michael', 'David', 'Chris', 'Brian', 'Kevin', 'Marcus', 'Anthony', 'Robert', 'William', 'Thomas', 'Daniel', 'Eric', 'Ryan'];
+const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Davis', 'Miller', 'Wilson', 'Anderson', 'Taylor', 'Moore', 'Jackson', 'White', 'Harris', 'Thompson'];
+
+const getRandomFirstName = () => firstNames[Math.floor(Math.random() * firstNames.length)];
+const getRandomLastName = () => lastNames[Math.floor(Math.random() * lastNames.length)];
+
+
 import { Player, PlayerPosition, PlayerAttributes, PlayerYear } from '../types';
 
 // Generate a random player attribute value between 50 and 90
@@ -161,8 +170,8 @@ export const generateDefaultPlayer = (id: number, position: string, teamName?: s
 
   return {
     id,
-    firstName: `Player`,
-    lastName: `${id}`,
+    firstName: getRandomFirstName(),
+    lastName: getRandomLastName(),
     number: id > 50 ? id - 50 : id,
     position,
     height: getHeightByPosition(position),

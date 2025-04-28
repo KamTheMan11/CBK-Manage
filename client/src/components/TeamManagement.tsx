@@ -166,7 +166,7 @@ export default function TeamManagement() {
   };
   
   return (
-    <div className="bg-white rounded-lg shadow-md p-4">
+    <div className="bg-gray-50 rounded-lg shadow-lg p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-[#003087]">Team Management</h2>
         
