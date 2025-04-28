@@ -200,6 +200,13 @@ export const rankings = [
   { id: 12, rank: 22, wins: 29, losses: 6, points: 97, trend: 3 }, // Saint Mary's
   { id: 7, rank: 23, wins: 27, losses: 7, points: 95, trend: 10 }, // Clemson
   { id: 55, rank: 24, wins: 25, losses: 11, points: 90, trend: 2 }, // Creighton
+  { id: 21, rank: 25, wins: 22, losses: 14, points: 84, trend: 1 } // Arkansas
+  { id: 24, rank: 19, wins: 23, losses: 11, points: 195, trend: 1 }, // Texas A&M
+  { id: 14, rank: 20, wins: 26, losses: 9, points: 155, trend: 3 }, // Gonzaga
+  { id: 4, rank: 21, wins: 27, losses: 8, points: 146, trend: 10 }, // Louisville
+  { id: 12, rank: 22, wins: 29, losses: 6, points: 97, trend: 3 }, // Saint Mary's
+  { id: 7, rank: 23, wins: 27, losses: 7, points: 95, trend: 10 }, // Clemson
+  { id: 55, rank: 24, wins: 25, losses: 11, points: 90, trend: 2 }, // Creighton
   { id: 21, rank: 25, wins: 22, losses: 14, points: 84, trend: 1 }, // Arkansas
 ];
 
