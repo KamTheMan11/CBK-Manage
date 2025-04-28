@@ -88,6 +88,17 @@
   margin-right: 30px;
   display: inline-flex;
   align-items: center;
+  font-family: 'FS Jack', system-ui, -apple-system, sans-serif;
+}
+
+.ticker-item.dark-mode {
+  background-color: #0B162A;
+  color: #ffffff;
+}
+
+.dark .ticker-item {
+  background-color: #0B162A;
+  color: #ffffff;
 }
 
 .ticker-team {

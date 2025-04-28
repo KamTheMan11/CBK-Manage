@@ -50,7 +50,11 @@ export const TickerItem: React.FC<TickerGameProps> = ({
     } else if (status === '2nd Half') {
       return `2nd Half • ${getRandomTime('2nd Half')}`;
     } else if (status.includes('PM')) {
-      // Add ET to time displays that include PM
+      // Ensure FOX games are no later than 7 PM ET
+      const time = parseInt(status.split(':')[0]);
+      if (network === 'FOX' && time > 7) {
+        return '7:00 PM ET';
+      }
       return status.replace('PM', 'PM ET');
     } else {
       return status;
