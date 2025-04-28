@@ -441,16 +441,16 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
   const currentHour = new Date().getHours();
   let networks = ["ESPN"];
 
-  // ACC teams can't be on FOX, but Big East games should be on FOX
+  // ACC teams can't be on FOX or ABC, but Big East games should be on FOX
   const isACCGame = homeTeam?.conferenceId === 1 || awayTeam?.conferenceId === 1;
   const isBigEastGame = homeTeam?.conferenceId === 6 || awayTeam?.conferenceId === 6;
   if (!isACCGame || isBigEastGame) {
     networks.push("FOX");
   }
 
-  // ABC restrictions: before 2 PM, no MWC/AAC teams
+  // ABC restrictions: before 2 PM, no MWC/AAC teams, no ACC teams
   const isMWCorAACGame = [7, 8].includes(homeTeam?.conferenceId || 0) || [7, 8].includes(awayTeam?.conferenceId || 0);
-  if (currentHour < 14 && !isMWCorAACGame) {
+  if (currentHour < 14 && !isMWCorAACGame && !isACCGame) {
     networks.push("ABC");
   }
 
@@ -458,20 +458,34 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
   if (currentHour < 17) {
     const isBig12Game = homeTeam?.conferenceId === 4 && awayTeam?.conferenceId === 4;
     if (!isBig12Game) {
-        networks.push("CBS");
+      networks.push("CBS");
     } else {
-        networks.push("ESPN+"); //Big 12 vs Big 12 on ESPN+
+      networks.push("ESPN+"); //Big 12 vs Big 12 on ESPN+
     }
+  }
+
+  // ESPN rules: required for Top 25 vs Top 25, can't air after 8 PM
+  const isTop25vsTop25 = getTeamRanking(homeTeam?.id || 0) !== null && 
+                        getTeamRanking(homeTeam?.id || 0)! <= 25 &&
+                        getTeamRanking(awayTeam?.id || 0) !== null && 
+                        getTeamRanking(awayTeam?.id || 0)! <= 25;
+
+  if (isTop25vsTop25) {
+    return currentHour < 20 ? "ESPN" : "FOX";
   }
 
   // SEC games should be on ABC when possible
   const isSECGame = homeTeam?.conferenceId === 2 || awayTeam?.conferenceId === 2;
-  if (isSECGame && currentHour < 14) {
-    // Prioritize ABC for SEC games during allowed hours
+  if (isSECGame && currentHour < 14 && !isACCGame) {
     return "ABC";
   }
   if (isBigEastGame && networks.includes("FOX")) {
     return "FOX";
+  }
+
+  // Remove ESPN after 8 PM
+  if (currentHour >= 20) {
+    networks = networks.filter(network => network !== "ESPN");
   }
 
   return networks[Math.floor(Math.random() * networks.length)];
