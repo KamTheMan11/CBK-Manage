@@ -44,8 +44,11 @@ export default function TeamDetails({ team }: TeamDetailsProps) {
                 <p><span className="font-medium">Location:</span> {details.city}, {details.state}</p>
                 <p><span className="font-medium">Founded:</span> {details.founded}</p>
                 <p><span className="font-medium">Conference:</span> {conference?.name}</p>
+                <p><span className="font-medium">Division:</span> {details.division || 'Division I'}</p>
                 <p><span className="font-medium">Biggest Rival:</span> {rival?.name || 'Independent'}</p>
                 <p><span className="font-medium">Head Coach:</span> {details.headCoach}</p>
+                <p><span className="font-medium">Athletic Director:</span> {details.athleticDirector || 'N/A'}</p>
+                <p><span className="font-medium">Website:</span> {details.website || 'N/A'}</p>
               </div>
             </div>
             
