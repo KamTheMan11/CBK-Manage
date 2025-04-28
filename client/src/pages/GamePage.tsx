@@ -15,6 +15,28 @@ export default function GamePage() {
   const [awayTeamIndex, setAwayTeamIndex] = useState(1);
   const [gameStarted, setGameStarted] = useState(false);
 
+  const getConferenceName = (conferenceId: number) => {
+    return conferences.find(conf => conf.id === conferenceId)?.abbreviation || '';
+  };
+
+  const getPrestige = (teamName?: string) => {
+    const elitePrograms = ['Connecticut', 'UCLA', 'Duke', 'Kansas', 'Kentucky', 'North Carolina'];
+    return elitePrograms.some(program => teamName?.includes(program)) ? 5 : Math.floor(Math.random() * 2) + 3;
+  };
+
+  const isRivalry = (team1?: string, team2?: string) => {
+    const rivalries = [
+      ['Duke', 'North Carolina'],
+      ['Kentucky', 'Louisville'],
+      ['Kansas', 'Kansas State'],
+      ['UCLA', 'USC']
+    ];
+    return rivalries.some(([t1, t2]) => 
+      (team1?.includes(t1) && team2?.includes(t2)) || 
+      (team1?.includes(t2) && team2?.includes(t1))
+    );
+  };
+
   const sortedTeams = [...teams].sort((a, b) => a.name.localeCompare(b.name));
   const homeTeam = sortedTeams[homeTeamIndex];
   const awayTeam = sortedTeams[awayTeamIndex];
@@ -113,14 +135,22 @@ export default function GamePage() {
                   style={{ backgroundColor: awayTeam?.primaryColor }}
                 >
                   <div className="text-2xl font-bold mb-2">{awayTeam?.name}</div>
-                  <div className="text-lg">{awayTeam?.mascot}</div>
+                  <div className="text-lg">{getConferenceName(awayTeam?.conferenceId)}</div>
                 </div>
               </div>
 
               {/* Team Stats */}
               <div className="space-y-6 flex flex-col items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-xl font-bold mb-4">VS</h3>
+                  <h3 className="text-xl font-bold mb-4">
+                    {homeTeam?.conferenceId === awayTeam?.conferenceId ? (
+                      <span className="text-blue-600">Conference Game</span>
+                    ) : isRivalry(homeTeam?.name, awayTeam?.name) ? (
+                      <span className="text-red-600">Rivalry Game</span>
+                    ) : (
+                      "VS"
+                    )}
+                  </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between gap-8">
                       <span>Offense:</span>
@@ -141,9 +171,9 @@ export default function GamePage() {
                     <div className="flex justify-between gap-8">
                       <span>Prestige:</span>
                       <div className="flex gap-2">
-                        <span>{Math.floor(Math.random() * 3) + 3}</span>
+                        <span>{getPrestige(homeTeam?.name)}</span>
                         <span>vs</span>
-                        <span>{Math.floor(Math.random() * 3) + 3}</span>
+                        <span>{getPrestige(awayTeam?.name)}</span>
                       </div>
                     </div>
                   </div>
@@ -174,7 +204,7 @@ export default function GamePage() {
                   style={{ backgroundColor: homeTeam?.primaryColor }}
                 >
                   <div className="text-2xl font-bold mb-2">{homeTeam?.name}</div>
-                  <div className="text-lg">{homeTeam?.mascot}</div>
+                  <div className="text-lg">{getConferenceName(homeTeam?.conferenceId)}</div>
                 </div>
               </div>
             </div>
