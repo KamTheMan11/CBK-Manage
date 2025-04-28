@@ -183,15 +183,15 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
         const eliteConferences = ['SEC', 'ACC', 'Big East', 'Big 12', 'American'];
         
         // Base upset chance starts at 30% but adjusts based on seed matchups
-        let upsetChance = 0.30;
+        let upsetChance = 0.20;
         
         // Adjust upset chances based on seed matchups
         if (team1.seed === 1 || team2.seed === 1) {
-          upsetChance = 0.03; // 1 seeds have 97% chance to win
+          upsetChance = 0.02; // 1 seeds have 98% chance to win
         } else if (team1.seed === 2 || team2.seed === 2) {
-          upsetChance = 0.15; // 2 seeds have 85% chance to win
+          upsetChance = 0.10; // 2 seeds have 90% chance to win
         } else if (team1.seed === 3 || team2.seed === 3) {
-          upsetChance = 0.20; // 3 seeds have 80% chance to win
+          upsetChance = 0.15; // 3 seeds have 85% chance to win
         } else if ((team1.seed === 8 && team2.seed === 9) || 
                    (team1.seed === 9 && team2.seed === 8) ||
                    (team1.seed === 7 && team2.seed === 10) ||

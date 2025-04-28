@@ -73,12 +73,44 @@ export default function CoachMode() {
       });
     }
 
-    // Shuffle and assign weeks
-    newSchedule = newSchedule.sort(() => Math.random() - 0.5)
+    // Find rival team
+    const rivalTeam = otherTeams.find(t => {
+      const rivalries = [
+        [1, 2],   // Duke vs North Carolina
+        [30, 31], // Michigan vs Michigan State
+        [32, 33], // Ohio State vs Purdue
+        [44, 52], // Kansas vs Kansas State
+        [16, 27], // Kentucky vs Georgia
+        [54, 58], // UCLA vs USC
+        [19, 20]  // Auburn vs Alabama
+      ];
+      return rivalries.some(([a, b]) => 
+        (team.id === a && t.id === b) || (team.id === b && t.id === a)
+      );
+    }) || confTeams[0]; // Use first conf team if no rival found
+
+    // Create rival game
+    const rivalGame = {
+      week: 15,
+      homeTeam: Math.random() > 0.5 ? team : rivalTeam,
+      awayTeam: Math.random() > 0.5 ? team : rivalTeam,
+      isConference: team.conferenceId === rivalTeam.conferenceId,
+      completed: false
+    };
+
+    // Remove rival from other games if present
+    newSchedule = newSchedule.filter(g => 
+      g.homeTeam.id !== rivalTeam.id && g.awayTeam.id !== rivalTeam.id
+    );
+
+    // Shuffle and assign weeks to other games
+    newSchedule = newSchedule
+      .sort(() => Math.random() - 0.5)
       .map((game, index) => ({
         ...game,
         week: Math.floor(index / 2) + 1 // 2 games per week
-      }));
+      }))
+      .concat(rivalGame); // Add rival game as last game
 
     setSchedule(newSchedule);
   };

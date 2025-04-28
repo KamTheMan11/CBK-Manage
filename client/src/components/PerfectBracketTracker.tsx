@@ -82,7 +82,7 @@ export default function PerfectBracketTracker({
           </div>
           
           <div className="text-center text-sm mt-2 text-gray-600 dark:text-gray-400">
-            {percentageEliminated}% of brackets have been eliminated
+            {Math.round(parseFloat(percentageEliminated))}% of brackets have been eliminated
           </div>
           
           <div className="text-center text-sm text-gray-600 dark:text-gray-400">

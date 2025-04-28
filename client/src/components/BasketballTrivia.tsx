@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -22,6 +23,36 @@ const questions = [
     question: "What year was the first NCAA Basketball Tournament held?",
     options: ['1929', '1939', '1949', '1959'],
     answer: '1939'
+  },
+  {
+    question: "Which conference has won the most NCAA Championships?",
+    options: ['SEC', 'Big Ten', 'ACC', 'Pac-12'],
+    answer: 'Pac-12'
+  },
+  {
+    question: "Who holds the record for most NCAA Tournament appearances as a head coach?",
+    options: ['Mike Krzyzewski', 'Jim Boeheim', 'Roy Williams', 'Dean Smith'],
+    answer: 'Mike Krzyzewski'
+  },
+  {
+    question: "What is the lowest seed to ever win the NCAA Championship?",
+    options: ['6th seed', '8th seed', '7th seed', '5th seed'],
+    answer: '8th seed'
+  },
+  {
+    question: "Which team was the first to win the NCAA Tournament undefeated?",
+    options: ['San Francisco', 'UCLA', 'North Carolina', 'Kentucky'],
+    answer: 'San Francisco'
+  },
+  {
+    question: "What year did the tournament expand to 64 teams?",
+    options: ['1975', '1980', '1985', '1990'],
+    answer: '1985'
+  },
+  {
+    question: "Which player holds the record for most points in NCAA Tournament history?",
+    options: ['Christian Laettner', 'Oscar Robertson', 'Bill Bradley', 'Pete Maravich'],
+    answer: 'Christian Laettner'
   }
 ];
 
@@ -29,24 +60,41 @@ const BasketballTrivia: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [showFeedback, setShowFeedback] = useState(false);
 
-  const handleAnswerClick = (selectedAnswer: string) => {
-    if (selectedAnswer === questions[currentQuestion].answer) {
+  const handleAnswerClick = (selectedOption: string) => {
+    setSelectedAnswer(selectedOption);
+    setShowFeedback(true);
+
+    if (selectedOption === questions[currentQuestion].answer) {
       setScore(score + 1);
     }
 
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setShowScore(true);
-    }
+    setTimeout(() => {
+      setShowFeedback(false);
+      setSelectedAnswer(null);
+      const nextQuestion = currentQuestion + 1;
+      if (nextQuestion < questions.length) {
+        setCurrentQuestion(nextQuestion);
+      } else {
+        setShowScore(true);
+      }
+    }, 1000);
   };
 
   const resetQuiz = () => {
     setCurrentQuestion(0);
     setScore(0);
     setShowScore(false);
+    setSelectedAnswer(null);
+    setShowFeedback(false);
+  };
+
+  const getButtonStyle = (option: string) => {
+    if (!showFeedback || selectedAnswer !== option) return "bg-white dark:bg-gray-800";
+    if (option === questions[currentQuestion].answer) return "bg-green-500 text-white";
+    return "bg-red-500 text-white";
   };
 
   return (
@@ -66,9 +114,10 @@ const BasketballTrivia: React.FC = () => {
               {questions[currentQuestion].options.map((option) => (
                 <Button
                   key={option}
-                  className="w-full text-left"
+                  className={`w-full text-left transition-colors ${getButtonStyle(option)}`}
                   variant="outline"
-                  onClick={() => handleAnswerClick(option)}
+                  onClick={() => !showFeedback && handleAnswerClick(option)}
+                  disabled={showFeedback}
                 >
                   {option}
                 </Button>
