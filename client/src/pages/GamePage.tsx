@@ -26,10 +26,13 @@ export default function GamePage() {
 
   const isRivalry = (team1?: string, team2?: string) => {
     const rivalries = [
+      ['Alabama', 'Auburn'],
+      ['UCLA', 'USC'], 
       ['Duke', 'North Carolina'],
-      ['Kentucky', 'Louisville'],
-      ['Kansas', 'Kansas State'],
-      ['UCLA', 'USC']
+      ['Cincinnati', 'Xavier'],
+      ['Louisville', 'Kentucky'],
+      ['Texas', 'Oklahoma'],
+      ['Air Force', 'Navy']
     ];
     return rivalries.some(([t1, t2]) => 
       (team1?.includes(t1) && team2?.includes(t2)) || 

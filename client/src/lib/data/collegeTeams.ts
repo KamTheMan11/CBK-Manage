@@ -422,14 +422,13 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
 
   // Rivalry games
   const rivalries = [
-    // Famous college basketball rivalries
-    [1, 2],   // Duke vs North Carolina
-    [30, 31], // Michigan vs Michigan State
-    [32, 33], // Ohio State vs Purdue
-    [44, 52], // Kansas vs Kansas State
-    [16, 27], // Kentucky vs Georgia
+    [20, 19], // Alabama vs Auburn
     [54, 58], // UCLA vs USC
-    [19, 20]  // Auburn vs Alabama
+    [1, 2],   // Duke vs UNC
+    [79, 68], // Cincinnati vs Xavier
+    [4, 16],  // Louisville vs Kentucky
+    [46, 49], // Texas vs Oklahoma
+    [96, 0]   // Air Force vs Navy (Navy not in db yet)
   ];
 
   return rivalries.some(
