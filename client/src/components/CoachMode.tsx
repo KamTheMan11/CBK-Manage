@@ -162,8 +162,6 @@ export default function CoachMode() {
     setCurrentWeek(1);
     setRecord({ wins: 0, losses: 0, confWins: 0, confLosses: 0 });
     generateSchedule(team);
-    // Initialize coach information here if needed
-    setCoach(null); // Or set default coach info
   };
 
   return (
