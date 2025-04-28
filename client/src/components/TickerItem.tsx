@@ -95,7 +95,7 @@ export const TickerItem: React.FC<TickerGameProps> = ({
           
           {/* Only show network for upcoming games or nationally televised games - omit for completed games */}
           {(status !== 'Final' && network) && ` • ${network}`}
-          {nationally && ' • Nat\'l TV'}
+          {nationally && network !== "CBSSN" && ' • Nat\'l TV'}
         </span>
 
         {/* Network logo will be shown in status text only */}

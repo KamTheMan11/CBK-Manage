@@ -450,6 +450,9 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
   // ABC and CBS only available before 7 PM
   if (currentHour < 19) {
     networks.push("ABC", "CBS");
+  } else {
+    // After 7 PM, remove ABC and CBS from consideration
+    networks = networks.filter(network => network !== "ABC" && network !== "CBS");
   }
   
   return networks[Math.floor(Math.random() * networks.length)];
@@ -486,7 +489,7 @@ export function getSpecializedNetwork(homeTeam: CollegeTeam, awayTeam: CollegeTe
   const isHomeTeamPower = powerConferences.includes(homeTeam.conferenceId);
   const isAwayTeamPower = powerConferences.includes(awayTeam.conferenceId);
   
-  // CBSSN for non-power conference games only
+  // CBSSN for non-power conference games only (not nationally televised)
   if (!isHomeTeamPower && !isAwayTeamPower) {
     return Math.random() < 0.6 ? "CBSSN" : null;
   }
