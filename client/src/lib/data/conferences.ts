@@ -26,6 +26,16 @@ export const conferences: Conference[] = [
     id: 5,
     name: 'Big East Conference',
     abbreviation: 'BE'
+  },
+  {
+    id: 6,
+    name: 'Pacific-12 Conference',
+    abbreviation: 'PAC'
+  },
+  {
+    id: 7,
+    name: 'American Athletic Conference',
+    abbreviation: 'AAC'
   }
 ];
 

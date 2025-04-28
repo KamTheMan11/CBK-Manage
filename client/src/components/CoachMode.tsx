@@ -34,44 +34,51 @@ export default function CoachMode() {
     let newSchedule: GameSchedule[] = [];
 
     // Generate 20 conference games (10 home, 10 away)
-    const confOpponents = [...confTeams];
+    let confOpponents = [...confTeams];
     let homeGames = 10;
     let awayGames = 10;
 
-    while (homeGames > 0 || awayGames > 0) {
-      const opponent = confOpponents[Math.floor(Math.random() * confOpponents.length)];
-      const isHome = homeGames > 0 && (awayGames === 0 || Math.random() < 0.5);
+    while ((homeGames > 0 || awayGames > 0) && confOpponents.length > 0) {
+      const randomIndex = Math.floor(Math.random() * confOpponents.length);
+      const opponent = confOpponents[randomIndex];
+      
+      // Check how many games we've already scheduled with this opponent
+      const existingGames = newSchedule.filter(g => 
+        g.isConference && (
+          (g.homeTeam.id === team.id && g.awayTeam.id === opponent.id) ||
+          (g.homeTeam.id === opponent.id && g.awayTeam.id === team.id)
+        )
+      ).length;
 
-      if (isHome && homeGames > 0) {
-        newSchedule.push({
-          week: 0,
-          homeTeam: team,
-          awayTeam: opponent,
-          isConference: true,
-          completed: false
-        });
-        homeGames--;
-      } else if (!isHome && awayGames > 0) {
-        newSchedule.push({
-          week: 0,
-          homeTeam: opponent,
-          awayTeam: team,
-          isConference: true,
-          completed: false
-        });
-        awayGames--;
+      if (existingGames < 2) {
+        const canBeHome = homeGames > 0 && existingGames === 0;
+        const canBeAway = awayGames > 0 && existingGames === 0;
+        const isHome = canBeHome && (!canBeAway || Math.random() < 0.5);
+
+        if (isHome && homeGames > 0) {
+          newSchedule.push({
+            week: 0,
+            homeTeam: team,
+            awayTeam: opponent,
+            isConference: true,
+            completed: false
+          });
+          homeGames--;
+        } else if (!isHome && awayGames > 0) {
+          newSchedule.push({
+            week: 0,
+            homeTeam: opponent,
+            awayTeam: team,
+            isConference: true,
+            completed: false
+          });
+          awayGames--;
+        }
       }
 
       // Remove opponent if we've used them twice
-      const opponentGames = newSchedule.filter(g => 
-        g.isConference && (g.homeTeam.id === opponent.id || g.awayTeam.id === opponent.id)
-      ).length;
-
-      if (opponentGames >= 2) {
-        const index = confOpponents.findIndex(t => t.id === opponent.id);
-        if (index !== -1) {
-          confOpponents.splice(index, 1);
-        }
+      if (existingGames >= 1) {
+        confOpponents.splice(randomIndex, 1);
       }
     }
 
