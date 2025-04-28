@@ -35,10 +35,19 @@ const PlayerCreation: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement player creation logic
-    console.log('Creating player:', formData);
+    try {
+      // Validate required fields
+      if (!formData.firstName || !formData.lastName || !formData.position) {
+        throw new Error('Please fill in all required fields');
+      }
+      
+      // TODO: Implement player creation logic
+      console.log('Creating player:', formData);
+    } catch (error) {
+      console.error('Error creating player:', error);
+    }
   };
 
   return (
@@ -101,7 +110,7 @@ const PlayerCreation: React.FC = () => {
           <Input
             id="height"
             name="height"
-            placeholder="6'2\""
+            placeholder="6'2"
             value={formData.height}
             onChange={handleChange}
             required
