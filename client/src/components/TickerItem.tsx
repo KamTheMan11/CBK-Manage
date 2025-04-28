@@ -1,4 +1,5 @@
 import React from 'react';
+import { isNationalNetwork } from '../lib/data/collegeTeams';
 
 interface TickerGameProps {
   teamA: string;
