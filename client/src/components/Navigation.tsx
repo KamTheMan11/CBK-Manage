@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Settings, Home, Users, Volume2, VolumeX, Trophy } from "lucide-react";
+import { Settings, Home, Users, Volume2, VolumeX, Trophy, Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAudio } from "../lib/stores/useAudio";
 import { BasketballIcon } from "./BasketballIcon";
-import ThemeToggle from "./ThemeToggle";
+import { useSettings } from '../lib/stores/useSettings'; // Added import for useSettings
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isMuted, toggleMute, backgroundMusic } = useAudio();
+  const settings = useSettings(); // Access settings state
 
   const toggleSound = () => {
     toggleMute();
@@ -22,7 +23,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-[#003087] text-white shadow-md">
+    <nav className={`bg-[#003087] text-white shadow-md ${settings.gameSettings.darkMode ? 'dark' : ''}`}> {/* Added conditional class for dark mode */}
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo and brand */}
@@ -60,8 +61,13 @@ export default function Navigation() {
             >
               {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
             </Button>
-
-            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => settings.updateSettings({ darkMode: !settings.gameSettings.darkMode })}
+            >
+              {settings.gameSettings.darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
 
             {/* Mobile menu button */}
             <button

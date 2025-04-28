@@ -61,10 +61,11 @@ export default function GameSettings() {
                   <SelectValue placeholder="Select quarter length" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="5">5 minutes</SelectItem>
-                  <SelectItem value="10">10 minutes</SelectItem>
-                  <SelectItem value="12">12 minutes</SelectItem>
-                  <SelectItem value="20">20 minutes (Full)</SelectItem>
+                  <SelectItem value="5">5 minutes (Quarter)</SelectItem>
+                  <SelectItem value="10">10 minutes (Quarter)</SelectItem>
+                  <SelectItem value="12">12 minutes (Quarter)</SelectItem>
+                  <SelectItem value="20">20 minutes (Half)</SelectItem>
+                  <SelectItem value="30">30 minutes (Full Half)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -7,6 +6,7 @@ import { useTeams } from '../lib/stores/useTeams';
 import GameSimulation from '../components/GameSimulation';
 import { ArrowLeft, Volleyball, ArrowUp, ArrowDown } from 'lucide-react';
 import BackButton from '../components/BackButton';
+import { conferences } from '../lib/data/conferences';
 
 export default function GamePage() {
   const { teams } = useTeams();
@@ -45,7 +45,7 @@ export default function GamePage() {
     let newIndex = direction === 'up' 
       ? (homeTeamIndex - 1 + sortedTeams.length) % sortedTeams.length
       : (homeTeamIndex + 1) % sortedTeams.length;
-    
+
     if (newIndex === awayTeamIndex) {
       newIndex = direction === 'up'
         ? (newIndex - 1 + sortedTeams.length) % sortedTeams.length
@@ -58,7 +58,7 @@ export default function GamePage() {
     let newIndex = direction === 'up'
       ? (awayTeamIndex - 1 + sortedTeams.length) % sortedTeams.length
       : (awayTeamIndex + 1) % sortedTeams.length;
-    
+
     if (newIndex === homeTeamIndex) {
       newIndex = direction === 'up'
         ? (newIndex - 1 + sortedTeams.length) % sortedTeams.length
@@ -226,7 +226,7 @@ export default function GamePage() {
           New Game
         </Button>
       </div>
-      
+
       <GameSimulation
         homeTeamId={homeTeam.id}
         awayTeamId={awayTeam.id}

@@ -22,6 +22,7 @@ export interface GameSettings {
   // Display
   scorebugStyle: string;      // 'default', 'espn', 'cbs', 'custom'
   showLiveStats: boolean;     // Whether to show live stats
+  darkMode: boolean;          // Whether dark mode is enabled
   showShotPercentages: boolean; // Whether to show shot percentages
   showPlayerFatigue: boolean;  // Whether to show player fatigue
   enableCommentators: boolean; // Whether to enable commentators

@@ -13,25 +13,25 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { teams } = useTeams();
   const [currentDate] = useState(new Date());
-  
+
   // Generate random matchups for the ticker
   const [tickerData, setTickerData] = useState<any[]>([]);
-  
+
   // Initialize ticker data on component mount
   useEffect(() => {
     const generateTicker = () => {
       // Generate 10 random matchups
       const matchups = generateRandomMatchups(10);
-      
+
       // Convert to ticker data format
       const newTickerData = matchups.map(matchup => {
         const homeTeam = collegeTeams.find(team => team.id === matchup.homeTeamId);
         const awayTeam = collegeTeams.find(team => team.id === matchup.awayTeamId);
-        
+
         // For ranked teams (Top 25), set their rank
         const homeTeamRank = matchup.homeTeamId <= 25 ? matchup.homeTeamId : undefined;
         const awayTeamRank = matchup.awayTeamId <= 25 ? matchup.awayTeamId : undefined;
-        
+
         return {
           teamA: homeTeam?.shortName || 'Team A',
           teamB: awayTeam?.shortName || 'Team B',
@@ -44,13 +44,13 @@ export default function HomePage() {
           nationally: matchup.nationally
         };
       });
-      
+
       setTickerData(newTickerData);
     };
-    
+
     generateTicker();
   }, []);
-  
+
   // Format date for college basketball season display
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', { 
@@ -60,7 +60,7 @@ export default function HomePage() {
       year: 'numeric' 
     });
   };
-  
+
   return (
     <div className="space-y-6 pb-12">
       <section className="relative overflow-hidden rounded-xl bg-[#003087] text-white shadow-lg md:py-16 py-10">
@@ -91,7 +91,7 @@ export default function HomePage() {
               Manage Teams
             </Button>
           </div>
-          
+
           <div className="absolute top-2 right-2 md:top-4 md:right-6 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
             <div className="flex items-center text-sm md:text-base">
               <Calendar className="h-4 w-4 mr-2" />
@@ -99,7 +99,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        
+
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full">
@@ -114,7 +114,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
+
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="md:col-span-2">
           <CardHeader>
@@ -141,7 +141,7 @@ export default function HomePage() {
             )}
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -151,7 +151,7 @@ export default function HomePage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-gray-500">Start a new game with your favorite teams!</p>
-            
+
             {teams.length < 2 ? (
               <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm">
                 Create at least two teams to start a game.
@@ -175,7 +175,7 @@ export default function HomePage() {
               <Users className="mr-2 h-4 w-4" />
               Manage Teams
             </Button>
-            
+
             <Button 
               variant="outline" 
               onClick={() => navigate('/coach-mode')}
@@ -184,7 +184,7 @@ export default function HomePage() {
               <Trophy className="mr-2 h-4 w-4" />
               Coach Mode
             </Button>
-            
+
             <Button 
               variant="outline" 
               onClick={() => navigate('/settings')}
@@ -193,7 +193,7 @@ export default function HomePage() {
               <Settings className="mr-2 h-4 w-4" />
               Game Settings
             </Button>
-            
+
             <Button 
               variant="outline" 
               onClick={() => navigate('/team-management')}
@@ -205,7 +205,7 @@ export default function HomePage() {
           </CardFooter>
         </Card>
       </section>
-      
+
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gray-50">
           <CardHeader>
@@ -223,7 +223,7 @@ export default function HomePage() {
             </Button>
           </CardFooter>
         </Card>
-        
+
         <Card className="bg-gray-50">
           <CardHeader>
             <CardTitle className="text-[#003087]">Game Experience</CardTitle>
@@ -240,7 +240,7 @@ export default function HomePage() {
             </Button>
           </CardFooter>
         </Card>
-        
+
         <Card className="bg-gray-50">
           <CardHeader>
             <CardTitle className="text-[#003087]">Customization</CardTitle>
@@ -258,7 +258,7 @@ export default function HomePage() {
           </CardFooter>
         </Card>
       </section>
-      
+
       {/* New features section with March Madness, Create-a-Player, etc. */}
       <section>
         <h2 className="text-2xl font-bold mb-4 text-[#003087]">Game Modes</h2>
@@ -275,17 +275,17 @@ export default function HomePage() {
               </div>
             </CardContent>
           </Card>
-          
-          <Card className="cursor-pointer hover:shadow-md transition-shadow">
+
+          <Card className="opacity-50 cursor-not-allowed">
             <CardContent className="p-0">
               <div className="bg-orange-600 p-6 text-white flex flex-col items-center text-center">
                 <User className="w-12 h-12 mb-2" />
-                <h3 className="font-bold text-lg">Create-a-Player</h3>
-                <p className="text-sm mt-2">Build custom players with unique attributes and skills</p>
+                <h3 className="font-bold text-lg">Create-A-Player</h3>
+                <p className="text-sm mt-2">Coming Soon</p>
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="cursor-pointer hover:shadow-md transition-shadow">
             <CardContent className="p-0">
               <div className="bg-green-600 p-6 text-white flex flex-col items-center text-center">
@@ -295,7 +295,7 @@ export default function HomePage() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="cursor-pointer hover:shadow-md transition-shadow">
             <CardContent className="p-0">
               <div className="bg-purple-600 p-6 text-white flex flex-col items-center text-center">
@@ -307,7 +307,7 @@ export default function HomePage() {
           </Card>
         </div>
       </section>
-      
+
       {/* Top 25 Rankings */}
       <section>
         <h2 className="text-2xl font-bold mb-4 text-[#003087] flex items-center">
@@ -384,7 +384,7 @@ export default function HomePage() {
           </CardContent>
         </Card>
       </section>
-      
+
       {/* ESPN-style ticker at the bottom */}
       <div className="espn-ticker">
         <div className="espn-ticker-logo">
@@ -405,7 +405,7 @@ export default function HomePage() {
               nationally={game.nationally}
             />
           ))}
-          
+
           {/* Duplicate ticker items to create a seamless loop */}
           {tickerData.map((game, index) => (
             <TickerItem 
