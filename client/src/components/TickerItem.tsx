@@ -27,15 +27,15 @@ export const TickerItem: React.FC<TickerGameProps> = ({
   // Random time remaining for 1st and 2nd half games
   const getRandomTime = (half: string) => {
     const minutes = half === '1st Half' 
-      ? Math.floor(Math.random() * 10) + 10 // 10-19 minutes for 1st half
-      : Math.floor(Math.random() * 10) + 1; // 1-10 minutes for 2nd half
+      ? Math.floor(Math.random() * 10) + 10 // 3-11 minutes for 1st half
+      : Math.floor(Math.random() * 10) + 1; // 5-9 minutes for 2nd half
     
     const seconds = Math.floor(Math.random() * 60).toString().padStart(2, '0');
     
     // Limit scores based on time remaining in first half
     if (half === '1st Half' && minutes > 10) {
-      if ((scoreA || 0) > 25) scoreA = Math.min(scoreA || 0, 25);
-      if ((scoreB || 0) > 25) scoreB = Math.min(scoreB || 0, 25);
+      if ((scoreA || 0) > 20) scoreA = Math.min(scoreA || 0, 20);
+      if ((scoreB || 0) > 20) scoreB = Math.min(scoreB || 0, 20);
     }
     
     return `${minutes}:${seconds}`;
