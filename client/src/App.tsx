@@ -13,6 +13,7 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const MarchMadnessPage = lazy(() => import("./pages/MarchMadnessPage"));
 const NotFoundPage = lazy(() => import("./pages/not-found"));
 const CoachModePage = lazy(() => import("./pages/CoachModePage")); // Added CoachModePage import
+const BasketballTrivia = lazy(() => import("./components/BasketballTrivia")); // Added BasketballTrivia import
 
 function App() {
   const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();

@@ -180,11 +180,21 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
            (g.team2.seed < g.team1.seed && g.winner === g.team1.id))
         ).length;
 
-        let upsetChance = upsetCount >= 5 ? 0 : 0.27; // Base 27% upset chance
+        // Base upset chance starts at 30% but decreases for top seeds
+        let upsetChance = 0.30;
+        
+        // Adjust upset chances based on seed matchups
+        if (team1.seed === 1 || team2.seed === 1) {
+          upsetChance = 0.03; // 1 seeds have 97% chance to win
+        } else if (team1.seed === 2 || team2.seed === 2) {
+          upsetChance = 0.15; // 2 seeds have 85% chance to win
+        } else if (team1.seed === 3 || team2.seed === 3) {
+          upsetChance = 0.20; // 3 seeds have 80% chance to win
+        }
 
-        // Special case for 16 seeds (3% chance to win against 1 seeds)
-        if ((team1.seed === 1 && team2.seed === 16) || (team1.seed === 16 && team2.seed === 1)) {
-          upsetChance = 0.03;
+        // Prevent too many upsets in one region
+        if (upsetCount >= 4) {
+          upsetChance *= 0.5; // Reduce upset chance if too many upsets
         }
 
         const higherSeedWins = Math.random() > upsetChance;
