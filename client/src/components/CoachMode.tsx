@@ -89,6 +89,15 @@ export default function CoachMode() {
     return { homeScore, awayScore };
   };
 
+  const updateTeamRecord = (team: Team, isWin: boolean, isConference: boolean) => {
+    if (isConference) {
+      team.confWins = (team.confWins || 0) + (isWin ? 1 : 0);
+      team.confLosses = (team.confLosses || 0) + (isWin ? 0 : 1);
+    }
+    team.wins = (team.wins || 0) + (isWin ? 1 : 0);
+    team.losses = (team.losses || 0) + (isWin ? 0 : 1);
+  };
+
   const advanceWeek = () => {
     const updatedSchedule = [...schedule];
     const weekGames = updatedSchedule.filter(game => game.week === currentWeek);
@@ -98,6 +107,11 @@ export default function CoachMode() {
       game.homeScore = scores.homeScore;
       game.awayScore = scores.awayScore;
       game.completed = true;
+
+      // Update both teams' records including conference records
+      const homeWin = scores.homeScore > scores.awayScore;
+      updateTeamRecord(game.homeTeam, homeWin, game.isConference);
+      updateTeamRecord(game.awayTeam, !homeWin, game.isConference);
 
       if (game.homeTeam.id === selectedTeam?.id) {
         if (scores.homeScore > scores.awayScore) {
