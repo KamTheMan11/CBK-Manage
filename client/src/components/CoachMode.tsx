@@ -24,6 +24,7 @@ export default function CoachMode() {
   const [currentWeek, setCurrentWeek] = useState(1);
   const [record, setRecord] = useState({ wins: 0, losses: 0, confWins: 0, confLosses: 0 });
   const [selectedConference, setSelectedConference] = useState(0);
+  const [coach, setCoach] = useState(''); // Added coach state
 
 
   const generateSchedule = (team: Team) => {
@@ -41,9 +42,9 @@ export default function CoachMode() {
     while ((homeGames > 0 || awayGames > 0) && confOpponents.length > 0) {
       const randomIndex = Math.floor(Math.random() * confOpponents.length);
       const opponent = confOpponents[randomIndex];
-      
+
       // Check how many games we've already scheduled with this opponent
-      const existingGames = newSchedule.filter(g => 
+      const existingGames = newSchedule.filter(g =>
         g.isConference && (
           (g.homeTeam.id === team.id && g.awayTeam.id === opponent.id) ||
           (g.homeTeam.id === opponent.id && g.awayTeam.id === team.id)
@@ -172,10 +173,10 @@ export default function CoachMode() {
             <CardTitle>Select Your Team</CardTitle>
           </CardHeader>
           <CardContent>
-            <select 
+            <select
               className="w-full mb-4 p-2 rounded border dark:bg-gray-800 dark:border-gray-700"
               value={selectedConference}
-              onChange={(e) => setSelectedConference(parseInt(e.target.value, 10))} // Corrected onChange handler
+              onChange={(e) => setSelectedConference(parseInt(e.target.value, 10))}
             >
               <option value="0">All Conferences</option>
               {conferences.map(conf => (
@@ -193,21 +194,21 @@ export default function CoachMode() {
                   }
                   return confCompare;
                 })
-                .filter(team => selectedConference === 0 || team.conferenceId === selectedConference) //Corrected filter condition
+                .filter(team => selectedConference === 0 || team.conferenceId === selectedConference)
                 .map(team => (
-                <Button
-                  key={team.id}
-                  onClick={() => startNewSeason(team)}
-                  className="h-24 flex flex-col items-center justify-center"
-                  style={{
-                    backgroundColor: team.primaryColor,
-                    color: 'white'
-                  }}
-                >
-                  <div className="font-bold">{team.name}</div>
-                  <div className="text-sm">{team.mascot}</div>
-                </Button>
-              ))}
+                  <Button
+                    key={team.id}
+                    onClick={() => startNewSeason(team)}
+                    className="h-24 flex flex-col items-center justify-center"
+                    style={{
+                      backgroundColor: team.primaryColor,
+                      color: 'white'
+                    }}
+                  >
+                    <div className="font-bold">{team.name}</div>
+                    <div className="text-sm">{team.mascot}</div>
+                  </Button>
+                ))}
             </div>
           </CardContent>
         </Card>
@@ -228,7 +229,7 @@ export default function CoachMode() {
                   <Calendar className="h-5 w-5" />
                   <span>Week {currentWeek}</span>
                 </div>
-                <Button 
+                <Button
                   onClick={advanceWeek}
                   disabled={currentWeek > 15}
                   className="bg-green-600 hover:bg-green-700"
@@ -241,7 +242,7 @@ export default function CoachMode() {
                 {schedule
                   .filter(game => game.week === currentWeek)
                   .map((game, index) => (
-                    <div 
+                    <div
                       key={index}
                       className="p-4 border rounded-lg flex justify-between items-center"
                     >
@@ -313,8 +314,8 @@ export default function CoachMode() {
                       }, { wins: 0, losses: 0 });
 
                     return (
-                      <div 
-                        key={team.id} 
+                      <div
+                        key={team.id}
                         className={`flex justify-between items-center p-2 rounded ${team.id === selectedTeam?.id ? 'bg-primary/10' : ''}`}
                       >
                         <span>{team.name}</span>
@@ -326,7 +327,7 @@ export default function CoachMode() {
             </CardContent>
           </Card>
 
-          
+
 
           {currentWeek > 15 && (
             <Card>
@@ -344,7 +345,7 @@ export default function CoachMode() {
                   <div className="text-xl">
                     Conference: {record.confWins}-{record.confLosses}
                   </div>
-                  <Button 
+                  <Button
                     onClick={() => {
                       setSelectedTeam(null);
                       setSchedule([]);

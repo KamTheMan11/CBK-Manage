@@ -235,7 +235,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
     } else if (homeTeam.shortName.includes("Indiana") || awayTeam.shortName.includes("Indiana")) {
       return "FOX Sports Indiana";
     } else if (
-      (homeTeam.shortName.includes("Minnesota) || awayTeam.shortName.includes("Minnesota")) ||
+      (homeTeam.shortName.includes("Minnesota") || awayTeam.shortName.includes("Minnesota")) ||
       (homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin"))
     ) {
       return homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin") 
