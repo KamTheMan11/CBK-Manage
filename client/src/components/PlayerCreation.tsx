@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select } from './ui/select';
 
-export const PlayerCreation: React.FC = () => {
+const PlayerCreation: React.FC = () => {
   const [playerName, setPlayerName] = useState('');
   const [position, setPosition] = useState('');
   const [rating, setRating] = useState('');
@@ -45,3 +45,6 @@ export const PlayerCreation: React.FC = () => {
     </div>
   );
 };
+
+
+export default PlayerCreation;

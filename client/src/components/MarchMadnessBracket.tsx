@@ -180,6 +180,8 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
            (g.team2.seed < g.team1.seed && g.winner === g.team1.id))
         ).length;
 
+        const eliteConferences = ['SEC', 'ACC', 'Big East', 'Big 12', 'American'];
+        
         // Base upset chance starts at 30% but decreases for top seeds
         let upsetChance = 0.30;
         
