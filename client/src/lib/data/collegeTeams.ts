@@ -176,31 +176,56 @@ export const collegeTeams: CollegeTeam[] = [
 
 // Current Top 25 Rankings and records
 export const rankings = [
-  { id: 18, rank: 1, wins: 36, losses: 4, points: 775, trend: 2 }, // Florida
-  { id: 76, rank: 2, wins: 35, losses: 5, points: 744, trend: 0 }, // Houston
-  { id: 3, rank: 3, wins: 35, losses: 4, points: 706, trend: 2 }, // Duke
-  { id: 19, rank: 4, wins: 32, losses: 6, points: 689, trend: 0 }, // Auburn
-  { id: 17, rank: 5, wins: 30, losses: 8, points: 621, trend: 1 }, // Tennessee
-  { id: 20, rank: 6, wins: 28, losses: 9, points: 610, trend: 2 }, // Alabama
-  { id: 31, rank: 7, wins: 30, losses: 7, points: 593, trend: 0 }, // Michigan State
-  { id: 48, rank: 8, wins: 28, losses: 9, points: 582, trend: 1 }, // Texas Tech
-  { id: 38, rank: 9, wins: 27, losses: 9, points: 469, trend: 3 }, // Maryland
-  { id: 61, rank: 10, wins: 31, losses: 5, points: 436, trend: 5 }, // St. John's
-  { id: 30, rank: 11, wins: 27, losses: 10, points: 427, trend: 4 }, // Michigan
-  { id: 33, rank: 12, wins: 24, losses: 12, points: 384, trend: 10 }, // Purdue
-  { id: 9, rank: 13, wins: 24, losses: 13, points: 353, trend: 7 }, // Arizona
-  { id: 16, rank: 14, wins: 24, losses: 12, points: 330, trend: 7 }, // Kentucky
-  { id: 13, rank: 15, wins: 26, losses: 10, points: 316, trend: 2 }, // BYU
-  { id: 34, rank: 16, wins: 27, losses: 10, points: 315, trend: 6 }, // Wisconsin
-  { id: 51, rank: 17, wins: 25, losses: 10, points: 280, trend: 3 }, // Iowa State
-  { id: 22, rank: 18, wins: 24, losses: 12, points: 214, trend: 8 }, // Ole Miss
-  { id: 24, rank: 19, wins: 23, losses: 11, points: 195, trend: 1 }, // Texas A&M
-  { id: 14, rank: 20, wins: 26, losses: 9, points: 155, trend: 3 }, // Gonzaga
-  { id: 4, rank: 21, wins: 27, losses: 8, points: 146, trend: 10 }, // Louisville
-  { id: 12, rank: 22, wins: 29, losses: 6, points: 97, trend: 3 }, // Saint Mary's
-  { id: 7, rank: 23, wins: 27, losses: 7, points: 95, trend: 10 }, // Clemson
-  { id: 55, rank: 24, wins: 25, losses: 11, points: 90, trend: 2 }, // Creighton
-  { id: 21, rank: 25, wins: 22, losses: 14, points: 84, trend: 1 } // Arkansas
+  { id: 18, rank: 1, wins: 36, losses: 4, points: 775, trend: 2, shortName: "FLA", firstPlaceVotes: 31 }, // Florida
+  { id: 76, rank: 2, wins: 35, losses: 5, points: 744, trend: 0, shortName: "HOU" }, // Houston
+  { id: 1, rank: 3, wins: 35, losses: 4, points: 706, trend: 2, shortName: "DUKE" }, // Duke
+  { id: 19, rank: 4, wins: 32, losses: 6, points: 689, trend: 0, shortName: "AUB" }, // Auburn
+  { id: 17, rank: 5, wins: 30, losses: 8, points: 621, trend: 1, shortName: "TENN" }, // Tennessee
+  { id: 20, rank: 6, wins: 28, losses: 9, points: 610, trend: 2, shortName: "ALA" }, // Alabama
+  { id: 31, rank: 7, wins: 30, losses: 7, points: 593, trend: 0, shortName: "MSU" }, // Michigan State
+  { id: 48, rank: 8, wins: 28, losses: 9, points: 582, trend: 1, shortName: "TTU" }, // Texas Tech
+  { id: 38, rank: 9, wins: 27, losses: 9, points: 469, trend: 3, shortName: "MD" }, // Maryland
+  { id: 61, rank: 10, wins: 31, losses: 5, points: 436, trend: 5, shortName: "SJU" }, // St. John's
+  { id: 30, rank: 11, wins: 27, losses: 10, points: 427, trend: 4, shortName: "MICH" }, // Michigan
+  { id: 33, rank: 12, wins: 24, losses: 12, points: 384, trend: 10, shortName: "PUR" }, // Purdue
+  { id: 9, rank: 13, wins: 24, losses: 13, points: 353, trend: 7, shortName: "ARIZ" }, // Arizona
+  { id: 16, rank: 14, wins: 24, losses: 12, points: 330, trend: 7, shortName: "UK" }, // Kentucky
+  { id: 13, rank: 15, wins: 26, losses: 10, points: 316, trend: 2, shortName: "BYU" }, // BYU
+  { id: 34, rank: 16, wins: 27, losses: 10, points: 315, trend: 6, shortName: "WIS" }, // Wisconsin
+  { id: 51, rank: 17, wins: 25, losses: 10, points: 280, trend: 3, shortName: "ISU" }, // Iowa State
+  { id: 22, rank: 18, wins: 24, losses: 12, points: 214, trend: 8, shortName: "MISS" }, // Ole Miss
+  { id: 24, rank: 19, wins: 23, losses: 11, points: 195, trend: 1, shortName: "TA&M" }, // Texas A&M
+  { id: 14, rank: 20, wins: 26, losses: 9, points: 155, trend: 3, shortName: "GONZ" }, // Gonzaga
+  { id: 4, rank: 21, wins: 27, losses: 8, points: 146, trend: 10, shortName: "LOU" }, // Louisville
+  { id: 12, rank: 22, wins: 29, losses: 6, points: 97, trend: 3, shortName: "SMC" }, // Saint Mary's
+  { id: 7, rank: 23, wins: 27, losses: 7, points: 95, trend: 10, shortName: "CLEM" }, // Clemson
+  { id: 55, rank: 24, wins: 25, losses: 11, points: 90, trend: 2, shortName: "CREI" }, // Creighton
+  { id: 21, rank: 25, wins: 22, losses: 14, points: 84, trend: 1, shortName: "ARK" } // Arkansas
+];
+
+// Others receiving votes with points
+export const othersReceivingVotes = [
+  { name: "Memphis", points: 63 },
+  { name: "Drake", points: 52 },
+  { name: "Illinois", points: 49 },
+  { name: "UConn", points: 41 },
+  { name: "Oregon", points: 40 },
+  { name: "Missouri", points: 33 },
+  { name: "UCLA", points: 33 },
+  { name: "Marquette", points: 18 },
+  { name: "New Mexico", points: 11 },
+  { name: "Colorado State", points: 9 },
+  { name: "UC San Diego", points: 7 },
+  { name: "Kansas", points: 6 },
+  { name: "Baylor", points: 6 },
+  { name: "McNeese", points: 1 }
+];
+
+// Teams that dropped from rankings
+export const droppedFromRankings = [
+  { name: "Memphis", prevRank: 16 },
+  { name: "Missouri", prevRank: 24 },
+  { name: "Marquette", prevRank: 25 }
 ];
 
 // Get team ranking
