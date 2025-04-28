@@ -187,8 +187,11 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
 
         <div>
           <CameraControls 
-
-      <div className="mt-4 p-4 bg-white rounded-lg shadow">
+            selectedView={selectedCameraView} 
+            onViewChange={setSelectedCameraView} 
+          />
+          
+          <div className="mt-4 p-4 bg-gray-900 text-white rounded-lg shadow">
         <h3 className="text-lg font-bold mb-2">Controls</h3>
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div>Movement: WASD or Arrow Keys</div>
