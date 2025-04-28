@@ -454,9 +454,14 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
     networks.push("ABC");
   }
 
-  // CBS available before 7 PM
-  if (currentHour < 19) {
-    networks.push("CBS");
+  // CBS available before 5 PM, unless it's a Big 12 vs Big 12 game
+  if (currentHour < 17) {
+    const isBig12Game = homeTeam?.conferenceId === 4 && awayTeam?.conferenceId === 4;
+    if (!isBig12Game) {
+        networks.push("CBS");
+    } else {
+        networks.push("ESPN+"); //Big 12 vs Big 12 on ESPN+
+    }
   }
 
   // SEC games should be on ABC when possible
