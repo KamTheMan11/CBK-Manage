@@ -63,7 +63,15 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6 pb-12">
-      <section className="relative overflow-hidden rounded-xl bg-[#003087] text-white shadow-lg md:py-16 py-10">
+      <section 
+  className="relative overflow-hidden rounded-xl text-white shadow-lg md:py-16 py-10" 
+  style={{
+    backgroundImage: 'url(/assets/images/court-background.jpg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundColor: '#003087'
+  }}
+>
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center">
           <div className="flex items-center mb-6">
             <img src="/assets/sprites/ic_launcher_foreground.png" alt="College Hardwood Logo" className="h-24 w-24 pixel-art" />
