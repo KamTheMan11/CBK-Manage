@@ -93,22 +93,20 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 52, name: "Kansas State Wildcats", shortName: "Kansas State", nickname: "Wildcats", primaryColor: "#512888", secondaryColor: "#FFFFFF", conferenceId: 4 },
   { id: 53, name: "TCU Horned Frogs", shortName: "TCU", nickname: "Horned Frogs", primaryColor: "#4D1979", secondaryColor: "#A3A9AC", conferenceId: 4 },
 
-  // Pac-12 Teams
-  { id: 54, name: "UCLA Bruins", shortName: "UCLA", nickname: "Bruins", primaryColor: "#2D68C4", secondaryColor: "#F2A900", conferenceId: 5 },
-  { id: 55, name: "Arizona Wildcats", shortName: "Arizona", nickname: "Wildcats", primaryColor: "#CC0033", secondaryColor: "#003366", conferenceId: 5 },
-  { id: 56, name: "Oregon Ducks", shortName: "Oregon", nickname: "Ducks", primaryColor: "#154733", secondaryColor: "#FEE123", conferenceId: 5 },
-  { id: 57, name: "Colorado Buffaloes", shortName: "Colorado", nickname: "Buffaloes", primaryColor: "#CFB87C", secondaryColor: "#000000", conferenceId: 5 },
-  { id: 58, name: "USC Trojans", shortName: "USC", nickname: "Trojans", primaryColor: "#990000", secondaryColor: "#FFC72C", conferenceId: 5 },
-  { id: 59, name: "Stanford Cardinal", shortName: "Stanford", nickname: "Cardinal", primaryColor: "#8C1515", secondaryColor: "#FFFFFF", conferenceId: 5 },
-  { id: 60, name: "Oregon State Beavers", shortName: "Oregon State", nickname: "Beavers", primaryColor: "#DC4405", secondaryColor: "#000000", conferenceId: 5 },
-  { id: 61, name: "Arizona State Sun Devils", shortName: "Arizona State", nickname: "Sun Devils", primaryColor: "#8C1D40", secondaryColor: "#FFC627", conferenceId: 5 },
-  { id: 62, name: "Utah Utes", shortName: "Utah", nickname: "Utes", primaryColor: "#CC0000", secondaryColor: "#FFFFFF", conferenceId: 5 },
-  { id: 63, name: "Washington Huskies", shortName: "Washington", nickname: "Huskies", primaryColor: "#4B2E83", secondaryColor: "#B7A57A", conferenceId: 5 },
-  { id: 64, name: "California Golden Bears", shortName: "California", nickname: "Golden Bears", primaryColor: "#003262", secondaryColor: "#FDB515", conferenceId: 5 },
-  { id: 65, name: "Washington State Cougars", shortName: "Washington State", nickname: "Cougars", primaryColor: "#981E32", secondaryColor: "#5E6A71", conferenceId: 5 },
+  // Former Big East Teams (Now Pac-12)
+  { id: 54, name: "Villanova Wildcats", shortName: "Villanova", nickname: "Wildcats", primaryColor: "#00205B", secondaryColor: "#13B5EA", conferenceId: 5 },
+  { id: 55, name: "Creighton Bluejays", shortName: "Creighton", nickname: "Bluejays", primaryColor: "#002E6D", secondaryColor: "#0080FF", conferenceId: 5 },
+  { id: 56, name: "Xavier Musketeers", shortName: "Xavier", nickname: "Musketeers", primaryColor: "#0C2340", secondaryColor: "#9EA2A2", conferenceId: 5 },
+  { id: 57, name: "Seton Hall Pirates", shortName: "Seton Hall", nickname: "Pirates", primaryColor: "#004488", secondaryColor: "#A2AAAD", conferenceId: 5 },
+  { id: 58, name: "Butler Bulldogs", shortName: "Butler", nickname: "Bulldogs", primaryColor: "#13294B", secondaryColor: "#A7A9AC", conferenceId: 5 },
+  { id: 59, name: "Providence Friars", shortName: "Providence", nickname: "Friars", primaryColor: "#000000", secondaryColor: "#C4CED4", conferenceId: 5 },
+  { id: 60, name: "Marquette Golden Eagles", shortName: "Marquette", nickname: "Golden Eagles", primaryColor: "#003366", secondaryColor: "#FFCC00", conferenceId: 5 },
+  { id: 61, name: "St. John's Red Storm", shortName: "St. John's", nickname: "Red Storm", primaryColor: "#BA0C2F", secondaryColor: "#FFFFFF", conferenceId: 5 },
+  { id: 62, name: "Georgetown Hoyas", shortName: "Georgetown", nickname: "Hoyas", primaryColor: "#041E42", secondaryColor: "#A7A8AA", conferenceId: 5 },
+  { id: 63, name: "DePaul Blue Demons", shortName: "DePaul", nickname: "Blue Demons", primaryColor: "#003DA5", secondaryColor: "#E31837", conferenceId: 5 },
 
-  // Big East Teams
-  { id: 66, name: "Villanova Wildcats", shortName: "Villanova", nickname: "Wildcats", primaryColor: "#00205B", secondaryColor: "#13B5EA", conferenceId: 6 },
+  // Big East Teams (Current)
+  { id: 66, name: "UConn Huskies", shortName: "UConn", nickname: "Huskies", primaryColor: "#000E2F", secondaryColor: "#E4002B", conferenceId: 6 },
   { id: 67, name: "Creighton Bluejays", shortName: "Creighton", nickname: "Bluejays", primaryColor: "#002E6D", secondaryColor: "#0080FF", conferenceId: 6 },
   { id: 68, name: "Xavier Musketeers", shortName: "Xavier", nickname: "Musketeers", primaryColor: "#0C2340", secondaryColor: "#9EA2A2", conferenceId: 6 },
   { id: 69, name: "Seton Hall Pirates", shortName: "Seton Hall", nickname: "Pirates", primaryColor: "#004488", secondaryColor: "#A2AAAD", conferenceId: 6 },
@@ -117,7 +115,7 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 72, name: "Marquette Golden Eagles", shortName: "Marquette", nickname: "Golden Eagles", primaryColor: "#003366", secondaryColor: "#FFCC00", conferenceId: 6 },
   { id: 73, name: "St. John's Red Storm", shortName: "St. John's", nickname: "Red Storm", primaryColor: "#BA0C2F", secondaryColor: "#FFFFFF", conferenceId: 6 },
   { id: 74, name: "Georgetown Hoyas", shortName: "Georgetown", nickname: "Hoyas", primaryColor: "#041E42", secondaryColor: "#A7A8AA", conferenceId: 6 },
-  { id: 75, name: "DePaul Blue Demons", shortName: "DePaul", nickname: "Blue Demons", primaryColor: "#003DA5", secondaryColor: "#E31837", conferenceId: 6 },
+  { id: 75, name: "Villanova Wildcats", shortName: "Villanova", nickname: "Wildcats", primaryColor: "#00205B", secondaryColor: "#13B5EA", conferenceId: 6 },
 
   // American Athletic Conference (AAC) Teams
   { id: 76, name: "Houston Cougars", shortName: "Houston", nickname: "Cougars", primaryColor: "#C8102E", secondaryColor: "#76232F", conferenceId: 7 },
@@ -159,21 +157,21 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 108, name: "Western Michigan Broncos", shortName: "Western Michigan", nickname: "Broncos", primaryColor: "#6C4023", secondaryColor: "#B59966", conferenceId: 11 },
   { id: 109, name: "Eastern Michigan Eagles", shortName: "Eastern Michigan", nickname: "Eagles", primaryColor: "#046A38", secondaryColor: "#FFFFFF", conferenceId: 11 },
 
-  // Conference USA (C-USA) Teams
-  { id: 110, name: "UAB Blazers", shortName: "UAB", nickname: "Blazers", primaryColor: "#00594C", secondaryColor: "#F4C300", conferenceId: 12 },
-  { id: 111, name: "Western Kentucky Hilltoppers", shortName: "Western Kentucky", nickname: "Hilltoppers", primaryColor: "#C8102E", secondaryColor: "#FFFFFF", conferenceId: 12 },
-  { id: 112, name: "UTSA Roadrunners", shortName: "UTSA", nickname: "Roadrunners", primaryColor: "#002A5C", secondaryColor: "#E74A25", conferenceId: 12 },
-  { id: 113, name: "North Texas Mean Green", shortName: "North Texas", nickname: "Mean Green", primaryColor: "#00853E", secondaryColor: "#FFFFFF", conferenceId: 12 },
-  { id: 114, name: "Marshall Thundering Herd", shortName: "Marshall", nickname: "Thundering Herd", primaryColor: "#00B140", secondaryColor: "#000000", conferenceId: 12 },
-  { id: 115, name: "Rice Owls", shortName: "Rice", nickname: "Owls", primaryColor: "#00205B", secondaryColor: "#C1C6C8", conferenceId: 12 },
-  { id: 116, name: "Middle Tennessee Blue Raiders", shortName: "Middle Tennessee", nickname: "Blue Raiders", primaryColor: "#0066CC", secondaryColor: "#000000", conferenceId: 12 },
-  { id: 117, name: "Charlotte 49ers", shortName: "Charlotte", nickname: "49ers", primaryColor: "#046A38", secondaryColor: "#B5A268", conferenceId: 12 },
-  { id: 118, name: "Louisiana Tech Bulldogs", shortName: "Louisiana Tech", nickname: "Bulldogs", primaryColor: "#002F8B", secondaryColor: "#E31B23", conferenceId: 12 },
-  { id: 119, name: "UTEP Miners", shortName: "UTEP", nickname: "Miners", primaryColor: "#041E42", secondaryColor: "#FF8200", conferenceId: 12 },
-  { id: 120, name: "Florida Atlantic Owls", shortName: "Florida Atlantic", nickname: "Owls", primaryColor: "#003366", secondaryColor: "#CC0000", conferenceId: 12 },
-  { id: 121, name: "Florida International Panthers", shortName: "FIU", nickname: "Panthers", primaryColor: "#081E3F", secondaryColor: "#B6862C", conferenceId: 12 },
-  { id: 122, name: "Old Dominion Monarchs", shortName: "Old Dominion", nickname: "Monarchs", primaryColor: "#003057", secondaryColor: "#7C878E", conferenceId: 12 },
-  { id: 123, name: "Southern Miss Golden Eagles", shortName: "Southern Miss", nickname: "Golden Eagles", primaryColor: "#000000", secondaryColor: "#FFC637", conferenceId: 12 },
+  // Former CUSA Teams (Now MAC)
+  { id: 110, name: "UAB Blazers", shortName: "UAB", nickname: "Blazers", primaryColor: "#00594C", secondaryColor: "#F4C300", conferenceId: 11 },
+  { id: 111, name: "Western Kentucky Hilltoppers", shortName: "Western Kentucky", nickname: "Hilltoppers", primaryColor: "#C8102E", secondaryColor: "#FFFFFF", conferenceId: 11 },
+  { id: 112, name: "UTSA Roadrunners", shortName: "UTSA", nickname: "Roadrunners", primaryColor: "#002A5C", secondaryColor: "#E74A25", conferenceId: 11 },
+  { id: 113, name: "North Texas Mean Green", shortName: "North Texas", nickname: "Mean Green", primaryColor: "#00853E", secondaryColor: "#FFFFFF", conferenceId: 11 },
+  { id: 114, name: "Marshall Thundering Herd", shortName: "Marshall", nickname: "Thundering Herd", primaryColor: "#00B140", secondaryColor: "#000000", conferenceId: 11 },
+  { id: 115, name: "Rice Owls", shortName: "Rice", nickname: "Owls", primaryColor: "#00205B", secondaryColor: "#C1C6C8", conferenceId: 11 },
+  { id: 116, name: "Middle Tennessee Blue Raiders", shortName: "Middle Tennessee", nickname: "Blue Raiders", primaryColor: "#0066CC", secondaryColor: "#000000", conferenceId: 11 },
+  { id: 117, name: "Charlotte 49ers", shortName: "Charlotte", nickname: "49ers", primaryColor: "#046A38", secondaryColor: "#B5A268", conferenceId: 11 },
+  { id: 118, name: "Louisiana Tech Bulldogs", shortName: "Louisiana Tech", nickname: "Bulldogs", primaryColor: "#002F8B", secondaryColor: "#E31B23", conferenceId: 11 },
+  { id: 119, name: "UTEP Miners", shortName: "UTEP", nickname: "Miners", primaryColor: "#041E42", secondaryColor: "#FF8200", conferenceId: 11 },
+  { id: 120, name: "Florida Atlantic Owls", shortName: "Florida Atlantic", nickname: "Owls", primaryColor: "#003366", secondaryColor: "#CC0000", conferenceId: 11 },
+  { id: 121, name: "Florida International Panthers", shortName: "FIU", nickname: "Panthers", primaryColor: "#081E3F", secondaryColor: "#B6862C", conferenceId: 11 },
+  { id: 122, name: "Old Dominion Monarchs", shortName: "Old Dominion", nickname: "Monarchs", primaryColor: "#003057", secondaryColor: "#7C878E", conferenceId: 11 },
+  { id: 123, name: "Southern Miss Golden Eagles", shortName: "Southern Miss", nickname: "Golden Eagles", primaryColor: "#000000", secondaryColor: "#FFC637", conferenceId: 11 },
 ];
 
 // Helper function to get regional TV network based on teams and conference regions
