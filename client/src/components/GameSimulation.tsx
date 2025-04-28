@@ -45,7 +45,7 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
     if (gameState.lastEvent?.type === 'score') {
       playSuccess();
     }
-    
+
     // Check for foul events or end of quarter
     if (gameState.lastEvent?.type === 'foul' || gameState.lastEvent?.type === 'quarter_end') {
       playHit();
@@ -149,7 +149,7 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
           {isGamePaused || gamePhase === GamePhase.READY ? <Play className="mr-1" /> : <Pause className="mr-1" />}
           {isGamePaused || gamePhase === GamePhase.READY ? 'Start' : 'Pause'}
         </Button>
-        
+
         <Button 
           onClick={skipToNextQuarter}
           className="bg-[#B2BEB5] hover:bg-gray-500 text-black"
@@ -158,7 +158,7 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
           <SkipForward className="mr-1" />
           Skip Quarter
         </Button>
-        
+
         <Button 
           onClick={() => resetGame(homeTeamId, awayTeamId)}
           variant="outline"
@@ -184,7 +184,7 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
           gameState={gameState}
           gameSettings={gameSettings}
         />
-        
+
         <div>
           <CameraControls 
 
@@ -207,11 +207,11 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
           />
         </div>
       </div>
-      
+
       <div className="w-full h-[60vh] bg-gray-100 rounded-lg overflow-hidden">
         <Canvas shadows>
           <color attach="background" args={['#111111']} />
-          
+
           {/* Different camera positions based on selected view */}
           {selectedCameraView === 'broadcast' && (
             <PerspectiveCamera makeDefault position={[0, 15, 20]} fov={45} />
@@ -228,13 +228,13 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
 
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 15, 10]} intensity={1} castShadow />
-          
+
           <CourtView 
             gameState={gameState}
             homeTeam={homeTeam}
             awayTeam={awayTeam}
           />
-          
+
           <OrbitControls 
             enablePan={true}
             enableZoom={true}
@@ -244,9 +244,9 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
           />
         </Canvas>
       </div>
-      
+
       {renderGameControls()}
-      
+
       <div className="mt-6 p-4 bg-white rounded-lg shadow">
         <h3 className="text-lg font-bold mb-2">Game Events</h3>
         <div className="max-h-40 overflow-y-auto">
