@@ -60,7 +60,7 @@ export default function Navigation() {
             >
               {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
             </Button>
-            
+
             <ThemeToggle />
 
             {/* Mobile menu button */}
