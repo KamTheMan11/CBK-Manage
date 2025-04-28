@@ -94,18 +94,18 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 53, name: "TCU Horned Frogs", shortName: "TCU", nickname: "Horned Frogs", primaryColor: "#4D1979", secondaryColor: "#A3A9AC", conferenceId: 4 },
 
   // Pac-12 Teams
-  { id: 54, name: "UCLA Bruins", shortName: "UCLA", nickname: "Bruins", primaryColor: "#2D68C4", secondaryColor: "#F2A900", conferenceId: 6 },
-  { id: 55, name: "Arizona Wildcats", shortName: "Arizona", nickname: "Wildcats", primaryColor: "#CC0033", secondaryColor: "#003366", conferenceId: 6 },
-  { id: 56, name: "Oregon Ducks", shortName: "Oregon", nickname: "Ducks", primaryColor: "#154733", secondaryColor: "#FEE123", conferenceId: 6 },
-  { id: 57, name: "Colorado Buffaloes", shortName: "Colorado", nickname: "Buffaloes", primaryColor: "#CFB87C", secondaryColor: "#000000", conferenceId: 6 },
-  { id: 58, name: "USC Trojans", shortName: "USC", nickname: "Trojans", primaryColor: "#990000", secondaryColor: "#FFC72C", conferenceId: 6 },
-  { id: 59, name: "Stanford Cardinal", shortName: "Stanford", nickname: "Cardinal", primaryColor: "#8C1515", secondaryColor: "#FFFFFF", conferenceId: 6 },
-  { id: 60, name: "Oregon State Beavers", shortName: "Oregon State", nickname: "Beavers", primaryColor: "#DC4405", secondaryColor: "#000000", conferenceId: 6 },
-  { id: 61, name: "Arizona State Sun Devils", shortName: "Arizona State", nickname: "Sun Devils", primaryColor: "#8C1D40", secondaryColor: "#FFC627", conferenceId: 6 },
-  { id: 62, name: "Utah Utes", shortName: "Utah", nickname: "Utes", primaryColor: "#CC0000", secondaryColor: "#FFFFFF", conferenceId: 6 },
-  { id: 63, name: "Washington Huskies", shortName: "Washington", nickname: "Huskies", primaryColor: "#4B2E83", secondaryColor: "#B7A57A", conferenceId: 6 },
-  { id: 64, name: "California Golden Bears", shortName: "California", nickname: "Golden Bears", primaryColor: "#003262", secondaryColor: "#FDB515", conferenceId: 6 },
-  { id: 65, name: "Washington State Cougars", shortName: "Washington State", nickname: "Cougars", primaryColor: "#981E32", secondaryColor: "#5E6A71", conferenceId: 6 },
+  { id: 54, name: "UCLA Bruins", shortName: "UCLA", nickname: "Bruins", primaryColor: "#2D68C4", secondaryColor: "#F2A900", conferenceId: 5 },
+  { id: 55, name: "Arizona Wildcats", shortName: "Arizona", nickname: "Wildcats", primaryColor: "#CC0033", secondaryColor: "#003366", conferenceId: 5 },
+  { id: 56, name: "Oregon Ducks", shortName: "Oregon", nickname: "Ducks", primaryColor: "#154733", secondaryColor: "#FEE123", conferenceId: 5 },
+  { id: 57, name: "Colorado Buffaloes", shortName: "Colorado", nickname: "Buffaloes", primaryColor: "#CFB87C", secondaryColor: "#000000", conferenceId: 5 },
+  { id: 58, name: "USC Trojans", shortName: "USC", nickname: "Trojans", primaryColor: "#990000", secondaryColor: "#FFC72C", conferenceId: 5 },
+  { id: 59, name: "Stanford Cardinal", shortName: "Stanford", nickname: "Cardinal", primaryColor: "#8C1515", secondaryColor: "#FFFFFF", conferenceId: 5 },
+  { id: 60, name: "Oregon State Beavers", shortName: "Oregon State", nickname: "Beavers", primaryColor: "#DC4405", secondaryColor: "#000000", conferenceId: 5 },
+  { id: 61, name: "Arizona State Sun Devils", shortName: "Arizona State", nickname: "Sun Devils", primaryColor: "#8C1D40", secondaryColor: "#FFC627", conferenceId: 5 },
+  { id: 62, name: "Utah Utes", shortName: "Utah", nickname: "Utes", primaryColor: "#CC0000", secondaryColor: "#FFFFFF", conferenceId: 5 },
+  { id: 63, name: "Washington Huskies", shortName: "Washington", nickname: "Huskies", primaryColor: "#4B2E83", secondaryColor: "#B7A57A", conferenceId: 5 },
+  { id: 64, name: "California Golden Bears", shortName: "California", nickname: "Golden Bears", primaryColor: "#003262", secondaryColor: "#FDB515", conferenceId: 5 },
+  { id: 65, name: "Washington State Cougars", shortName: "Washington State", nickname: "Cougars", primaryColor: "#981E32", secondaryColor: "#5E6A71", conferenceId: 5 },
 
   // Big East Teams
   { id: 66, name: "Villanova Wildcats", shortName: "Villanova", nickname: "Wildcats", primaryColor: "#00205B", secondaryColor: "#13B5EA", conferenceId: 6 },
@@ -133,17 +133,17 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 86, name: "South Florida Bulls", shortName: "South Florida", nickname: "Bulls", primaryColor: "#006747", secondaryColor: "#CFC493", conferenceId: 7 },
 
   // Mountain West Conference (MWC) Teams
-  { id: 87, name: "San Diego State Aztecs", shortName: "San Diego State", nickname: "Aztecs", primaryColor: "#A6192E", secondaryColor: "#000000", conferenceId: 5 },
-  { id: 88, name: "UNLV Runnin' Rebels", shortName: "UNLV", nickname: "Runnin' Rebels", primaryColor: "#CF0A2C", secondaryColor: "#231F20", conferenceId: 5 },
-  { id: 89, name: "Utah State Aggies", shortName: "Utah State", nickname: "Aggies", primaryColor: "#00263A", secondaryColor: "#8A8D8F", conferenceId: 5 },
-  { id: 90, name: "Boise State Broncos", shortName: "Boise State", nickname: "Broncos", primaryColor: "#0033A0", secondaryColor: "#D64309", conferenceId: 5 },
-  { id: 91, name: "Nevada Wolf Pack", shortName: "Nevada", nickname: "Wolf Pack", primaryColor: "#003366", secondaryColor: "#807F84", conferenceId: 5 },
-  { id: 92, name: "Colorado State Rams", shortName: "Colorado State", nickname: "Rams", primaryColor: "#1E4D2B", secondaryColor: "#C8C372", conferenceId: 5 },
-  { id: 93, name: "Fresno State Bulldogs", shortName: "Fresno State", nickname: "Bulldogs", primaryColor: "#DB0032", secondaryColor: "#231F20", conferenceId: 5 },
-  { id: 94, name: "Wyoming Cowboys", shortName: "Wyoming", nickname: "Cowboys", primaryColor: "#492F24", secondaryColor: "#FFC425", conferenceId: 5 },
-  { id: 95, name: "New Mexico Lobos", shortName: "New Mexico", nickname: "Lobos", primaryColor: "#BA0C2F", secondaryColor: "#63666A", conferenceId: 5 },
-  { id: 96, name: "Air Force Falcons", shortName: "Air Force", nickname: "Falcons", primaryColor: "#0033A0", secondaryColor: "#A5A9AD", conferenceId: 5 },
-  { id: 97, name: "San Jose State Spartans", shortName: "San Jose State", nickname: "Spartans", primaryColor: "#0055A2", secondaryColor: "#E5A823", conferenceId: 5 },
+  { id: 87, name: "San Diego State Aztecs", shortName: "San Diego State", nickname: "Aztecs", primaryColor: "#A6192E", secondaryColor: "#000000", conferenceId: 8 },
+  { id: 88, name: "UNLV Runnin' Rebels", shortName: "UNLV", nickname: "Runnin' Rebels", primaryColor: "#CF0A2C", secondaryColor: "#231F20", conferenceId: 8 },
+  { id: 89, name: "Utah State Aggies", shortName: "Utah State", nickname: "Aggies", primaryColor: "#00263A", secondaryColor: "#8A8D8F", conferenceId: 8 },
+  { id: 90, name: "Boise State Broncos", shortName: "Boise State", nickname: "Broncos", primaryColor: "#0033A0", secondaryColor: "#D64309", conferenceId: 8 },
+  { id: 91, name: "Nevada Wolf Pack", shortName: "Nevada", nickname: "Wolf Pack", primaryColor: "#003366", secondaryColor: "#807F84", conferenceId: 8 },
+  { id: 92, name: "Colorado State Rams", shortName: "Colorado State", nickname: "Rams", primaryColor: "#1E4D2B", secondaryColor: "#C8C372", conferenceId: 8 },
+  { id: 93, name: "Fresno State Bulldogs", shortName: "Fresno State", nickname: "Bulldogs", primaryColor: "#DB0032", secondaryColor: "#231F20", conferenceId: 8 },
+  { id: 94, name: "Wyoming Cowboys", shortName: "Wyoming", nickname: "Cowboys", primaryColor: "#492F24", secondaryColor: "#FFC425", conferenceId: 8 },
+  { id: 95, name: "New Mexico Lobos", shortName: "New Mexico", nickname: "Lobos", primaryColor: "#BA0C2F", secondaryColor: "#63666A", conferenceId: 8 },
+  { id: 96, name: "Air Force Falcons", shortName: "Air Force", nickname: "Falcons", primaryColor: "#0033A0", secondaryColor: "#A5A9AD", conferenceId: 8 },
+  { id: 97, name: "San Jose State Spartans", shortName: "San Jose State", nickname: "Spartans", primaryColor: "#0055A2", secondaryColor: "#E5A823", conferenceId: 8 },
 
   // Mid-American Conference (MAC) Teams
   { id: 98, name: "Buffalo Bulls", shortName: "Buffalo", nickname: "Bulls", primaryColor: "#005BBB", secondaryColor: "#FFFFFF", conferenceId: 11 },
@@ -235,7 +235,7 @@ export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): stri
     } else if (homeTeam.shortName.includes("Indiana") || awayTeam.shortName.includes("Indiana")) {
       return "FOX Sports Indiana";
     } else if (
-      (homeTeam.shortName.includes("Minnesota") || awayTeam.shortName.includes("Minnesota")) ||
+      (homeTeam.shortName.includes("Minnesota) || awayTeam.shortName.includes("Minnesota")) ||
       (homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin"))
     ) {
       return homeTeam.shortName.includes("Wisconsin") || awayTeam.shortName.includes("Wisconsin") 
