@@ -441,16 +441,31 @@ export function getNationalTVNetwork(homeTeam?: CollegeTeam, awayTeam?: CollegeT
   const currentHour = new Date().getHours();
   let networks = ["ESPN"];
 
-  // ACC teams can't be on FOX or ABC, but Big East games should be on FOX
-  const isACCGame = homeTeam?.conferenceId === 1 || awayTeam?.conferenceId === 1;
+  // Handle MWC, CUSA, and MAC games (ESPN2 or ESPN+ only)
+  const isMWCCUSAMACGame = [8, 11, 12].includes(homeTeam?.conferenceId || 0) || 
+                          [8, 11, 12].includes(awayTeam?.conferenceId || 0);
+  if (isMWCCUSAMACGame) {
+    return Math.random() < 0.4 ? "ESPN2" : "ESPN+";
+  }
+
+  // FS1 and FS2 for Mountain West, select Big 10, and Big East games
+  const isMWGame = homeTeam?.conferenceId === 8 || awayTeam?.conferenceId === 8;
+  const isBigTenGame = homeTeam?.conferenceId === 3 && awayTeam?.conferenceId === 3;
   const isBigEastGame = homeTeam?.conferenceId === 6 || awayTeam?.conferenceId === 6;
-  if (!isACCGame || isBigEastGame) {
+  
+  if (isMWGame || isBigEastGame || (isBigTenGame && Math.random() < 0.3)) {
+    networks.push("FS1");
+    if (Math.random() < 0.3) networks.push("FS2");
+  }
+
+  // ACC teams can't be on FOX or ABC
+  const isACCGame = homeTeam?.conferenceId === 1 || awayTeam?.conferenceId === 1;
+  if (!isACCGame) {
     networks.push("FOX");
   }
 
-  // ABC restrictions: before 2 PM, no MWC/AAC teams, no ACC teams
-  const isMWCorAACGame = [7, 8].includes(homeTeam?.conferenceId || 0) || [7, 8].includes(awayTeam?.conferenceId || 0);
-  if (currentHour < 14 && !isMWCorAACGame && !isACCGame) {
+  // ABC restrictions: before 7 PM, no ACC teams
+  if (currentHour < 19 && !isACCGame) {
     networks.push("ABC");
   }
 
