@@ -107,7 +107,7 @@ export const collegeTeams: CollegeTeam[] = [
 
   // Big East Teams (Current)
   { id: 66, name: "UConn Huskies", shortName: "UConn", nickname: "Huskies", primaryColor: "#000E2F", secondaryColor: "#E4002B", conferenceId: 6 },
-  { id: 67, name: "Creighton Bluejays", shortName: "Creighton", nickname: "Bluejays", primaryColor: "#002E6D", secondaryColor: "#0080FF", conferenceId: 6 },
+  // Removed duplicate Creighton entry
   { id: 68, name: "Xavier Musketeers", shortName: "Xavier", nickname: "Musketeers", primaryColor: "#0C2340", secondaryColor: "#9EA2A2", conferenceId: 6 },
   { id: 69, name: "Seton Hall Pirates", shortName: "Seton Hall", nickname: "Pirates", primaryColor: "#004488", secondaryColor: "#A2AAAD", conferenceId: 6 },
   { id: 70, name: "Butler Bulldogs", shortName: "Butler", nickname: "Bulldogs", primaryColor: "#13294B", secondaryColor: "#A7A9AC", conferenceId: 6 },
