@@ -174,6 +174,41 @@ export const collegeTeams: CollegeTeam[] = [
   { id: 123, name: "Southern Miss Golden Eagles", shortName: "Southern Miss", nickname: "Golden Eagles", primaryColor: "#000000", secondaryColor: "#FFC637", conferenceId: 11 },
 ];
 
+// Current Top 25 Rankings and records
+export const rankings = [
+  { id: 18, rank: 1, wins: 36, losses: 4, points: 775, trend: 2 }, // Florida
+  { id: 76, rank: 2, wins: 35, losses: 5, points: 744, trend: 0 }, // Houston
+  { id: 3, rank: 3, wins: 35, losses: 4, points: 706, trend: 2 }, // Duke
+  { id: 19, rank: 4, wins: 32, losses: 6, points: 689, trend: 0 }, // Auburn
+  { id: 17, rank: 5, wins: 30, losses: 8, points: 621, trend: 1 }, // Tennessee
+  { id: 20, rank: 6, wins: 28, losses: 9, points: 610, trend: 2 }, // Alabama
+  { id: 31, rank: 7, wins: 30, losses: 7, points: 593, trend: 0 }, // Michigan State
+  { id: 48, rank: 8, wins: 28, losses: 9, points: 582, trend: 1 }, // Texas Tech
+  { id: 38, rank: 9, wins: 27, losses: 9, points: 469, trend: 3 }, // Maryland
+  { id: 61, rank: 10, wins: 31, losses: 5, points: 436, trend: 5 }, // St. John's
+  { id: 30, rank: 11, wins: 27, losses: 10, points: 427, trend: 4 }, // Michigan
+  { id: 33, rank: 12, wins: 24, losses: 12, points: 384, trend: 10 }, // Purdue
+  { id: 9, rank: 13, wins: 24, losses: 13, points: 353, trend: 7 }, // Arizona
+  { id: 16, rank: 14, wins: 24, losses: 12, points: 330, trend: 7 }, // Kentucky
+  { id: 13, rank: 15, wins: 26, losses: 10, points: 316, trend: 2 }, // BYU
+  { id: 34, rank: 16, wins: 27, losses: 10, points: 315, trend: 6 }, // Wisconsin
+  { id: 51, rank: 17, wins: 25, losses: 10, points: 280, trend: 3 }, // Iowa State
+  { id: 22, rank: 18, wins: 24, losses: 12, points: 214, trend: 8 }, // Ole Miss
+  { id: 24, rank: 19, wins: 23, losses: 11, points: 195, trend: 1 }, // Texas A&M
+  { id: 14, rank: 20, wins: 26, losses: 9, points: 155, trend: 3 }, // Gonzaga
+  { id: 4, rank: 21, wins: 27, losses: 8, points: 146, trend: 10 }, // Louisville
+  { id: 12, rank: 22, wins: 29, losses: 6, points: 97, trend: 3 }, // Saint Mary's
+  { id: 7, rank: 23, wins: 27, losses: 7, points: 95, trend: 10 }, // Clemson
+  { id: 55, rank: 24, wins: 25, losses: 11, points: 90, trend: 2 }, // Creighton
+  { id: 21, rank: 25, wins: 22, losses: 14, points: 84, trend: 1 }, // Arkansas
+];
+
+// Get team ranking
+export const getTeamRanking = (teamId: number): number | null => {
+  const rank = rankings.find(r => r.id === teamId)?.rank;
+  return rank || null;
+};
+
 // Helper function to get regional TV network based on teams and conference regions
 export function getRegionalNetwork(homeTeamId: number, awayTeamId: number): string {
   const homeTeam = collegeTeams.find(team => team.id === homeTeamId);
@@ -355,7 +390,7 @@ export function shouldBeNationallyTelevised(homeTeamId: number, awayTeamId: numb
   if (!homeTeam || !awayTeam) return false;
 
   // Top 25 ranked teams should be nationally televised (we'll use team IDs 1-25 as our "ranked" teams)
-  if (homeTeamId <= 25 && awayTeamId <= 25) return true;
+  if (getTeamRanking(homeTeamId) <= 25 && getTeamRanking(awayTeamId) <= 25) return true;
 
   // Rivalry games
   const rivalries = [
