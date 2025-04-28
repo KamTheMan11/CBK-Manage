@@ -10,6 +10,14 @@ import { conferences } from '../lib/data/conferences';
 
 export default function GamePage() {
   const { teams } = useTeams();
+  
+  if (!teams || teams.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <p>Loading teams...</p>
+      </div>
+    );
+  }
   const navigate = useNavigate();
   const [homeTeamIndex, setHomeTeamIndex] = useState(0);
   const [awayTeamIndex, setAwayTeamIndex] = useState(1);

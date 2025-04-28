@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { collegeTeams } from '../lib/data/collegeTeams';
 import BackButton from './BackButton';
+//Import missing components here.  Example: import BasketballTrivia from './BasketballTrivia'; import PlayerCreation from './PlayerCreation';
 
 // List of US cities for tournament locations
 const usCities = [
@@ -180,11 +181,11 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
            (g.team2.seed < g.team1.seed && g.winner === g.team1.id))
         ).length;
 
-        const eliteConferences = ['SEC', 'ACC', 'Big East', 'Big 12', 'American'];
-        
+        const eliteConferences = [1, 2, 3, 4, 5, 6]; // ACC, SEC, Big Ten, Big 12, Big East, Pac-12
+
         // Base upset chance starts at 20% but adjusts based on seed matchups
         let upsetChance = 0.20;
-        
+
         // Sweet 16 - ensure all brackets are busted
         if (currentRound === 3) {
           upsetChance = 0.60; // High chance of upsets in Sweet 16
@@ -743,3 +744,4 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
 };
 
 export default MarchMadnessBracket;
+//Export missing components here. Example: export { default as BasketballTrivia } from './BasketballTrivia'; export { default as PlayerCreation } from './PlayerCreation';
