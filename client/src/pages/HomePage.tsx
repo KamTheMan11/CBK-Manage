@@ -276,12 +276,15 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          <Card className="opacity-50 cursor-not-allowed">
+          <Card 
+            className="cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/create-player')}
+          >
             <CardContent className="p-0">
               <div className="bg-orange-600 p-6 text-white flex flex-col items-center text-center">
                 <User className="w-12 h-12 mb-2" />
                 <h3 className="font-bold text-lg">Create-A-Player</h3>
-                <p className="text-sm mt-2">Coming Soon</p>
+                <p className="text-sm mt-2">Create custom players</p>
               </div>
             </CardContent>
           </Card>
@@ -302,6 +305,19 @@ export default function HomePage() {
                 <PenTool className="w-12 h-12 mb-2" />
                 <h3 className="font-bold text-lg">Custom Commentary</h3>
                 <p className="text-sm mt-2">Create your own announcer voice and style</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card 
+            className="cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/trivia')}
+          >
+            <CardContent className="p-0">
+              <div className="bg-yellow-600 p-6 text-white flex flex-col items-center text-center">
+                <PenTool className="w-12 h-12 mb-2" />
+                <h3 className="font-bold text-lg">Basketball Trivia</h3>
+                <p className="text-sm mt-2">Test your basketball knowledge</p>
               </div>
             </CardContent>
           </Card>

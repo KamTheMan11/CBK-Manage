@@ -46,7 +46,9 @@ function App() {
             <Route path="/team-management" element={<TeamManagementPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/march-madness" element={<MarchMadnessPage />} />
-            <Route path="/coach-mode" element={<CoachModePage />} /> {/* Added Coach Mode route */}
+            <Route path="/coach-mode" element={<CoachModePage />} />
+            <Route path="/trivia" element={<BasketballTrivia />} />
+            <Route path="/create-player" element={<PlayerCreation />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

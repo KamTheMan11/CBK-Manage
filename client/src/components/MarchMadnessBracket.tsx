@@ -121,8 +121,8 @@ const MarchMadnessBracket: React.FC<MarchMadnessBracketProps> = ({ onRoundChange
     newRegionCities["Final Four"] = randomCities[4];
     setRegionCities(newRegionCities);
 
-    // Only SEC and ACC teams for top 25
-    const eliteConferences = [1, 2]; // ACC and SEC only
+    // Power conferences for 1-4 seeds (SEC, ACC, American, Big 12, Big East)
+    const powerConferences = [1, 2, 4, 6, 7]; // ACC, SEC, Big 12, Big East, American
 
     // Get teams from power conferences for top seeds (1-4)
     const powerConfTeams = collegeTeams.filter(team => eliteConferences.includes(team.conferenceId));
