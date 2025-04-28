@@ -25,12 +25,12 @@ export const conferences: Conference[] = [
   {
     id: 5,
     name: 'Big East Conference',
-    abbreviation: 'BE'
+    abbreviation: 'Big East'
   },
   {
     id: 6,
     name: 'Pacific-12 Conference',
-    abbreviation: 'PAC'
+    abbreviation: 'P12'
   },
   {
     id: 7,
