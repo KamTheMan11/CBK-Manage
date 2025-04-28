@@ -35,52 +35,28 @@ export default function CoachMode() {
     let newSchedule: GameSchedule[] = [];
 
     // Generate 20 conference games (10 home, 10 away)
-    let confOpponents = [...confTeams];
-    let homeGames = 10;
-    let awayGames = 10;
+    // Play each conference opponent twice (home and away)
+    for (const opponent of confTeams) {
+      // Skip if it's the same team
+      if (opponent.id === team.id) continue;
+      
+      // Add home game
+      newSchedule.push({
+        week: 0,
+        homeTeam: team,
+        awayTeam: opponent,
+        isConference: true,
+        completed: false
+      });
 
-    while ((homeGames > 0 || awayGames > 0) && confOpponents.length > 0) {
-      const randomIndex = Math.floor(Math.random() * confOpponents.length);
-      const opponent = confOpponents[randomIndex];
-
-      // Check how many games we've already scheduled with this opponent
-      const existingGames = newSchedule.filter(g =>
-        g.isConference && (
-          (g.homeTeam.id === team.id && g.awayTeam.id === opponent.id) ||
-          (g.homeTeam.id === opponent.id && g.awayTeam.id === team.id)
-        )
-      ).length;
-
-      if (existingGames < 2) {
-        const canBeHome = homeGames > 0 && existingGames === 0;
-        const canBeAway = awayGames > 0 && existingGames === 0;
-        const isHome = canBeHome && (!canBeAway || Math.random() < 0.5);
-
-        if (isHome && homeGames > 0) {
-          newSchedule.push({
-            week: 0,
-            homeTeam: team,
-            awayTeam: opponent,
-            isConference: true,
-            completed: false
-          });
-          homeGames--;
-        } else if (!isHome && awayGames > 0) {
-          newSchedule.push({
-            week: 0,
-            homeTeam: opponent,
-            awayTeam: team,
-            isConference: true,
-            completed: false
-          });
-          awayGames--;
-        }
-      }
-
-      // Remove opponent if we've used them twice
-      if (existingGames >= 1) {
-        confOpponents.splice(randomIndex, 1);
-      }
+      // Add away game
+      newSchedule.push({
+        week: 0,
+        homeTeam: opponent,
+        awayTeam: team,
+        isConference: true,
+        completed: false
+      });
     }
 
     // Generate 10 non-conference games
