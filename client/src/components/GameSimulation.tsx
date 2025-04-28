@@ -33,9 +33,18 @@ export default function GameSimulation({ homeTeamId, awayTeamId }: GameSimulatio
   const { playHit, playSuccess } = useAudio();
 
   useEffect(() => {
-    // Initialize the game
-    resetGame(homeTeamId, awayTeamId);
+    if (homeTeamId && awayTeamId) {
+      resetGame(homeTeamId, awayTeamId);
+    }
   }, [resetGame, homeTeamId, awayTeamId]);
+
+  if (!homeTeam || !awayTeam) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-lg">Loading game data...</div>
+      </div>
+    );
+  }
 
   // Handle sound effects for scores and buzzer
   useEffect(() => {

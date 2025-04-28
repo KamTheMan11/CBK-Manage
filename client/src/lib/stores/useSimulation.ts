@@ -89,6 +89,11 @@ export const useSimulation = create<SimulationState>((set, get) => {
       if (simulationInterval !== null) {
         clearInterval(simulationInterval);
       }
+
+      if (!homeTeamId || !awayTeamId) {
+        console.error('Invalid team IDs provided');
+        return;
+      }
       
       // Get the teams
       let homeTeam = getTeamById(homeTeamId);
